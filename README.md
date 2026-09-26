@@ -8,7 +8,7 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
 
 - **Họ và tên:** Bùi Quang Chiến
 - **Mã sinh viên:** 23001837
-- **Lớp:** K70 KHMT
+- **Lớp:** K68A3
 - **Học phần:** [2026] MAT3542 1 - Phát triển ứng dụng web
 
 ---
