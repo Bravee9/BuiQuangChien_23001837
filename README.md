@@ -27,6 +27,9 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
 │   ├── Bài thực hành buổi 2.pdf
 │   ├── bai1.php
 │   └── bai2.php
+├── Buoi_3/                              # Bài thực hành MySQL
+│   ├── Bài thực hành buổi 3 - MYSQL.pdf
+│   └── BuiQuangChien_23001837_ThucHanhBuoi3.sql
 └── README.md
 ```
 
@@ -50,6 +53,11 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
   - Phương thức đặt vé (`bookTicket`), hủy vé (`cancelTicket`), tính số ghế đã bán (`getSoldSeats`), doanh thu (`getRevenue`), hiển thị (`displayInfo`).
   - Các hàm xử lý danh sách: `findMovieById`, `getTotalRevenue`, `getBestSellingMovie`.
   - Xử lý các ngoại lệ / trường hợp lỗi: đặt/hủy số vé $\le 0$, đặt vượt số ghế trống, hủy quá số vé đã bán, tìm phim không tồn tại, danh sách rỗng.
+
+### Buổi 3: Thực hành MySQL
+- `BuiQuangChien_23001837_ThucHanhBuoi3.sql`: Tệp chứa tập lệnh SQL bao gồm tạo CSDL, tạo bảng và các câu truy vấn xử lý:
+  - **Bài 1 - Quản lý giỏ hàng:** Tạo bảng `cart_items` và thực hiện các lệnh `INSERT`, `SELECT`, lọc, sắp xếp, `UPDATE`, `DELETE`, và tính tổng (`SUM`).
+  - **Bài 2 - Quản lý vé xem phim:** Tạo bảng `movies` và thực hiện truy vấn hiển thị, cập nhật ghế trống, tính doanh thu vé bán ra, tìm phim bán được nhiều vé nhất (dùng truy vấn con với `MAX`).
 
 ---
 
