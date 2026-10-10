@@ -30,6 +30,24 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
 ├── Buoi_3/                              # Bài thực hành MySQL
 │   ├── Bài thực hành buổi 3 - MYSQL.pdf
 │   └── BuiQuangChien_23001837_ThucHanhBuoi3.sql
+├── Buoi_4/                              # Bài thực hành PHP + MySQL - Quản lý giỏ hàng
+│   ├── Bai_thuc_hanh_4_quan_ly_gio_hang.pdf
+│   ├── BuiQuangChien_23001837_ThucHanhBuoi4.sql
+│   └── app/
+│       ├── common/
+│       │   └── dbConnect.php
+│       ├── model/
+│       │   └── product.php
+│       ├── view/
+│       │   ├── header.php
+│       │   └── footer.php
+│       ├── assets/
+│       │   └── style.css
+│       ├── index.php
+│       ├── product_list.php
+│       ├── product_add.php
+│       ├── product_edit.php
+│       └── product_delete.php
 └── README.md
 ```
 
@@ -59,17 +77,37 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
   - **Bài 1 - Quản lý giỏ hàng:** Tạo bảng `cart_items` và thực hiện các lệnh `INSERT`, `SELECT`, lọc, sắp xếp, `UPDATE`, `DELETE`, và tính tổng (`SUM`).
   - **Bài 2 - Quản lý vé xem phim:** Tạo bảng `movies` và thực hiện truy vấn hiển thị, cập nhật ghế trống, tính doanh thu vé bán ra, tìm phim bán được nhiều vé nhất (dùng truy vấn con với `MAX`).
 
+### Buổi 4: PHP + MySQL – Quản lý giỏ hàng (Shopping Cart)
+- `BuiQuangChien_23001837_ThucHanhBuoi4.sql`: Tập lệnh tạo CSDL `shopping_cart`, bảng `products` (`id`, `name`, `price`, `quantity`) và chèn 6 sản phẩm mẫu.
+- `app/common/dbConnect.php`: Kết nối CSDL MySQL sử dụng PDO, xử lý ngoại lệ an toàn, ẩn thông tin bảo mật, hỗ trợ UTF-8 `utf8mb4`.
+- `app/model/product.php`: Tầng Model chứa các hàm thao tác CSDL:
+  - `getAllProducts()`: Lấy danh sách toàn bộ sản phẩm.
+  - `getProductById($id)`: Lấy chi tiết sản phẩm theo ID.
+  - `addProduct($name, $price, $quantity)`: Thêm sản phẩm mới.
+  - `updateProduct($id, $name, $price, $quantity)`: Cập nhật thông tin sản phẩm.
+  - `deleteProduct($id)`: Xóa sản phẩm khỏi CSDL.
+  - *Toàn bộ các hàm đều sử dụng PDO Prepared Statements để phòng chống tấn công SQL Injection.*
+- `app/product_list.php`: Hiển thị bảng danh sách sản phẩm với các cột `ID | Tên sản phẩm | Giá | Số lượng | Chức năng`, có nút `[Sửa]` và `[Xóa]`.
+- `app/product_add.php`: Form thêm sản phẩm với xác thực chặt chẽ (Tên không rỗng, Giá > 0, Số lượng >= 0).
+- `app/product_edit.php`: Form hiển thị thông tin hiện tại và cho phép cập nhật sản phẩm.
+- `app/product_delete.php`: Xóa sản phẩm theo ID kèm theo xác nhận an toàn qua POST, hiển thị thông báo lỗi phù hợp khi sản phẩm không tồn tại.
+- `app/view/`: Tách `header.php` và `footer.php` tái sử dụng giao diện dùng chung.
+- `app/assets/style.css`: Giao diện hiện đại, responsive, thẩm mỹ cao dựa trên HTML cơ bản.
+
 ---
 
 ## Hướng dẫn chạy chương trình
 
-Chạy trực tiếp các file PHP qua CLI bằng lệnh:
+### 1. Khởi tạo cơ sở dữ liệu (Cho Buổi 4)
+Import tệp SQL vào MySQL (qua phpMyAdmin hoặc MySQL CLI):
 ```bash
-# Ví dụ chạy Buổi 2
-php Buoi_2/bai1.php
-php Buoi_2/bai2.php
+mysql -u root -p < Buoi_4/BuiQuangChien_23001837_ThucHanhBuoi4.sql
 ```
-Hoặc khởi chạy web server tích hợp của PHP:
+
+### 2. Khởi chạy Web Server cục bộ
+Sử dụng PHP Built-in Server để chạy ứng dụng Buổi 4:
 ```bash
-php -S localhost:8000
+# Khởi chạy server tại thư mục app của Buổi 4
+php -S localhost:8000 -t Buoi_4/app/
 ```
+Sau đó truy cập trình duyệt tại địa chỉ: `http://localhost:8000`
