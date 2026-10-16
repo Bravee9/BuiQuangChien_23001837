@@ -48,6 +48,29 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
 │       ├── product_add.php
 │       ├── product_edit.php
 │       └── product_delete.php
+├── Buoi_5/                              # Bài thực hành PHP + MySQL - Quản lý giỏ hàng & Đăng ký / Đăng nhập
+│   ├── De_thuc_hanh_PHP_MySQL_Quan_ly_gio_hang_va_dang_ky_dăng_nhap.pdf
+│   ├── BuiQuangChien_23001837_ThucHanhBuoi5.sql
+│   └── app/
+│       ├── common/
+│       │   ├── dbConnect.php            # Kết nối PDO CSDL shopping_cart
+│       │   └── auth.php                 # Quản lý session & kiểm soát quyền truy cập
+│       ├── model/
+│       │   ├── product.php              # CRUD sản phẩm (Prepared Statements)
+│       │   └── user.php                 # Xác thực & đăng ký tài khoản (password_hash)
+│       ├── view/
+│       │   ├── header.php               # Header dùng chung, hiển thị tên user & nút đăng xuất
+│       │   └── footer.php               # Footer dùng chung
+│       ├── assets/
+│       │   └── style.css                # Giao diện responsive, hiện đại
+│       ├── index.php                    # Điều hướng thông minh theo trạng thái đăng nhập
+│       ├── login.php                    # Form & xử lý đăng nhập (password_verify)
+│       ├── register.php                 # Form & xử lý đăng ký tài khoản mới
+│       ├── logout.php                   # Đăng xuất & hủy session
+│       ├── product_list.php             # Danh sách sản phẩm (yêu cầu đăng nhập)
+│       ├── product_add.php              # Thêm sản phẩm & validate dữ liệu (yêu cầu đăng nhập)
+│       ├── product_edit.php             # Sửa thông tin sản phẩm (yêu cầu đăng nhập)
+│       └── product_delete.php           # Xóa sản phẩm kèm xác nhận an toàn (yêu cầu đăng nhập)
 └── README.md
 ```
 
@@ -94,20 +117,55 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
 - `app/view/`: Tách `header.php` và `footer.php` tái sử dụng giao diện dùng chung.
 - `app/assets/style.css`: Giao diện hiện đại, responsive, thẩm mỹ cao dựa trên HTML cơ bản.
 
+### Buổi 5: PHP + MySQL – Quản lý giỏ hàng & Đăng ký / Đăng nhập
+- `BuiQuangChien_23001837_ThucHanhBuoi5.sql`:
+  - Tạo CSDL `shopping_cart`, bảng `products` (với 6 sản phẩm mẫu) và bảng `users` (`id`, `username`, `password`).
+  - Thêm tài khoản mẫu đã được mã hóa an toàn bằng `password_hash()` (Bcrypt):
+    - Tài khoản Admin: `admin` / Mật khẩu: `admin123`
+    - Tài khoản User: `chienbq` / Mật khẩu: `123456`
+- `app/common/dbConnect.php`: Kết nối CSDL bằng PDO, xử lý lỗi an toàn.
+- `app/common/auth.php`: Quản lý phiên làm việc (`$_SESSION`), phòng chống Session Fixation (`session_regenerate_id`), cung cấp các hàm `isLoggedIn()`, `requireLogin()`, `loginUser()`, `logoutUser()`.
+- `app/model/user.php`: Tầng Model quản lý người dùng:
+  - `checkUsernameExists($username)`: Kiểm tra tên đăng nhập đã tồn tại.
+  - `registerUser($username, $password)`: Đăng ký người dùng mới, tự động mã hóa mật khẩu với `password_hash()`.
+  - `authenticateUser($username, $password)`: Xác thực đăng nhập sử dụng `password_verify()`.
+- `app/model/product.php`: Tầng Model quản lý sản phẩm với đầy đủ 5 hàm CRUD bằng Prepared Statements.
+- `app/register.php`: Form đăng ký tài khoản với đầy đủ kiểm tra hợp lệ: không để trống, kiểm tra trùng lặp tên, độ dài mật khẩu, xác nhận mật khẩu; chuyển hướng đến trang đăng nhập khi thành công.
+- `app/login.php`: Form đăng nhập tài khoản; kiểm tra thông tin qua `password_verify()`, lưu session và chuyển hướng tới `product_list.php`; báo lỗi phù hợp khi thông tin không chính xác; hiển thị gợi ý tài khoản mẫu.
+- `app/logout.php`: Hủy phiên đăng nhập (`session_destroy()`) và chuyển hướng về `login.php`.
+- **Kiểm soát truy cập (Access Control):**
+  - Các trang `product_list.php`, `product_add.php`, `product_edit.php`, `product_delete.php` đều được bảo vệ nghiêm ngặt bằng `requireLogin()`. Nếu chưa đăng nhập, hệ thống tự động chuyển hướng về `login.php?msg=login_required`.
+  - Hiển thị tên tài khoản đang đăng nhập và liên kết **Đăng xuất** nổi bật trên thanh điều hướng (`header.php`).
+- `app/product_list.php`, `app/product_add.php`, `app/product_edit.php`, `app/product_delete.php`: Hoàn thiện trọn vẹn nghiệp vụ quản lý sản phẩm theo chuẩn đề bài.
+
 ---
 
 ## Hướng dẫn chạy chương trình
 
-### 1. Khởi tạo cơ sở dữ liệu (Cho Buổi 4)
-Import tệp SQL vào MySQL (qua phpMyAdmin hoặc MySQL CLI):
+### 1. Khởi tạo cơ sở dữ liệu
+
+#### Dành cho Buổi 4:
 ```bash
 mysql -u root -p < Buoi_4/BuiQuangChien_23001837_ThucHanhBuoi4.sql
 ```
 
-### 2. Khởi chạy Web Server cục bộ
-Sử dụng PHP Built-in Server để chạy ứng dụng Buổi 4:
+#### Dành cho Buổi 5:
 ```bash
-# Khởi chạy server tại thư mục app của Buổi 4
-php -S localhost:8000 -t Buoi_4/app/
+mysql -u root -p < Buoi_5/BuiQuangChien_23001837_ThucHanhBuoi5.sql
 ```
-Sau đó truy cập trình duyệt tại địa chỉ: `http://localhost:8000`
+
+### 2. Khởi chạy Web Server cục bộ
+
+Sử dụng PHP Built-in Server:
+
+```bash
+# Khởi chạy server cho Buổi 5
+php -S localhost:8000 -t Buoi_5/app/
+```
+
+Sau đó mở trình duyệt và truy cập: `http://localhost:8000`
+
+- **Tài khoản đăng nhập thử nghiệm:**
+  - `admin` / `admin123`
+  - `chienbq` / `123456`
+- Hoặc bấm vào **"Đăng ký ngay tại đây"** để tự tạo tài khoản mới.
