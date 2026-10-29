@@ -24,14 +24,15 @@ $currentScript = basename($_SERVER['SCRIPT_NAME']);
     <header class="app-header">
         <div class="header-container">
             <a href="product_list.php" class="brand-title">
-                🛒 <span>SHOPPING CART SYSTEM</span>
+                <span class="brand-badge">SC</span>
+                <span>SHOPPING CART SYSTEM</span>
             </a>
             <nav class="nav-links">
                 <a href="product_list.php" class="nav-link <?= ($currentScript === 'product_list.php' || $currentScript === 'index.php') ? 'active' : '' ?>">
-                    📋 Danh sách sản phẩm
+                    Danh sách sản phẩm
                 </a>
                 <a href="product_add.php" class="nav-link <?= ($currentScript === 'product_add.php') ? 'active' : '' ?>">
-                    ➕ Thêm sản phẩm
+                    Thêm sản phẩm
                 </a>
             </nav>
         </div>

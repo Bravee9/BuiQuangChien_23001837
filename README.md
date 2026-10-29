@@ -79,7 +79,7 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
 │   ├── bai3.html                        # Bài 3: Quản lý công việc cá nhân (v-for, :key, checkbox, filter)
 │   └── assets/
 │       ├── css/
-│       │   └── style.css                # Giao diện responsive dùng chung cho Buổi 6
+│       │   └── style.css                # Giao diện Ocean Swiss Minimalist (chuẩn UI/UX hiện đại)
 │       ├── js/
 │       │   └── vue.global.js            # Thư viện Vue 3 (hỗ trợ chạy offline độc lập)
 │       └── images/

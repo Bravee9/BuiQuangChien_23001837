@@ -5,71 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bài 1: Thẻ thông tin sinh viên - Vue.js | Bùi Quang Chiến 23001837</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <style>
-    /* Styling riêng cho bài 1 */
-    .rank-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 700;
-    }
-    .quick-score-btn {
-      padding: 4px 10px;
-      font-size: 0.75rem;
-      border-radius: 9999px;
-      border: 1px solid var(--gray-300);
-      background-color: var(--white);
-      cursor: pointer;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-    .quick-score-btn:hover {
-      background-color: var(--gray-200);
-      border-color: var(--primary);
-    }
-    .score-range-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .score-range-wrapper input[type="range"] {
-      flex: 1;
-      accent-color: var(--primary);
-      cursor: pointer;
-    }
-    .score-badge-number {
-      min-width: 44px;
-      text-align: center;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--primary);
-    }
-    .avatar-picker {
-      display: flex;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .avatar-option {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 2px solid var(--gray-300);
-      cursor: pointer;
-      overflow: hidden;
-      transition: var(--transition);
-      background: #f1f5f9;
-    }
-    .avatar-option img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .avatar-option.selected {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-      transform: scale(1.08);
-    }
-  </style>
 </head>
 <body>
 
@@ -79,20 +14,33 @@
       <a href="index.html" class="header-brand">
         <div class="brand-icon">V</div>
         <div class="brand-text">
-          <h1>BÀI TẬP THỰC HÀNH SỐ 6 - VUEJS</h1>
-          <span>Phát triển ứng dụng web (MAT3542 1)</span>
+          <h1>MAT3542 1 • BÀI THỰC HÀNH 6</h1>
+          <span>Lập trình Vue.js 3 cơ bản</span>
         </div>
       </a>
 
       <nav class="header-nav">
-        <a href="index.html" class="nav-link">🏠 Trang chủ</a>
-        <a href="bai1.html" class="nav-link active">Bài 1: Thẻ sinh viên</a>
-        <a href="bai2.html" class="nav-link">Bài 2: Đặt vé xem phim</a>
-        <a href="bai3.html" class="nav-link">Bài 3: Quản lý công việc</a>
+        <a href="index.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Tổng quan
+        </a>
+        <a href="bai1.html" class="nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Bài 1: Thẻ sinh viên
+        </a>
+        <a href="bai2.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"/><line x1="7" x2="7" y1="2" y2="22"/><line x1="17" x2="17" y1="2" y2="22"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="2" x2="7" y1="7" y2="7"/><line x1="2" x2="7" y1="17" y2="17"/><line x1="17" x2="22" y1="17" y2="17"/><line x1="17" x2="22" y1="7" y2="7"/></svg>
+          Bài 2: Đặt vé xem phim
+        </a>
+        <a href="bai3.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Bài 3: Quản lý công việc
+        </a>
       </nav>
 
       <div class="student-tag">
-        <span>👨‍🎓 Bùi Quang Chiến</span>
+        <span>Sinh viên:</span>
+        <strong>Bùi Quang Chiến</strong>
         <span>• 23001837</span>
         <span>• K68A3</span>
       </div>
@@ -103,13 +51,15 @@
   <main class="main-content" id="app">
     <div class="page-intro">
       <h2 class="page-title">
-        <span>🎓</span> Bài 1: Thẻ thông tin sinh viên
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Bài 1: Thẻ thông tin sinh viên
       </h2>
       <p class="page-subtitle">
-        Hiển thị thẻ sinh viên với dữ liệu phản ứng (Reactive Data), xếp loại tự động theo điểm và chuyển đổi trạng thái giao diện.
+        Hiển thị thẻ sinh viên với dữ liệu phản ứng (Reactivity), xếp loại tự động theo điểm số và chuyển đổi trạng thái giao diện linh hoạt.
       </p>
       <div class="badge-concept">
-        💡 Kiến thức áp dụng: createApp, data(), {{ }}, v-text, v-bind, v-if, v-else-if, v-else, :class, :style, v-show
+        <span>Kiến thức áp dụng:</span>
+        <strong>createApp • data() • {{ '{{ }}' }} • v-text • v-bind • v-if • :class • :style • v-show</strong>
       </div>
     </div>
 
@@ -121,7 +71,7 @@
           <div class="student-card-banner">
             <div>
               <div class="school-name">ĐẠI HỌC KHOA HỌC TỰ NHIÊN - ĐHQGHN</div>
-              <small style="opacity: 0.85;">KHOA TOÁN - CƠ - TIN HỌC</small>
+              <small>KHOA TOÁN - CƠ - TIN HỌC</small>
             </div>
             <div class="chip-icon" title="Thẻ sinh viên thông minh"></div>
           </div>
@@ -141,8 +91,8 @@
             <h3 class="student-name-display">{{ fullName }}</h3>
 
             <!-- 2. Tên lớp bằng v-text -->
-            <p style="color: var(--gray-600); font-weight: 500; margin-bottom: 8px;">
-              Lớp: <strong style="color: var(--gray-800);" v-text="className"></strong>
+            <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 8px;">
+              Lớp: <strong style="color: var(--foreground);" v-text="className"></strong>
             </p>
 
             <!-- Lưới thông tin sinh viên -->
@@ -166,8 +116,8 @@
               </div>
 
               <div class="meta-item">
-                <span class="meta-label">Điểm trung bình</span>
-                <span class="meta-value" style="font-size: 1.15rem; color: var(--primary);">
+                <span class="meta-label">Điểm trung bình (GPA)</span>
+                <span class="meta-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--primary);">
                   {{ Number(gpa).toFixed(1) }} / 10
                 </span>
               </div>
@@ -177,10 +127,10 @@
                 <span class="meta-label">Xếp loại học lực</span>
                 <div>
                   <span :class="['rank-badge', rankClass]" :style="rankStyle">
-                    <span v-if="gpa >= 8 && gpa <= 10">⭐ Giỏi</span>
-                    <span v-else-if="gpa >= 6.5 && gpa < 8">👍 Khá</span>
-                    <span v-else-if="gpa >= 5 && gpa < 6.5">📘 Trung bình</span>
-                    <span v-else>⚠️ Chưa đạt</span>
+                    <span v-if="gpa >= 8 && gpa <= 10">Giỏi</span>
+                    <span v-else-if="gpa >= 6.5 && gpa < 8">Khá</span>
+                    <span v-else-if="gpa >= 5 && gpa < 6.5">Trung bình</span>
+                    <span v-else>Chưa đạt</span>
                   </span>
                 </div>
               </div>
@@ -192,10 +142,10 @@
                 type="button" 
                 class="btn btn-outline btn-sm" 
                 @click="showBio = !showBio"
-                style="width: 100%; justify-content: center;"
+                style="width: 100%;"
               >
-                <span v-if="showBio">🔼 Thu gọn phần giới thiệu</span>
-                <span v-else>🔽 Xem phần giới thiệu sinh viên</span>
+                <span v-if="showBio">Thu gọn thông tin giới thiệu</span>
+                <span v-else>Xem thông tin giới thiệu sinh viên</span>
               </button>
 
               <!-- Phần giới thiệu được điều khiển bật/tắt bằng v-show -->
@@ -213,16 +163,17 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">
-              <span>🎛️</span> Bảng điều khiển thử nghiệm dữ liệu
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+              Bảng thử nghiệm dữ liệu phản ứng
             </h3>
             <button class="btn btn-outline btn-sm" @click="resetToDefault" title="Khôi phục dữ liệu ban đầu">
-              🔄 Đặt lại
+              Đặt lại
             </button>
           </div>
 
           <div class="card-body">
-            <p style="font-size: 0.85rem; color: var(--gray-600); margin-bottom: 16px;">
-              Thay đổi dữ liệu tại đây để kiểm tra tính năng phản ứng tự động cập nhật của Vue:
+            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 14px;">
+              Thay đổi dữ liệu tại đây để kiểm tra tính năng phản ứng tự động cập nhật của Vue.js 3:
             </p>
 
             <!-- Họ tên -->
@@ -247,7 +198,7 @@
             <div class="form-group">
               <label class="form-label">
                 Điểm trung bình (GPA):
-                <span style="font-weight: 400; color: var(--gray-600);">(Kiểm tra các mốc xếp loại)</span>
+                <span style="font-weight: 400; color: var(--muted);">(Kiểm tra các mốc xếp loại)</span>
               </label>
               
               <div class="score-range-wrapper">
@@ -262,7 +213,7 @@
               </div>
 
               <!-- Nút chọn nhanh để test các mốc biên theo đề bài -->
-              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;">
+              <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px;">
                 <button type="button" class="quick-score-btn" @click="gpa = 9.2">9.2 (Giỏi: 8.0 - 10)</button>
                 <button type="button" class="quick-score-btn" @click="gpa = 7.0">7.0 (Khá: 6.5 - &lt;8.0)</button>
                 <button type="button" class="quick-score-btn" @click="gpa = 5.8">5.8 (Trung bình: 5.0 - &lt;6.5)</button>
@@ -270,7 +221,7 @@
               </div>
 
               <!-- Thử nghiệm các trường hợp biên sát nút -->
-              <div style="margin-top: 8px; font-size: 0.78rem; color: var(--gray-600);">
+              <div style="margin-top: 8px; font-size: 0.75rem; color: var(--muted);">
                 <strong>Test giá trị biên chính xác:</strong>
                 <span style="display: inline-flex; gap: 4px; margin-left: 6px;">
                   <button type="button" class="quick-score-btn" @click="gpa = 8.0">8.0</button>
@@ -286,7 +237,7 @@
             <!-- Trạng thái học tập -->
             <div class="form-group">
               <label class="form-label">Trạng thái học tập (kiểm tra <code>v-if</code>):</label>
-              <div style="display: flex; gap: 16px; align-items: center; margin-top: 4px;">
+              <div style="display: flex; gap: 16px; align-items: center; margin-top: 4px; font-size: 0.85rem;">
                 <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
                   <input type="radio" :value="true" v-model="isStudying" />
                   <span>Đang học</span>
@@ -324,7 +275,7 @@
                 class="form-control" 
                 v-model="avatar" 
                 placeholder="Hoặc dán URL ảnh tùy chỉnh..." 
-                style="margin-top: 8px; font-size: 0.85rem;"
+                style="margin-top: 8px; font-size: 0.825rem;"
               >
             </div>
 
@@ -347,7 +298,7 @@
   <!-- FOOTER DÙNG CHUNG -->
   <footer class="app-footer">
     <p>Bài tập thực hành buổi 6 - Vue.js | Lớp: <strong>K68A3</strong> | Sinh viên thực hiện: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
-    <p style="color: var(--gray-500); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
+    <p style="color: var(--muted); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
   </footer>
 
   <!-- VUE 3 CDN & LOCAL FALLBACK -->
@@ -407,25 +358,25 @@
             return {
               backgroundColor: '#ecfdf5',
               color: '#047857',
-              borderColor: '#10b981'
+              borderColor: '#a7f3d0'
             };
           } else if (score >= 6.5 && score < 8) {
             return {
-              backgroundColor: '#eff6ff',
-              color: '#1d4ed8',
-              borderColor: '#3b82f6'
+              backgroundColor: '#f0f7fc',
+              color: '#1A659E',
+              borderColor: '#cce3f5'
             };
           } else if (score >= 5 && score < 6.5) {
             return {
               backgroundColor: '#fffbeb',
               color: '#b45309',
-              borderColor: '#f59e0b'
+              borderColor: '#fde68a'
             };
           } else {
             return {
               backgroundColor: '#fef2f2',
               color: '#b91c1c',
-              borderColor: '#ef4444'
+              borderColor: '#fecaca'
             };
           }
         }

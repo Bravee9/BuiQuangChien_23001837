@@ -27,23 +27,24 @@ $currentUser = getLoggedUser();
     <header class="app-header">
         <div class="header-container">
             <a href="<?= $loggedIn ? 'product_list.php' : 'login.php' ?>" class="brand-title">
-                🛒 <span>SHOPPING CART SYSTEM</span>
+                <span class="brand-badge">SC</span>
+                <span>SHOPPING CART SYSTEM</span>
             </a>
 
             <nav class="nav-links">
                 <?php if ($loggedIn): ?>
                     <a href="product_list.php" class="nav-link <?= ($currentScript === 'product_list.php' || $currentScript === 'index.php') ? 'active' : '' ?>">
-                        📦 Danh sách sản phẩm
+                        Danh sách sản phẩm
                     </a>
                     <a href="product_add.php" class="nav-link <?= ($currentScript === 'product_add.php') ? 'active' : '' ?>">
-                        ➕ Thêm sản phẩm
+                        Thêm sản phẩm
                     </a>
                 <?php else: ?>
                     <a href="login.php" class="nav-link <?= ($currentScript === 'login.php' || $currentScript === 'index.php') ? 'active' : '' ?>">
-                        🔑 Đăng nhập
+                        Đăng nhập
                     </a>
                     <a href="register.php" class="nav-link <?= ($currentScript === 'register.php') ? 'active' : '' ?>">
-                        📝 Đăng ký
+                        Đăng ký
                     </a>
                 <?php endif; ?>
             </nav>
@@ -51,11 +52,11 @@ $currentUser = getLoggedUser();
             <div class="user-panel">
                 <?php if ($loggedIn): ?>
                     <div class="user-badge">
-                        <span class="user-avatar">👤</span>
-                        <span class="user-name">Xin chào, <strong><?= htmlspecialchars($currentUser, ENT_QUOTES, 'UTF-8') ?></strong></span>
+                        <span>Tài khoản:</span>
+                        <strong><?= htmlspecialchars($currentUser, ENT_QUOTES, 'UTF-8') ?></strong>
                     </div>
                     <a href="logout.php" class="btn btn-outline btn-sm btn-logout" title="Đăng xuất khỏi hệ thống">
-                        🚪 Đăng xuất
+                        Đăng xuất
                     </a>
                 <?php else: ?>
                     <span class="guest-badge">Chưa đăng nhập</span>

@@ -5,121 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buổi 6: Thực hành Vue.js | Bùi Quang Chiến 23001837</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <style>
-    .hero-section {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      color: white;
-      padding: 40px 30px;
-      border-radius: var(--radius-xl);
-      margin-bottom: 32px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-section::after {
-      content: "Vue.js 3";
-      position: absolute;
-      right: 20px;
-      bottom: -15px;
-      font-size: 5rem;
-      font-weight: 900;
-      color: rgba(255, 255, 255, 0.05);
-      pointer-events: none;
-    }
-    .hero-title {
-      font-size: 2rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .hero-subtitle {
-      font-size: 1rem;
-      color: #94a3b8;
-      max-width: 680px;
-    }
-    .exercise-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 36px;
-    }
-    @media (max-width: 992px) {
-      .exercise-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    .exercise-card {
-      background: white;
-      border: 1px solid var(--gray-300);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      position: relative;
-    }
-    .exercise-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--primary);
-    }
-    .exercise-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: var(--radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin-bottom: 16px;
-    }
-    .icon-1 { background: #eff6ff; }
-    .icon-2 { background: #fef2f2; }
-    .icon-3 { background: #ecfdf5; }
-    .exercise-card h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 8px;
-    }
-    .exercise-card p {
-      font-size: 0.9rem;
-      color: var(--gray-600);
-      flex: 1;
-      margin-bottom: 16px;
-    }
-    .concept-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 20px;
-    }
-    .concept-tag {
-      font-size: 0.75rem;
-      background-color: var(--gray-100);
-      color: var(--gray-700);
-      padding: 3px 8px;
-      border-radius: 4px;
-      border: 1px solid var(--gray-200);
-      font-family: monospace;
-    }
-    .info-summary-box {
-      background: white;
-      border: 1px solid var(--gray-300);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-    }
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 16px;
-    }
-    @media (max-width: 768px) {
-      .summary-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-  </style>
 </head>
 <body>
 
@@ -129,20 +14,33 @@
       <a href="index.html" class="header-brand">
         <div class="brand-icon">V</div>
         <div class="brand-text">
-          <h1>BÀI TẬP THỰC HÀNH SỐ 6 - VUEJS</h1>
-          <span>Phát triển ứng dụng web (MAT3542 1)</span>
+          <h1>MAT3542 1 • BÀI THỰC HÀNH 6</h1>
+          <span>Lập trình Vue.js 3 cơ bản</span>
         </div>
       </a>
 
       <nav class="header-nav">
-        <a href="index.html" class="nav-link active">🏠 Trang chủ</a>
-        <a href="bai1.html" class="nav-link">Bài 1: Thẻ sinh viên</a>
-        <a href="bai2.html" class="nav-link">Bài 2: Đặt vé xem phim</a>
-        <a href="bai3.html" class="nav-link">Bài 3: Quản lý công việc</a>
+        <a href="index.html" class="nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Tổng quan
+        </a>
+        <a href="bai1.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Bài 1: Thẻ sinh viên
+        </a>
+        <a href="bai2.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"/><line x1="7" x2="7" y1="2" y2="22"/><line x1="17" x2="17" y1="2" y2="22"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="2" x2="7" y1="7" y2="7"/><line x1="2" x2="7" y1="17" y2="17"/><line x1="17" x2="22" y1="17" y2="17"/><line x1="17" x2="22" y1="7" y2="7"/></svg>
+          Bài 2: Đặt vé xem phim
+        </a>
+        <a href="bai3.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Bài 3: Quản lý công việc
+        </a>
       </nav>
 
       <div class="student-tag">
-        <span>👨‍🎓 Bùi Quang Chiến</span>
+        <span>Sinh viên:</span>
+        <strong>Bùi Quang Chiến</strong>
         <span>• 23001837</span>
         <span>• K68A3</span>
       </div>
@@ -152,65 +50,87 @@
   <!-- NỘI DUNG CHÍNH -->
   <main class="main-content">
     <!-- HERO SECTION -->
-    <section class="hero-section">
-      <h2 class="hero-title">Bài thực hành số 6: Lập trình Vue.js</h2>
-      <p class="hero-subtitle">
-        Khám phá sức mạnh của hệ thống phản ứng (Reactivity System), liên kết dữ liệu 2 chiều (Data Binding), 
-        chỉ thị Vue (Directives) và các thuộc tính tính toán (Computed Properties) trong Vue 3.
-      </p>
+    <section class="hero-card">
+      <div class="hero-main">
+        <div class="hero-pill">
+          <span>MAT3542 1 • Phát triển ứng dụng web</span>
+        </div>
+        <h2 class="hero-title">Bài thực hành số 6: Lập trình Vue.js</h2>
+        <p class="hero-subtitle">
+          Khám phá hệ thống phản ứng (Reactivity), liên kết dữ liệu 2 chiều (Data Binding), 
+          các chỉ thị cốt lõi (Directives: v-bind, v-text, v-show, v-if, v-for, v-model) và thuộc tính tính toán (Computed Properties) trong Vue 3.
+        </p>
+      </div>
+
+      <div class="hero-meta">
+        <div class="hero-meta-badge">
+          <span class="hero-meta-label">Môn học</span>
+          <span class="hero-meta-val">Web Development</span>
+        </div>
+        <div class="hero-meta-badge">
+          <span class="hero-meta-label">Phiên bản</span>
+          <span class="hero-meta-val">Vue.js 3 Global Build</span>
+        </div>
+      </div>
     </section>
 
     <!-- GRID 3 BÀI TẬP -->
     <div class="exercise-grid">
       <!-- BÀI 1 -->
       <div class="exercise-card">
-        <div class="exercise-icon icon-1">🎓</div>
+        <div class="exercise-header-row">
+          <div class="exercise-badge-number">01</div>
+          <span class="exercise-tag-module">Directives & Reactivity</span>
+        </div>
         <h3>Bài 1: Thẻ thông tin sinh viên</h3>
         <p>
-          Hiển thị thông tin sinh viên với ảnh đại diện, lớp, điểm trung bình và trạng thái học. Tự động xếp loại và đổi màu sắc tương ứng với 4 thang điểm. Có nút bật/tắt phần giới thiệu bằng <code>v-show</code> và bảng điều khiển thử nghiệm dữ liệu trực tiếp.
+          Hiển thị thông tin sinh viên với ảnh đại diện, lớp, điểm trung bình và trạng thái học. Tự động xếp loại học lực theo 4 thang điểm, đổi màu sắc linh hoạt bằng <code>:class</code> và <code>:style</code>, cùng nút bật/tắt phần giới thiệu bằng <code>v-show</code>.
         </p>
         <div class="concept-tags">
           <span class="concept-tag">createApp</span>
           <span class="concept-tag">data()</span>
-          <span class="concept-tag">{{ '{{ }}' }}</span>
           <span class="concept-tag">v-text</span>
           <span class="concept-tag">v-bind</span>
-          <span class="concept-tag">v-if</span>
+          <span class="concept-tag">v-if / v-show</span>
           <span class="concept-tag">:class / :style</span>
-          <span class="concept-tag">v-show</span>
         </div>
         <a href="bai1.html" class="btn btn-primary" style="width: 100%;">
-          Xem chi tiết Bài 1 →
+          Mở Bài 1: Thẻ sinh viên →
         </a>
       </div>
 
       <!-- BÀI 2 -->
       <div class="exercise-card">
-        <div class="exercise-icon icon-2">🎬</div>
+        <div class="exercise-header-row">
+          <div class="exercise-badge-number">02</div>
+          <span class="exercise-tag-module">Two-way Binding & Computed</span>
+        </div>
         <h3>Bài 2: Đặt vé xem phim</h3>
         <p>
-          Giao diện đặt vé xem phim rạp CGV HUS. Tính toán tự động tổng tiền qua <code>computed</code>, ràng buộc dữ liệu <code>v-model.trim</code> và <code>v-model.number</code> (1 đến 10 vé). Hiển thị vé xác nhận dạng Boarding Pass đẹp mắt ngay trên trang sau khi gửi.
+          Hệ thống đặt vé xem phim trực tuyến với tính toán tự động tổng tiền qua <code>computed</code>, ràng buộc dữ liệu 2 chiều <code>v-model.trim</code> và <code>v-model.number</code> (từ 1 đến 10 vé). Xuất vé xác nhận điện tử Boarding Pass ngay sau khi gửi form.
         </p>
         <div class="concept-tags">
           <span class="concept-tag">v-model.trim</span>
           <span class="concept-tag">v-model.number</span>
           <span class="concept-tag">select</span>
-          <span class="concept-tag">radio</span>
-          <span class="concept-tag">checkbox</span>
+          <span class="concept-tag">radio / checkbox</span>
           <span class="concept-tag">computed</span>
           <span class="concept-tag">@submit.prevent</span>
         </div>
         <a href="bai2.html" class="btn btn-primary" style="width: 100%;">
-          Xem chi tiết Bài 2 →
+          Mở Bài 2: Đặt vé xem phim →
         </a>
       </div>
 
       <!-- BÀI 3 -->
       <div class="exercise-card">
-        <div class="exercise-icon icon-3">📝</div>
-        <h3>Bài 3: Quản lý công việc cá nhân</h3>
+        <div class="exercise-header-row">
+          <div class="exercise-badge-number">03</div>
+          <span class="exercise-tag-module">List Rendering & Methods</span>
+        </div>
+        <h3>Bài 3: Quản lý công việc (Todo List)</h3>
         <p>
-          Ứng dụng Todo List quản lý công việc trong ngày. Thêm công việc với Enter (<code>@keyup.enter</code>), chặn chuỗi rỗng, gạch ngang khi hoàn thành, xóa từng việc, lọc 3 trạng thái (Tất cả, Chưa hoàn thành, Đã hoàn thành) và xóa toàn bộ việc đã xong.
+          Ứng dụng quản lý công việc trong ngày. Thêm công việc bằng phím Enter (<code>@keyup.enter</code>), chặn chuỗi rỗng, gạch ngang khi hoàn thành, xóa từng việc, lọc 3 trạng thái và tính toán số lượng việc chưa xong theo thời gian thực.
         </p>
         <div class="concept-tags">
           <span class="concept-tag">v-for (:key)</span>
@@ -218,19 +138,20 @@
           <span class="concept-tag">methods</span>
           <span class="concept-tag">computed</span>
           <span class="concept-tag">@keyup.enter</span>
-          <span class="concept-tag">empty-state</span>
+          <span class="concept-tag">filter</span>
         </div>
         <a href="bai3.html" class="btn btn-primary" style="width: 100%;">
-          Xem chi tiết Bài 3 →
+          Mở Bài 3: Quản lý công việc →
         </a>
       </div>
     </div>
 
     <!-- TÓM TẮT THÔNG TIN SINH VIÊN & HỌC PHẦN -->
     <div class="info-summary-box">
-      <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px;">
-        <span>📌</span> Thông tin nộp bài
-      </h3>
+      <div class="summary-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span>Thông tin sinh viên & Học phần thực hành</span>
+      </div>
       <div class="summary-grid">
         <div class="meta-item">
           <span class="meta-label">Sinh viên thực hiện</span>
@@ -241,12 +162,12 @@
           <span class="meta-value">23001837</span>
         </div>
         <div class="meta-item">
-          <span class="meta-label">Lớp sinh hoạt</span>
-          <span class="meta-value">K68A3</span>
+          <span class="meta-label">Lớp học phần</span>
+          <span class="meta-value">K68A3 - Khoa Toán - Cơ - Tin học</span>
         </div>
         <div class="meta-item">
-          <span class="meta-label">Học phần</span>
-          <span class="meta-value">MAT3542 1 - Phát triển ứng dụng web</span>
+          <span class="meta-label">Đơn vị đào tạo</span>
+          <span class="meta-value">Trường ĐH Khoa học Tự nhiên - ĐHQGHN</span>
         </div>
       </div>
     </div>
@@ -255,7 +176,7 @@
   <!-- FOOTER DÙNG CHUNG -->
   <footer class="app-footer">
     <p>Bài tập thực hành buổi 6 - Vue.js | Lớp: <strong>K68A3</strong> | Sinh viên thực hiện: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
-    <p style="color: var(--gray-500); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
+    <p style="color: var(--muted); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
   </footer>
 
 </body>

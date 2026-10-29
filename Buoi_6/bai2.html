@@ -5,86 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bài 2: Đặt vé xem phim - Vue.js | Bùi Quang Chiến 23001837</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <style>
-    /* Styling riêng cho bài 2 */
-    .form-section-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--gray-800);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .booking-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-    }
-    .booking-actions .btn {
-      flex: 1;
-    }
-    .cinema-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    .cinema-logo {
-      background: #dc2626;
-      color: white;
-      font-weight: 900;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-    }
-    .qr-placeholder {
-      width: 80px;
-      height: 80px;
-      background: white;
-      border: 2px dashed #94a3b8;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
-      color: #64748b;
-      font-weight: 700;
-      text-align: center;
-      padding: 4px;
-    }
-    .qr-icon {
-      font-size: 1.8rem;
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-    .test-preset-box {
-      background-color: #f1f5f9;
-      border-left: 4px solid #3b82f6;
-      padding: 12px 16px;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      margin-bottom: 16px;
-      font-size: 0.85rem;
-    }
-    .test-preset-btn {
-      background-color: white;
-      border: 1px solid var(--primary);
-      color: var(--primary);
-      padding: 4px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.78rem;
-      margin-top: 6px;
-      transition: var(--transition);
-    }
-    .test-preset-btn:hover {
-      background-color: var(--primary);
-      color: white;
-    }
-  </style>
 </head>
 <body>
 
@@ -94,20 +14,33 @@
       <a href="index.html" class="header-brand">
         <div class="brand-icon">V</div>
         <div class="brand-text">
-          <h1>BÀI TẬP THỰC HÀNH SỐ 6 - VUEJS</h1>
-          <span>Phát triển ứng dụng web (MAT3542 1)</span>
+          <h1>MAT3542 1 • BÀI THỰC HÀNH 6</h1>
+          <span>Lập trình Vue.js 3 cơ bản</span>
         </div>
       </a>
 
       <nav class="header-nav">
-        <a href="index.html" class="nav-link">🏠 Trang chủ</a>
-        <a href="bai1.html" class="nav-link">Bài 1: Thẻ sinh viên</a>
-        <a href="bai2.html" class="nav-link active">Bài 2: Đặt vé xem phim</a>
-        <a href="bai3.html" class="nav-link">Bài 3: Quản lý công việc</a>
+        <a href="index.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Tổng quan
+        </a>
+        <a href="bai1.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Bài 1: Thẻ sinh viên
+        </a>
+        <a href="bai2.html" class="nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"/><line x1="7" x2="7" y1="2" y2="22"/><line x1="17" x2="17" y1="2" y2="22"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="2" x2="7" y1="7" y2="7"/><line x1="2" x2="7" y1="17" y2="17"/><line x1="17" x2="22" y1="17" y2="17"/><line x1="17" x2="22" y1="7" y2="7"/></svg>
+          Bài 2: Đặt vé xem phim
+        </a>
+        <a href="bai3.html" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Bài 3: Quản lý công việc
+        </a>
       </nav>
 
       <div class="student-tag">
-        <span>👨‍🎓 Bùi Quang Chiến</span>
+        <span>Sinh viên:</span>
+        <strong>Bùi Quang Chiến</strong>
         <span>• 23001837</span>
         <span>• K68A3</span>
       </div>
@@ -118,44 +51,49 @@
   <main class="main-content" id="app">
     <div class="page-intro">
       <h2 class="page-title">
-        <span>🎬</span> Bài 2: Đặt vé xem phim
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"/><line x1="7" x2="7" y1="2" y2="22"/><line x1="17" x2="17" y1="2" y2="22"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="2" x2="7" y1="7" y2="7"/><line x1="2" x2="7" y1="17" y2="17"/><line x1="17" x2="22" y1="17" y2="17"/><line x1="17" x2="22" y1="7" y2="7"/></svg>
+        Bài 2: Đặt vé xem phim
       </h2>
       <p class="page-subtitle">
-        Xây dựng form đặt vé xem phim với tính toán giá động qua <code>computed</code>, ràng buộc dữ liệu 2 chiều với <code>v-model</code> và các modifiers.
+        Form đặt vé xem phim trực tuyến với tính toán chi phí động qua <code>computed</code>, ràng buộc dữ liệu 2 chiều với <code>v-model</code> và kiểm soát dữ liệu đầu vào.
       </p>
       <div class="badge-concept">
-        💡 Kiến thức áp dụng: v-model.trim, v-model.number, select, radio, checkbox, methods, computed, @submit.prevent
+        <span>Kiến thức áp dụng:</span>
+        <strong>v-model.trim • v-model.number • select • radio • checkbox • methods • computed • @submit.prevent</strong>
       </div>
     </div>
 
     <!-- BANNER PHIM ĐANG CHIẾU -->
     <div class="movie-banner">
-      <div class="movie-poster-thumb">🍿</div>
+      <div class="movie-poster-thumb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32"><rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"/><line x1="7" x2="7" y1="2" y2="22"/><line x1="17" x2="17" y1="2" y2="22"/><line x1="2" x2="22" y1="12" y2="12"/></svg>
+      </div>
       <div class="movie-info">
         <div class="cinema-brand">
-          <span class="cinema-logo">CGV HUS CINEMA</span>
-          <span style="font-size: 0.85rem; color: #93c5fd;">Phòng chiếu kỹ thuật số chất lượng cao</span>
+          <span class="cinema-logo">CGV CINEMA</span>
+          <span style="font-size: 0.75rem; color: #94a3b8;">Phòng chiếu kỹ thuật số chất lượng cao HUS</span>
         </div>
         <h2>{{ movieTitle }}</h2>
-        <p style="color: #cbd5e1; font-size: 0.9rem;">
+        <p style="color: #cbd5e1; font-size: 0.825rem;">
           Đạo diễn: Christopher Nolan • Thời lượng: 165 phút • Định dạng: 2D Digital / IMAX Laser
         </p>
         <div class="movie-badges">
-          <span class="movie-tag">⭐ 8.9/10 IMDb</span>
-          <span class="movie-tag">🔞 T16 - Phim cho khán giả từ 16 tuổi</span>
-          <span class="movie-tag">🏷️ Khoa học viễn tưởng / Phiêu lưu</span>
+          <span class="movie-tag">8.9/10 IMDb</span>
+          <span class="movie-tag">T16 - Khán giả từ 16 tuổi</span>
+          <span class="movie-tag">Khoa học viễn tưởng / Phiêu lưu</span>
         </div>
       </div>
     </div>
 
     <!-- GỢI Ý TEST NHANH KẾT QUẢ ĐỀ BÀI -->
     <div class="test-preset-box">
-      <strong>🎯 Kiểm tra nhanh yêu cầu đề bài:</strong>
-      <p style="margin: 4px 0;">
+      <strong>Kiểm tra nhanh yêu cầu đề bài:</strong>
+      <p style="margin: 3px 0; font-size: 0.825rem;">
         "Kết quả kiểm tra: Đặt <strong>2 vé VIP</strong> kèm <strong>combo</strong> phải có tổng tiền <strong>245.000 đồng</strong>."
       </p>
       <button type="button" class="test-preset-btn" @click="applyStandardTest">
-        ⚡ Bấm vào đây để nạp nhanh trường hợp kiểm tra mẫu (2 vé VIP + Combo = 245.000 đ)
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+        Nạp nhanh trường hợp kiểm tra mẫu (2 vé VIP + Combo = 245.000 đ)
       </button>
     </div>
 
@@ -165,9 +103,10 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">
-              <span>🎟️</span> Thông tin đặt vé
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+              Thông tin đặt vé
             </h3>
-            <span style="font-size: 0.8rem; color: var(--gray-500);">* Bắt buộc điền</span>
+            <span style="font-size: 0.75rem; color: var(--muted);">* Trường bắt buộc</span>
           </div>
 
           <div class="card-body">
@@ -177,7 +116,7 @@
               <div class="form-group">
                 <label class="form-label" for="customerName">
                   Họ tên khách hàng <span class="required">*</span>
-                  <small style="color: var(--gray-500); font-weight: normal;">(sử dụng <code>v-model.trim</code>)</small>
+                  <small style="color: var(--muted); font-weight: normal;">(sử dụng <code>v-model.trim</code>)</small>
                 </label>
                 <input 
                   type="text" 
@@ -189,7 +128,7 @@
                   placeholder="Ví dụ: Bùi Quang Chiến" 
                 />
                 <div v-if="customerName.length === 0 && touched" class="form-feedback-error">
-                  ⚠️ Họ tên khách hàng không được để trống hoặc chỉ có khoảng trắng!
+                  Họ tên khách hàng không được để trống hoặc chỉ chứa khoảng trắng!
                 </div>
               </div>
 
@@ -197,11 +136,11 @@
               <div class="form-group">
                 <label class="form-label" for="showtime">
                   Chọn suất chiếu <span class="required">*</span>
-                  <small style="color: var(--gray-500); font-weight: normal;">(gồm {{ showtimes.length }} suất chiếu)</small>
+                  <small style="color: var(--muted); font-weight: normal;">({{ showtimes.length }} suất chiếu khả dụng)</small>
                 </label>
                 <select id="showtime" class="form-control" v-model="selectedShowtime">
                   <option v-for="st in showtimes" :key="st.id" :value="st">
-                    {{ st.time }} - {{ st.hall }} ({{ st.format }})
+                    {{ st.time }} — Phòng chiếu {{ st.hall }} ({{ st.format }})
                   </option>
                 </select>
               </div>
@@ -221,9 +160,9 @@
                       v-model="ticketType" 
                     />
                     <div class="radio-card-content">
-                      <div class="radio-title">Vé thường</div>
+                      <div class="radio-title">Vé tiêu chuẩn</div>
                       <div class="radio-price">70.000 đ</div>
-                      <div class="radio-desc">Hàng ghế tiêu chuẩn (A - F)</div>
+                      <div class="radio-desc">Hàng ghế thường (A - F)</div>
                     </div>
                   </label>
 
@@ -236,9 +175,9 @@
                       v-model="ticketType" 
                     />
                     <div class="radio-card-content">
-                      <div class="radio-title">Vé VIP ⭐</div>
+                      <div class="radio-title">Vé VIP (Premium)</div>
                       <div class="radio-price">100.000 đ</div>
-                      <div class="radio-desc">Ghế trung tâm tốt nhất (G - J)</div>
+                      <div class="radio-desc">Ghế sofa trung tâm (G - J)</div>
                     </div>
                   </label>
                 </div>
@@ -249,9 +188,9 @@
               <div class="form-group">
                 <label class="form-label" for="ticketQuantity">
                   Số lượng vé <span class="required">*</span>
-                  <small style="color: var(--gray-500); font-weight: normal;">(số nguyên từ 1 đến 10)</small>
+                  <small style="color: var(--muted); font-weight: normal;">(nguyên dương từ 1 đến 10)</small>
                 </label>
-                <div style="display: flex; align-items: center; gap: 16px;">
+                <div style="display: flex; align-items: center; gap: 14px;">
                   <div class="quantity-stepper">
                     <button 
                       type="button" 
@@ -281,14 +220,14 @@
                       +
                     </button>
                   </div>
-                  <span style="font-size: 0.85rem; color: var(--gray-600);">
-                    (Tối đa 10 vé / đơn)
+                  <span style="font-size: 0.8rem; color: var(--muted);">
+                    (Giới hạn tối đa 10 vé / giao dịch)
                   </span>
                 </div>
 
                 <!-- Cảnh báo nếu số lượng vé không hợp lệ -->
                 <div v-if="!isQuantityValid" class="form-feedback-error">
-                  ⚠️ Số lượng vé không hợp lệ! Vui lòng nhập số nguyên từ 1 đến 10.
+                  Số lượng vé không hợp lệ! Vui lòng nhập số nguyên từ 1 đến 10.
                 </div>
               </div>
 
@@ -302,8 +241,8 @@
                       v-model="hasCombo" 
                     />
                     <div>
-                      <div class="combo-title">🍿 Combo bắp nước siêu tiết kiệm</div>
-                      <div class="combo-desc">1 Bắp rang bơ phô mai lớn + 2 Ly nước ngọt mát lạnh</div>
+                      <div class="combo-title">Combo bắp nước ưu đãi</div>
+                      <div class="combo-desc">1 Hộp bắp rang bơ lớn + 2 Ly nước ngọt có ga</div>
                     </div>
                   </div>
                   <div class="combo-price-tag">+45.000 đ / đơn</div>
@@ -325,7 +264,7 @@
                   <span>{{ formatMoney(unitPrice * (isQuantityValid ? ticketQuantity : 0)) }}</span>
                 </div>
                 <div class="price-row">
-                  <span>Tiền combo bắp nước:</span>
+                  <span>Combo bắp nước:</span>
                   <span>{{ hasCombo ? formatMoney(comboPrice) : '0 đ' }}</span>
                 </div>
                 <div class="price-row total">
@@ -342,7 +281,7 @@
                   class="btn btn-outline" 
                   @click="resetForm"
                 >
-                  🔄 Đặt lại form
+                  Đặt lại form
                 </button>
 
                 <!-- 8. Nút “Đặt vé” chỉ được bật khi họ tên không rỗng và số lượng hợp lệ -->
@@ -352,12 +291,12 @@
                   :disabled="!isFormValid"
                   :title="!isFormValid ? 'Vui lòng nhập họ tên và số lượng vé hợp lệ để đặt vé' : 'Bấm để xác nhận đặt vé'"
                 >
-                  🎟️ Xác nhận đặt vé
+                  Xác nhận đặt vé →
                 </button>
               </div>
 
-              <div v-if="!isFormValid" style="font-size: 0.78rem; color: var(--gray-500); margin-top: 8px; text-align: center;">
-                * Nút "Xác nhận đặt vé" sẽ được kích hoạt khi: Họ tên không rỗng và Số lượng từ 1 - 10.
+              <div v-if="!isFormValid" style="font-size: 0.75rem; color: var(--muted); margin-top: 8px; text-align: center;">
+                * Nút đặt vé sẽ kích hoạt khi họ tên được điền và số lượng từ 1 đến 10.
               </div>
             </form>
           </div>
@@ -369,21 +308,24 @@
         <!-- 9. Khi gửi form bằng @submit.prevent, hiển thị thông tin xác nhận ngay trên trang -->
         <div v-if="confirmation" class="ticket-confirmation">
           <div class="ticket-header-success">
-            <h3><span>✅</span> ĐẶT VÉ THÀNH CÔNG!</h3>
-            <span style="font-size: 0.8rem; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px;">
-              Mã vé: #{{ confirmation.ticketCode }}
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
+              XÁC NHẬN ĐẶT VÉ THÀNH CÔNG
+            </h3>
+            <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: var(--radius-xs); font-family: var(--font-mono);">
+              #{{ confirmation.ticketCode }}
             </span>
           </div>
 
           <div class="ticket-body-pass">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
               <div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--gray-600); font-weight: 700;">Tên bộ phim</span>
-                <h4 style="font-size: 1.25rem; font-weight: 800; color: var(--dark);">{{ confirmation.movieTitle }}</h4>
+                <span style="font-size: 0.7rem; text-transform: uppercase; color: var(--muted); font-weight: 700; letter-spacing: 0.5px;">Phim đang chiếu</span>
+                <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--foreground);">{{ confirmation.movieTitle }}</h4>
               </div>
               <div class="qr-placeholder">
-                <div class="qr-icon">🏁</div>
-                <div>CGV PASS<br>{{ confirmation.ticketCode }}</div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" style="margin-bottom: 2px;"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+                <span>PASS</span>
               </div>
             </div>
 
@@ -419,49 +361,54 @@
               <div class="ticket-info-item">
                 <span class="ticket-info-label">Combo bắp nước</span>
                 <span class="ticket-info-val">
-                  {{ confirmation.hasCombo ? '🍿 Có (+45.000 đ)' : 'Không chọn' }}
+                  {{ confirmation.hasCombo ? 'Có (+45.000 đ)' : 'Không' }}
                 </span>
               </div>
               <div class="ticket-info-item">
                 <span class="ticket-info-label">Thời gian đặt</span>
-                <span class="ticket-info-val" style="font-size: 0.85rem; font-weight: 600;">
+                <span class="ticket-info-val" style="font-size: 0.8rem; font-family: var(--font-mono);">
                   {{ confirmation.bookingTime }}
                 </span>
               </div>
             </div>
 
-            <div style="background-color: #f0fdf4; border: 1.5px solid #86efac; border-radius: var(--radius); padding: 14px 18px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="background-color: var(--success-bg); border: 1px solid var(--success-border); border-radius: var(--radius); padding: 12px 16px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
               <div>
-                <span style="font-size: 0.8rem; font-weight: 600; color: #166534; text-transform: uppercase;">Tổng tiền thanh toán</span>
-                <div style="font-size: 1.6rem; font-weight: 900; color: #15803d;">
+                <span style="font-size: 0.725rem; font-weight: 600; color: var(--success-text); text-transform: uppercase;">Tổng tiền thanh toán</span>
+                <div style="font-size: 1.35rem; font-weight: 800; color: var(--success); font-family: var(--font-mono);">
                   {{ formatMoney(confirmation.totalPrice) }}
                 </div>
               </div>
-              <span class="badge badge-concept" style="background-color: #dcfce7; color: #166534; font-size: 0.85rem;">
-                ✓ ĐÃ XÁC NHẬN
+              <span class="status-pill status-studying">
+                Đã thanh toán
               </span>
             </div>
 
-            <div style="display: flex; gap: 10px; margin-top: 18px;">
+            <div style="display: flex; gap: 8px; margin-top: 16px;">
               <button type="button" class="btn btn-outline btn-sm" style="flex: 1;" @click="printTicket">
-                🖨️ In cuống vé
+                In cuống vé
               </button>
               <button type="button" class="btn btn-primary btn-sm" style="flex: 1;" @click="bookAnother">
-                ➕ Đặt vé khác
+                Đặt vé khác
               </button>
             </div>
           </div>
         </div>
 
-        <!-- THÔNG BÁO KHI CHƯA GỬI ĐƠN HÀNG -->
-        <div v-else class="card" style="text-align: center; padding: 48px 24px; border-style: dashed;">
-          <div style="font-size: 3.5rem; margin-bottom: 12px;">🎟️</div>
-          <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--gray-800); margin-bottom: 6px;">
-            Chưa có thông tin đặt vé
-          </h3>
-          <p style="font-size: 0.9rem; color: var(--gray-600); max-width: 380px; margin: 0 auto;">
-            Vui lòng điền thông tin khách hàng, chọn suất chiếu, loại vé và bấm <strong>"Xác nhận đặt vé"</strong> để xem phiếu xác nhận tại đây.
+        <!-- Trạng thái chờ đặt vé (Empty State) -->
+        <div v-else class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 48px 24px;">
+          <div style="width: 52px; height: 52px; border-radius: var(--radius-full); background: var(--surface-subtle); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; border: 1px solid var(--border);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" style="color: var(--muted);"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--foreground); margin-bottom: 6px;">
+            Chưa có vé nào được xác nhận
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--muted); max-width: 340px; margin-bottom: 16px;">
+            Điền đầy đủ thông tin bên trái và bấm "Xác nhận đặt vé" để hoàn tất giao dịch và nhận cuống vé điện tử.
           </p>
+          <div style="font-size: 0.75rem; color: var(--muted); background: var(--surface-subtle); border: 1px solid var(--border); padding: 6px 12px; border-radius: var(--radius);">
+            Suất chiếu đã chọn: <strong>{{ selectedShowtime.time }}</strong> ({{ selectedShowtime.hall }})
+          </div>
         </div>
       </div>
     </div>
@@ -470,7 +417,7 @@
   <!-- FOOTER DÙNG CHUNG -->
   <footer class="app-footer">
     <p>Bài tập thực hành buổi 6 - Vue.js | Lớp: <strong>K68A3</strong> | Sinh viên thực hiện: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
-    <p style="color: var(--gray-500); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
+    <p style="color: var(--muted); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
   </footer>
 
   <!-- VUE 3 CDN & LOCAL FALLBACK -->
@@ -486,73 +433,68 @@
 
     createApp({
       data() {
-        const showtimesList = [
-          { id: 1, time: '09:30', hall: 'Phòng 01', format: '2D Phụ đề' },
-          { id: 2, time: '14:15', hall: 'Phòng 03', format: '2D Lồng tiếng' },
-          { id: 3, time: '18:45', hall: 'Phòng 02', format: '2D Digital' },
-          { id: 4, time: '21:15', hall: 'Phòng 05 (IMAX)', format: 'IMAX Laser 3D' }
-        ];
-
         return {
-          movieTitle: 'Interstellar: Hố Đen Tử Thần (Bản Chiếu Lại)',
+          movieTitle: 'Interstellar (Hố Đen Tử Thần)',
           // 1. Nhập họ tên khách hàng bằng v-model.trim
           customerName: '',
+          touched: false,
+
           // 2. Chọn suất chiếu bằng select, gồm ít nhất ba suất
-          showtimes: showtimesList,
-          selectedShowtime: showtimesList[2], // Mặc định suất 18:45
-          // 3. Chọn loại vé bằng radio:
-          // • Vé thường: 70.000 đồng
-          // • Vé VIP: 100.000 đồng
+          showtimes: [
+            { id: 1, time: '09:30', hall: 'Cinema 1', format: '2D Phụ đề' },
+            { id: 2, time: '14:15', hall: 'Cinema 3', format: 'IMAX Laser 2D' },
+            { id: 3, time: '19:45', hall: 'Cinema 2', format: '2D Lồng tiếng' },
+            { id: 4, time: '22:15', hall: 'Cinema 5', format: 'IMAX Laser 2D' }
+          ],
+          selectedShowtime: null,
+
+          // 3. Chọn loại vé bằng radio: Vé thường 70.000đ, Vé VIP 100.000đ
           ticketType: 'standard', // 'standard' | 'vip'
+
           // 4. Nhập số lượng vé bằng v-model.number, chỉ chấp nhận số nguyên từ 1 đến 10
           ticketQuantity: 1,
-          // 5. Có checkbox chọn combo bắp nước, giá 45.000 đồng cho mỗi đơn đặt vé
+
+          // 5. Checkbox chọn combo bắp nước, giá 45.000 đồng cho mỗi đơn đặt vé
           hasCombo: false,
-          // Dữ liệu phiếu xác nhận hiển thị ngay trên trang
-          confirmation: null,
-          touched: false
+          comboPrice: 45000,
+
+          // 9. Dữ liệu xác nhận sau khi gửi form
+          confirmation: null
         };
       },
 
+      created() {
+        // Mặc định chọn suất chiếu đầu tiên
+        this.selectedShowtime = this.showtimes[1];
+      },
+
       computed: {
-        // Đơn giá vé theo loại vé đã chọn
+        // Đơn giá vé dựa trên loại vé đã chọn
         unitPrice() {
           return this.ticketType === 'vip' ? 100000 : 70000;
         },
 
-        // Tiền combo bắp nước (45.000 đ cho mỗi đơn đặt vé)
-        comboPrice() {
-          return 45000;
-        },
-
-        // 4. Kiểm tra số lượng vé: chỉ chấp nhận số nguyên từ 1 đến 10
+        // Kiểm tra số lượng vé có hợp lệ (số nguyên từ 1 đến 10)
         isQuantityValid() {
-          return (
-            typeof this.ticketQuantity === 'number' &&
-            Number.isInteger(this.ticketQuantity) &&
-            this.ticketQuantity >= 1 &&
-            this.ticketQuantity <= 10
-          );
+          const qty = this.ticketQuantity;
+          return Number.isInteger(qty) && qty >= 1 && qty <= 10;
         },
 
-        // 6. Dùng computed tính tổng tiền theo công thức:
-        // Tổng tiền = Giá vé × Số lượng + Tiền combo
+        // 6. Dùng computed để tính tổng tiền theo công thức:
+        // Tổng tiền = Giá vé × Số lượng + Tiền combo (nếu chọn)
         totalPrice() {
-          if (!this.isQuantityValid) {
-            return 0;
-          }
-          const ticketsCost = this.unitPrice * this.ticketQuantity;
-          const comboCost = this.hasCombo ? this.comboPrice : 0;
-          return ticketsCost + comboCost;
+          const validQty = this.isQuantityValid ? this.ticketQuantity : 0;
+          const ticketTotal = this.unitPrice * validQty;
+          const comboTotal = this.hasCombo ? this.comboPrice : 0;
+          return ticketTotal + comboTotal;
         },
 
-        // 8. Nút “Đặt vé” chỉ được bật khi họ tên không rỗng và số lượng hợp lệ
+        // 8. Nút “Đặt vé” chỉ được bật khi:
+        // - Họ tên không rỗng
+        // - Số lượng vé hợp lệ (1-10)
         isFormValid() {
-          return (
-            this.customerName.length > 0 &&
-            this.isQuantityValid &&
-            this.selectedShowtime !== null
-          );
+          const isNameValid = this.customerName && this.customerName.length > 0;
+          return Boolean(isNameValid && this.isQuantityValid);
         }
       },
 
@@ -571,67 +513,66 @@
           }
         },
 
-        // 7. Có nút đặt lại form
+        // 7. Nút đặt lại form
         resetForm() {
           this.customerName = '';
-          this.selectedShowtime = this.showtimes[2];
+          this.touched = false;
+          this.selectedShowtime = this.showtimes[1];
           this.ticketType = 'standard';
           this.ticketQuantity = 1;
           this.hasCombo = false;
-          this.confirmation = null;
-          this.touched = false;
         },
 
-        // Nạp nhanh trường hợp kiểm tra theo đúng đề bài:
-        // 2 vé VIP kèm combo -> tổng tiền 245.000 đồng
+        // Nạp nhanh trường hợp kiểm tra tiêu chuẩn đề bài: 2 vé VIP + Combo = 245.000 đ
         applyStandardTest() {
           this.customerName = 'Bùi Quang Chiến';
-          this.selectedShowtime = this.showtimes[3]; // Suất IMAX
-          this.ticketType = 'vip';                   // Vé VIP: 100.000 đ
-          this.ticketQuantity = 2;                   // 2 vé
-          this.hasCombo = true;                      // Kèm combo bắp nước: 45.000 đ
+          this.ticketType = 'vip';
+          this.ticketQuantity = 2;
+          this.hasCombo = true;
           this.touched = true;
-          // Tự động submit để xem phiếu xác nhận ngay lập tức
-          this.submitBooking();
         },
 
         // 9. Khi gửi form bằng @submit.prevent, hiển thị thông tin xác nhận ngay trên trang
         submitBooking() {
+          this.touched = true;
           if (!this.isFormValid) {
             return;
           }
 
+          const randomCode = Math.floor(100000 + Math.random() * 900000);
           const now = new Date();
-          const timeString = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN');
+          const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')} - ${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
 
           this.confirmation = {
-            ticketCode: Math.floor(100000 + Math.random() * 900000),
-            movieTitle: this.movieTitle,
+            ticketCode: randomCode,
             customerName: this.customerName,
+            movieTitle: this.movieTitle,
             showtime: this.selectedShowtime,
             ticketType: this.ticketType,
             ticketTypeName: this.ticketType === 'vip' ? 'Vé VIP' : 'Vé thường',
             unitPrice: this.unitPrice,
             quantity: this.ticketQuantity,
             hasCombo: this.hasCombo,
-            comboPrice: this.hasCombo ? this.comboPrice : 0,
             totalPrice: this.totalPrice,
             bookingTime: timeString
           };
         },
 
+        // Đặt vé khác
+        bookAnother() {
+          this.resetForm();
+          this.confirmation = null;
+        },
+
+        // In cuống vé
         printTicket() {
           window.print();
         },
 
-        bookAnother() {
-          this.resetForm();
-        },
-
-        // Hàm định dạng tiền tệ Việt Nam (VNĐ)
+        // Hàm format tiền tệ VNĐ chuẩn
         formatMoney(amount) {
-          if (typeof amount !== 'number') return '0 đ';
-          return amount.toLocaleString('vi-VN') + ' đ';
+          if (isNaN(amount)) return '0 đ';
+          return new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
         }
       }
     }).mount('#app');
