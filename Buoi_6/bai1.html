@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài 1: Thẻ thông tin sinh viên - Vue.js | Bùi Quang Chiến 23001837</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Styling riêng cho bài 1 */
+    .rank-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+    }
+    .quick-score-btn {
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid var(--gray-300);
+      background-color: var(--white);
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .quick-score-btn:hover {
+      background-color: var(--gray-200);
+      border-color: var(--primary);
+    }
+    .score-range-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .score-range-wrapper input[type="range"] {
+      flex: 1;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .score-badge-number {
+      min-width: 44px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+    .avatar-picker {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .avatar-option {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--gray-300);
+      cursor: pointer;
+      overflow: hidden;
+      transition: var(--transition);
+      background: #f1f5f9;
+    }
+    .avatar-option img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .avatar-option.selected {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER DÙNG CHUNG -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-brand">
+        <div class="brand-icon">V</div>
+        <div class="brand-text">
+          <h1>BÀI TẬP THỰC HÀNH SỐ 6 - VUEJS</h1>
+          <span>Phát triển ứng dụng web (MAT3542 1)</span>
+        </div>
+      </a>
+
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">🏠 Trang chủ</a>
+        <a href="bai1.html" class="nav-link active">Bài 1: Thẻ sinh viên</a>
+        <a href="bai2.html" class="nav-link">Bài 2: Đặt vé xem phim</a>
+        <a href="bai3.html" class="nav-link">Bài 3: Quản lý công việc</a>
+      </nav>
+
+      <div class="student-tag">
+        <span>👨‍🎓 Bùi Quang Chiến</span>
+        <span>• 23001837</span>
+        <span>• K68A3</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-content" id="app">
+    <div class="page-intro">
+      <h2 class="page-title">
+        <span>🎓</span> Bài 1: Thẻ thông tin sinh viên
+      </h2>
+      <p class="page-subtitle">
+        Hiển thị thẻ sinh viên với dữ liệu phản ứng (Reactive Data), xếp loại tự động theo điểm và chuyển đổi trạng thái giao diện.
+      </p>
+      <div class="badge-concept">
+        💡 Kiến thức áp dụng: createApp, data(), {{ }}, v-text, v-bind, v-if, v-else-if, v-else, :class, :style, v-show
+      </div>
+    </div>
+
+    <div class="grid-2col">
+      <!-- CỘT 1: THẺ SINH VIÊN (GIAO DIỆN HIỂN THỊ CHÍNH) -->
+      <div>
+        <div class="student-card-preview">
+          <!-- Banner phía trên thẻ -->
+          <div class="student-card-banner">
+            <div>
+              <div class="school-name">ĐẠI HỌC KHOA HỌC TỰ NHIÊN - ĐHQGHN</div>
+              <small style="opacity: 0.85;">KHOA TOÁN - CƠ - TIN HỌC</small>
+            </div>
+            <div class="chip-icon" title="Thẻ sinh viên thông minh"></div>
+          </div>
+
+          <!-- Nội dung thân thẻ -->
+          <div class="student-card-body">
+            <!-- 3. Gắn đường dẫn ảnh và nội dung thay thế bằng v-bind -->
+            <div class="avatar-wrapper">
+              <img 
+                v-bind:src="avatar" 
+                v-bind:alt="fullName" 
+                class="student-avatar-img" 
+              />
+            </div>
+
+            <!-- 2. Hiển thị họ tên bằng {{ }} -->
+            <h3 class="student-name-display">{{ fullName }}</h3>
+
+            <!-- 2. Tên lớp bằng v-text -->
+            <p style="color: var(--gray-600); font-weight: 500; margin-bottom: 8px;">
+              Lớp: <strong style="color: var(--gray-800);" v-text="className"></strong>
+            </p>
+
+            <!-- Lưới thông tin sinh viên -->
+            <div class="student-meta-grid">
+              <div class="meta-item">
+                <span class="meta-label">Mã sinh viên</span>
+                <span class="meta-value">{{ studentId }}</span>
+              </div>
+
+              <!-- 6. Hiển thị "Đang học" hoặc "Đã nghỉ" theo trạng thái -->
+              <div class="meta-item">
+                <span class="meta-label">Trạng thái</span>
+                <div>
+                  <span v-if="isStudying" class="status-pill status-studying">
+                    Đang học
+                  </span>
+                  <span v-else class="status-pill status-paused">
+                    Đã nghỉ
+                  </span>
+                </div>
+              </div>
+
+              <div class="meta-item">
+                <span class="meta-label">Điểm trung bình</span>
+                <span class="meta-value" style="font-size: 1.15rem; color: var(--primary);">
+                  {{ Number(gpa).toFixed(1) }} / 10
+                </span>
+              </div>
+
+              <!-- 4 & 5. Xếp loại theo GPA (v-if) và Đổi màu bằng :class / :style -->
+              <div class="meta-item">
+                <span class="meta-label">Xếp loại học lực</span>
+                <div>
+                  <span :class="['rank-badge', rankClass]" :style="rankStyle">
+                    <span v-if="gpa >= 8 && gpa <= 10">⭐ Giỏi</span>
+                    <span v-else-if="gpa >= 6.5 && gpa < 8">👍 Khá</span>
+                    <span v-else-if="gpa >= 5 && gpa < 6.5">📘 Trung bình</span>
+                    <span v-else>⚠️ Chưa đạt</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. Tạo nút bật/tắt phần giới thiệu bằng v-show -->
+            <div style="margin-top: 14px;">
+              <button 
+                type="button" 
+                class="btn btn-outline btn-sm" 
+                @click="showBio = !showBio"
+                style="width: 100%; justify-content: center;"
+              >
+                <span v-if="showBio">🔼 Thu gọn phần giới thiệu</span>
+                <span v-else>🔽 Xem phần giới thiệu sinh viên</span>
+              </button>
+
+              <!-- Phần giới thiệu được điều khiển bật/tắt bằng v-show -->
+              <div v-show="showBio" class="bio-box">
+                <h4>Thông tin giới thiệu</h4>
+                <p>{{ bio }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CỘT 2: BẢNG ĐIỀU KHIỂN DỮ LIỆU TƯƠNG TÁC (KIỂM TRA REACTIVITY & CÁC TRƯỜNG HỢP BIÊN) -->
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <span>🎛️</span> Bảng điều khiển thử nghiệm dữ liệu
+            </h3>
+            <button class="btn btn-outline btn-sm" @click="resetToDefault" title="Khôi phục dữ liệu ban đầu">
+              🔄 Đặt lại
+            </button>
+          </div>
+
+          <div class="card-body">
+            <p style="font-size: 0.85rem; color: var(--gray-600); margin-bottom: 16px;">
+              Thay đổi dữ liệu tại đây để kiểm tra tính năng phản ứng tự động cập nhật của Vue:
+            </p>
+
+            <!-- Họ tên -->
+            <div class="form-group">
+              <label class="form-label">Họ và tên sinh viên (kiểm tra <code>{{ '{{ }}' }}</code>):</label>
+              <input type="text" class="form-control" v-model="fullName" placeholder="Nhập họ và tên...">
+            </div>
+
+            <!-- Mã sinh viên & Lớp -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div class="form-group">
+                <label class="form-label">Mã sinh viên:</label>
+                <input type="text" class="form-control" v-model="studentId" placeholder="Mã SV...">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Lớp (kiểm tra <code>v-text</code>):</label>
+                <input type="text" class="form-control" v-model="className" placeholder="Tên lớp...">
+              </div>
+            </div>
+
+            <!-- Điểm trung bình & Xếp loại -->
+            <div class="form-group">
+              <label class="form-label">
+                Điểm trung bình (GPA):
+                <span style="font-weight: 400; color: var(--gray-600);">(Kiểm tra các mốc xếp loại)</span>
+              </label>
+              
+              <div class="score-range-wrapper">
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="10" 
+                  step="0.1" 
+                  v-model.number="gpa" 
+                />
+                <span class="score-badge-number">{{ Number(gpa).toFixed(1) }}</span>
+              </div>
+
+              <!-- Nút chọn nhanh để test các mốc biên theo đề bài -->
+              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;">
+                <button type="button" class="quick-score-btn" @click="gpa = 9.2">9.2 (Giỏi: 8.0 - 10)</button>
+                <button type="button" class="quick-score-btn" @click="gpa = 7.0">7.0 (Khá: 6.5 - &lt;8.0)</button>
+                <button type="button" class="quick-score-btn" @click="gpa = 5.8">5.8 (Trung bình: 5.0 - &lt;6.5)</button>
+                <button type="button" class="quick-score-btn" @click="gpa = 3.5">3.5 (Chưa đạt: &lt;5.0)</button>
+              </div>
+
+              <!-- Thử nghiệm các trường hợp biên sát nút -->
+              <div style="margin-top: 8px; font-size: 0.78rem; color: var(--gray-600);">
+                <strong>Test giá trị biên chính xác:</strong>
+                <span style="display: inline-flex; gap: 4px; margin-left: 6px;">
+                  <button type="button" class="quick-score-btn" @click="gpa = 8.0">8.0</button>
+                  <button type="button" class="quick-score-btn" @click="gpa = 7.9">7.9</button>
+                  <button type="button" class="quick-score-btn" @click="gpa = 6.5">6.5</button>
+                  <button type="button" class="quick-score-btn" @click="gpa = 6.4">6.4</button>
+                  <button type="button" class="quick-score-btn" @click="gpa = 5.0">5.0</button>
+                  <button type="button" class="quick-score-btn" @click="gpa = 4.9">4.9</button>
+                </span>
+              </div>
+            </div>
+
+            <!-- Trạng thái học tập -->
+            <div class="form-group">
+              <label class="form-label">Trạng thái học tập (kiểm tra <code>v-if</code>):</label>
+              <div style="display: flex; gap: 16px; align-items: center; margin-top: 4px;">
+                <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                  <input type="radio" :value="true" v-model="isStudying" />
+                  <span>Đang học</span>
+                </label>
+                <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                  <input type="radio" :value="false" v-model="isStudying" />
+                  <span>Đã nghỉ</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Ảnh đại diện -->
+            <div class="form-group">
+              <label class="form-label">Ảnh đại diện (kiểm tra <code>v-bind:src</code> & <code>v-bind:alt</code>):</label>
+              <div class="avatar-picker">
+                <div 
+                  class="avatar-option" 
+                  :class="{ selected: avatar === avatarOptions[0] }"
+                  @click="avatar = avatarOptions[0]"
+                  title="Avatar 1 (Nam - Kính mắt)"
+                >
+                  <img :src="avatarOptions[0]" alt="Avatar 1">
+                </div>
+                <div 
+                  class="avatar-option" 
+                  :class="{ selected: avatar === avatarOptions[1] }"
+                  @click="avatar = avatarOptions[1]"
+                  title="Avatar 2 (Nam - Phong cách xanh)"
+                >
+                  <img :src="avatarOptions[1]" alt="Avatar 2">
+                </div>
+              </div>
+              <input 
+                type="text" 
+                class="form-control" 
+                v-model="avatar" 
+                placeholder="Hoặc dán URL ảnh tùy chỉnh..." 
+                style="margin-top: 8px; font-size: 0.85rem;"
+              >
+            </div>
+
+            <!-- Phần giới thiệu -->
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Nội dung giới thiệu (kiểm tra <code>v-show</code>):</label>
+              <textarea 
+                class="form-control" 
+                rows="3" 
+                v-model="bio"
+                placeholder="Nhập nội dung giới thiệu..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER DÙNG CHUNG -->
+  <footer class="app-footer">
+    <p>Bài tập thực hành buổi 6 - Vue.js | Lớp: <strong>K68A3</strong> | Sinh viên thực hiện: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
+    <p style="color: var(--gray-500); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
+  </footer>
+
+  <!-- VUE 3 CDN & LOCAL FALLBACK -->
+  <script src="assets/js/vue.global.js"></script>
+  <script>
+    if (typeof Vue === 'undefined') {
+      document.write('<script src="https://unpkg.com/vue@3/dist/vue.global.js"><\/script>');
+    }
+  </script>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      // 1. Khai báo dữ liệu gồm: mã sinh viên, họ tên, lớp, ảnh đại diện, điểm trung bình và trạng thái đang học
+      data() {
+        return {
+          studentId: '23001837',
+          fullName: 'Bùi Quang Chiến',
+          className: 'K68A3',
+          avatar: 'assets/images/student-avatar.svg',
+          gpa: 8.6,
+          isStudying: true,
+          bio: 'Sinh viên năm 3 khoa Toán - Cơ - Tin học, Đại học Khoa học Tự nhiên (HUS). Đam mê lập trình Front-end & Back-end với Vue.js, PHP và hệ sinh thái web hiện đại.',
+          showBio: true,
+          // Danh sách avatar mẫu hỗ trợ đổi nhanh
+          avatarOptions: [
+            'assets/images/student-avatar.svg',
+            'assets/images/student-avatar-alt.svg'
+          ]
+        };
+      },
+
+      computed: {
+        // 5. Dùng :class hoặc :style để đổi màu xếp loại:
+        // • Từ 8 đến 10: Giỏi
+        // • Từ 6,5 đến dưới 8: Khá
+        // • Từ 5 đến dưới 6,5: Trung bình
+        // • Dưới 5: Chưa đạt
+        rankClass() {
+          const score = Number(this.gpa);
+          if (score >= 8 && score <= 10) {
+            return 'rank-gioi';
+          } else if (score >= 6.5 && score < 8) {
+            return 'rank-kha';
+          } else if (score >= 5 && score < 6.5) {
+            return 'rank-trungbinh';
+          } else {
+            return 'rank-chuadat';
+          }
+        },
+
+        // Dùng :style linh hoạt bổ sung cho styling
+        rankStyle() {
+          const score = Number(this.gpa);
+          if (score >= 8 && score <= 10) {
+            return {
+              backgroundColor: '#ecfdf5',
+              color: '#047857',
+              borderColor: '#10b981'
+            };
+          } else if (score >= 6.5 && score < 8) {
+            return {
+              backgroundColor: '#eff6ff',
+              color: '#1d4ed8',
+              borderColor: '#3b82f6'
+            };
+          } else if (score >= 5 && score < 6.5) {
+            return {
+              backgroundColor: '#fffbeb',
+              color: '#b45309',
+              borderColor: '#f59e0b'
+            };
+          } else {
+            return {
+              backgroundColor: '#fef2f2',
+              color: '#b91c1c',
+              borderColor: '#ef4444'
+            };
+          }
+        }
+      },
+
+      methods: {
+        resetToDefault() {
+          this.studentId = '23001837';
+          this.fullName = 'Bùi Quang Chiến';
+          this.className = 'K68A3';
+          this.avatar = 'assets/images/student-avatar.svg';
+          this.gpa = 8.6;
+          this.isStudying = true;
+          this.bio = 'Sinh viên năm 3 khoa Toán - Cơ - Tin học, Đại học Khoa học Tự nhiên (HUS). Đam mê lập trình Front-end & Back-end với Vue.js, PHP và hệ sinh thái web hiện đại.';
+          this.showBio = true;
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

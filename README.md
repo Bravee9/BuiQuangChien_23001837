@@ -71,6 +71,20 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
 │       ├── product_add.php              # Thêm sản phẩm & validate dữ liệu (yêu cầu đăng nhập)
 │       ├── product_edit.php             # Sửa thông tin sản phẩm (yêu cầu đăng nhập)
 │       └── product_delete.php           # Xóa sản phẩm kèm xác nhận an toàn (yêu cầu đăng nhập)
+├── Buoi_6/                              # Bài thực hành Vue.js cơ bản (Data Binding, Directives, Computed)
+│   ├── Bài tập thực hành buổi 6 - VueJs.pdf
+│   ├── index.html                       # Trang chủ điều hướng tổng quan 3 bài tập
+│   ├── bai1.html                        # Bài 1: Thẻ thông tin sinh viên (v-bind, v-text, v-if, v-show, :class)
+│   ├── bai2.html                        # Bài 2: Đặt vé xem phim (v-model.trim, v-model.number, computed)
+│   ├── bai3.html                        # Bài 3: Quản lý công việc cá nhân (v-for, :key, checkbox, filter)
+│   └── assets/
+│       ├── css/
+│       │   └── style.css                # Giao diện responsive dùng chung cho Buổi 6
+│       ├── js/
+│       │   └── vue.global.js            # Thư viện Vue 3 (hỗ trợ chạy offline độc lập)
+│       └── images/
+│           ├── student-avatar.svg       # Ảnh đại diện sinh viên mẫu
+│           └── student-avatar-alt.svg   # Ảnh đại diện sinh viên thay thế
 └── README.md
 ```
 
@@ -138,6 +152,39 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
   - Hiển thị tên tài khoản đang đăng nhập và liên kết **Đăng xuất** nổi bật trên thanh điều hướng (`header.php`).
 - `app/product_list.php`, `app/product_add.php`, `app/product_edit.php`, `app/product_delete.php`: Hoàn thiện trọn vẹn nghiệp vụ quản lý sản phẩm theo chuẩn đề bài.
 
+### Buổi 6: Lập trình Vue.js cơ bản (Data Binding, Directives & Computed)
+- `index.html`: Cổng điều hướng hiện đại, tổng quan mục tiêu & kiến thức của cả 3 bài tập.
+- `bai1.html`: **Thẻ thông tin sinh viên**
+  - Khai báo và quản lý dữ liệu phản ứng qua `createApp` và `data()`.
+  - Hiển thị họ tên bằng `{{ }}`, tên lớp bằng chỉ thị `v-text`.
+  - Gắn liên kết và thuộc tính alt ảnh đại diện bằng `v-bind:src` và `v-bind:alt`.
+  - Tự động xếp loại học lực dựa trên điểm trung bình bằng chuỗi rẽ nhánh `v-if`, `v-else-if`, `v-else` (Giỏi: 8.0 - 10, Khá: 6.5 - <8.0, Trung bình: 5.0 - <6.5, Chưa đạt: <5.0).
+  - Đổi màu xếp loại trực quan bằng `:class` và `:style`.
+  - Hiển thị linh hoạt trạng thái "Đang học" / "Đã nghỉ" bằng `v-if` / `v-else`.
+  - Bật / tắt phần giới thiệu sinh viên bằng chỉ thị `v-show`.
+  - Tích hợp **Bảng điều khiển tương tác (Testing Panel)** cho phép thay đổi dữ liệu, kéo slider điểm trung bình để kiểm chứng tính phản ứng (reactivity) và các trường hợp biên.
+- `bai2.html`: **Đặt vé xem phim (CGV HUS Cinema)**
+  - Nhập họ tên khách hàng với modifier `v-model.trim`.
+  - Chọn suất chiếu qua dropdown `select` (4 suất chiếu phong phú).
+  - Chọn loại vé bằng `radio`: Vé thường (70.000 đ) / Vé VIP (100.000 đ).
+  - Nhập số lượng vé với `v-model.number`, kiểm tra nghiêm ngặt số nguyên trong khoảng [1, 10], kèm nút tăng/giảm và nút đặt lại form (`resetForm`).
+  - Checkbox chọn combo bắp nước (+45.000 đ / đơn đặt vé).
+  - Dùng `computed` tính toán tự động tổng tiền theo công thức: `Tổng tiền = Giá vé × Số lượng + Tiền combo`.
+  - Nút "Đặt vé" kích hoạt có điều kiện: chỉ bật khi họ tên không rỗng và số lượng hợp lệ.
+  - Ngăn chặn reload và xử lý gửi form qua `@submit.prevent`, xuất ngay phiếu xác nhận đặt vé dạng Boarding Pass chuyên nghiệp.
+  - *Kiểm tra kết quả chuẩn:* Đặt 2 vé VIP kèm combo cho tổng tiền chính xác **245.000 đồng** (có sẵn nút bấm test nhanh 1-click).
+- `bai3.html`: **Quản lý công việc cá nhân (Todo List)**
+  - Cấu trúc công việc: `{ id, title, completed, createdAt }`.
+  - Thêm công việc qua nút "Thêm" hoặc phím Enter (`@keyup.enter`), chặn tuyệt đối tên rỗng hoặc chỉ có khoảng trắng.
+  - Hiển thị danh sách phản ứng bằng `v-for` với `:key="task.id"`.
+  - Đánh dấu hoàn thành qua `checkbox`, tự động gạch ngang tên công việc (`text-decoration: line-through`).
+  - Xóa từng công việc độc lập.
+  - Lọc theo 3 trạng thái: "Tất cả", "Chưa hoàn thành", "Đã hoàn thành".
+  - Dùng `computed` tính tổng số công việc (`totalTasks`), số việc chưa hoàn thành (`uncompletedTasks`), và số việc đã hoàn thành.
+  - Nút "Xóa các việc đã hoàn thành" thông minh (chỉ bật khi có ít nhất 1 việc hoàn thành).
+  - Hiển thị các thông báo trực quan (Empty State) tương ứng khi danh sách rỗng hoặc từng bộ lọc không có dữ liệu.
+  - Đồng bộ an toàn với `localStorage` và có nút "Nạp việc mẫu" hỗ trợ người chấm kiểm tra nhanh.
+
 ---
 
 ## Hướng dẫn chạy chương trình
@@ -169,3 +216,14 @@ Sau đó mở trình duyệt và truy cập: `http://localhost:8000`
   - `admin` / `admin123`
   - `chienbq` / `123456`
 - Hoặc bấm vào **"Đăng ký ngay tại đây"** để tự tạo tài khoản mới.
+
+### 3. Dành cho Buổi 6 (Vue.js)
+
+Có thể mở trực tiếp các tệp HTML trong trình duyệt:
+- Mở `Buoi_6/index.html` hoặc nhấp đúp trực tiếp vào các file `bai1.html`, `bai2.html`, `bai3.html`.
+- Hoặc khởi chạy thông qua PHP Built-in Server:
+```bash
+# Khởi chạy server cho Buổi 6
+php -S localhost:8000 -t Buoi_6/
+```
+Sau đó truy cập: `http://localhost:8000`

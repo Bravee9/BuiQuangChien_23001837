@@ -1,0 +1,1165 @@
+/* ====================================================================
+   HỌ VÀ TÊN: BÙI QUANG CHIẾN - MSV: 23001837 - LỚP: K68A3
+   MÔN HỌC: [2026] MAT3542 1 - PHÁT TRIỂN ỨNG DỤNG WEB
+   BÀI TẬP THỰC HÀNH SỐ 6 - VUEJS
+   File: assets/css/style.css
+   ==================================================================== */
+
+:root {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-border: #bfdbfe;
+
+  --success: #10b981;
+  --success-hover: #059669;
+  --success-light: #ecfdf5;
+  --success-border: #a7f3d0;
+
+  --warning: #f59e0b;
+  --warning-hover: #d97706;
+  --warning-light: #fffbeb;
+  --warning-border: #fde68a;
+
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --danger-light: #fef2f2;
+  --danger-border: #fecaca;
+
+  --info: #06b6d4;
+  --info-light: #ecfeff;
+
+  --dark: #0f172a;
+  --gray-900: #1e293b;
+  --gray-800: #334155;
+  --gray-700: #475569;
+  --gray-600: #64748b;
+  --gray-500: #94a3b8;
+  --gray-400: #cbd5e1;
+  --gray-300: #e2e8f0;
+  --gray-200: #f1f5f9;
+  --gray-100: #f8fafc;
+  --white: #ffffff;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: #f8fafc;
+  color: var(--gray-900);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==================== APP HEADER ==================== */
+.app-header {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray-300);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--dark);
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #42b883, #35495e);
+  color: white;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 8px rgba(66, 184, 131, 0.35);
+}
+
+.brand-text h1 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1.2;
+}
+
+.brand-text span {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--gray-700);
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  background-color: var(--gray-200);
+  color: var(--primary);
+}
+
+.nav-link.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border: 1px solid var(--primary-border);
+}
+
+.student-tag {
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==================== MAIN CONTAINER ==================== */
+.main-content {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+.page-intro {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-subtitle {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+}
+
+.badge-concept {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* ==================== BUTTONS & CONTROLS ==================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(40%);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background-color: var(--success);
+  color: var(--white);
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: var(--success-hover);
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: var(--white);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--danger-hover);
+}
+
+.btn-outline {
+  background-color: var(--white);
+  border-color: var(--gray-300);
+  color: var(--gray-700);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: var(--gray-100);
+  border-color: var(--gray-400);
+  color: var(--gray-900);
+}
+
+.btn-outline-danger {
+  background-color: var(--white);
+  border-color: var(--danger-border);
+  color: var(--danger);
+}
+
+.btn-outline-danger:hover:not(:disabled) {
+  background-color: var(--danger-light);
+  border-color: var(--danger);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+.btn-lg {
+  padding: 12px 24px;
+  font-size: 1rem;
+}
+
+/* ==================== FORM INPUTS ==================== */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 6px;
+}
+
+.form-label .required {
+  color: var(--danger);
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  color: var(--gray-900);
+  background-color: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius);
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.form-control.is-invalid {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.form-feedback-error {
+  font-size: 0.8rem;
+  color: var(--danger);
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.form-feedback-help {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin-top: 4px;
+}
+
+/* ==================== CARD CONTAINERS ==================== */
+.card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-300);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-200);
+  background-color: #fafbfc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--gray-200);
+  background-color: #fafbfc;
+}
+
+/* ==================== TWO-COLUMN LAYOUT ==================== */
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .grid-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====================================================================
+   BÀI 1: THẺ THÔNG TIN SINH VIÊN
+   ==================================================================== */
+.student-card-preview {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+  transition: var(--transition);
+}
+
+.student-card-banner {
+  height: 90px;
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  position: relative;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: white;
+}
+
+.student-card-banner .school-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.student-card-banner .chip-icon {
+  width: 32px;
+  height: 24px;
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  border-radius: 4px;
+  border: 1px solid #b45309;
+}
+
+.student-card-body {
+  padding: 0 24px 24px;
+  position: relative;
+  margin-top: -50px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  border: 4px solid var(--white);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 14px;
+  background-color: #e2e8f0;
+  overflow: hidden;
+}
+
+.student-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.student-name-display {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.student-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 18px 0;
+  background-color: var(--gray-100);
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray-600);
+  margin-bottom: 2px;
+}
+
+.meta-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+/* Xếp loại Badge Styles */
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border: 1.5px solid;
+  transition: var(--transition);
+}
+
+.rank-gioi {
+  background-color: #ecfdf5;
+  color: #047857;
+  border-color: #10b981;
+}
+
+.rank-kha {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-color: #3b82f6;
+}
+
+.rank-trungbinh {
+  background-color: #fffbeb;
+  color: #b45309;
+  border-color: #f59e0b;
+}
+
+.rank-chuadat {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border-color: #ef4444;
+}
+
+/* Status Badge */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.status-pill::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-studying {
+  background-color: #ecfdf5;
+  color: #065f46;
+}
+.status-studying::before {
+  background-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+}
+
+.status-paused {
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+.status-paused::before {
+  background-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
+/* Bio toggle box */
+.bio-box {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background-color: #f8fafc;
+  border-left: 4px solid var(--primary);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  border-top: 1px solid var(--gray-200);
+  border-right: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 0.9rem;
+  color: var(--gray-800);
+  line-height: 1.6;
+}
+
+.bio-box h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+/* ====================================================================
+   BÀI 2: ĐẶT VÉ XEM PHIM
+   ==================================================================== */
+.movie-banner {
+  background: linear-gradient(135deg, #1e1b4b, #312e81);
+  color: white;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.movie-poster-thumb {
+  width: 80px;
+  height: 110px;
+  background: linear-gradient(135deg, #ef4444, #f59e0b);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.movie-info h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.movie-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  margin-top: 8px;
+}
+
+.movie-tag {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 3px 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+/* Radio Cards */
+.radio-cards-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.radio-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  border: 2px solid var(--gray-300);
+  border-radius: var(--radius);
+  cursor: pointer;
+  background-color: var(--white);
+  transition: var(--transition);
+}
+
+.radio-card:hover {
+  border-color: var(--primary-border);
+  background-color: #fafbfc;
+}
+
+.radio-card.active {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.radio-card input[type="radio"] {
+  margin-top: 3px;
+  accent-color: var(--primary);
+}
+
+.radio-card-content .radio-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--gray-900);
+}
+
+.radio-card-content .radio-price {
+  font-weight: 800;
+  color: var(--primary);
+  font-size: 1.05rem;
+  margin-top: 2px;
+}
+
+.radio-card-content .radio-desc {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+}
+
+/* Quantity input with stepper */
+.quantity-stepper {
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+}
+
+.quantity-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--gray-300);
+  background-color: var(--gray-100);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-btn:hover:not(:disabled) {
+  background-color: var(--gray-200);
+  color: var(--primary);
+}
+
+.quantity-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.quantity-btn.btn-dec {
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.quantity-btn.btn-inc {
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.quantity-input {
+  width: 70px;
+  height: 42px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-top: 1px solid var(--gray-300);
+  border-bottom: 1px solid var(--gray-300);
+  border-left: none;
+  border-right: none;
+  outline: none;
+}
+
+/* Checkbox Combo Card */
+.combo-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border: 2px dashed var(--warning-border);
+  border-radius: var(--radius);
+  background-color: var(--warning-light);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.combo-card:hover {
+  background-color: #fef3c7;
+}
+
+.combo-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.combo-left input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #d97706;
+  cursor: pointer;
+}
+
+.combo-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #92400e;
+}
+
+.combo-desc {
+  font-size: 0.8rem;
+  color: #b45309;
+}
+
+.combo-price-tag {
+  font-weight: 800;
+  color: #b45309;
+  font-size: 1rem;
+}
+
+/* Price Calculation Box */
+.price-breakdown {
+  background-color: var(--gray-100);
+  border-radius: var(--radius);
+  padding: 16px;
+  border: 1px solid var(--gray-300);
+  margin-top: 20px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  margin-bottom: 8px;
+}
+
+.price-row.total {
+  border-top: 2px dashed var(--gray-300);
+  padding-top: 12px;
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gray-900);
+}
+
+.price-row.total .price-value {
+  color: #dc2626;
+  font-size: 1.4rem;
+}
+
+/* Ticket Confirmation Result Card (Boarding Pass style) */
+.ticket-confirmation {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border: 2px solid #22c55e;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.2);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ticket-header-success {
+  background: linear-gradient(135deg, #15803d, #22c55e);
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticket-header-success h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ticket-body-pass {
+  padding: 20px;
+}
+
+.ticket-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ticket-info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-info-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  font-weight: 600;
+}
+
+.ticket-info-val {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.ticket-perforated-line {
+  border: none;
+  border-top: 2px dashed #cbd5e1;
+  margin: 16px 0;
+  position: relative;
+}
+
+.ticket-perforated-line::before,
+.ticket-perforated-line::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: #f8fafc;
+  border-radius: 50%;
+  border: 2px solid var(--gray-300);
+}
+
+.ticket-perforated-line::before {
+  left: -32px;
+}
+.ticket-perforated-line::after {
+  right: -32px;
+}
+
+/* ====================================================================
+   BÀI 3: QUẢN LÝ CÔNG VIỆC CÁ NHÂN (TODO APP)
+   ==================================================================== */
+.todo-app-card {
+  max-width: 760px;
+  margin: 0 auto;
+  background-color: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-300);
+  overflow: hidden;
+}
+
+.todo-header {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: white;
+  padding: 24px;
+}
+
+.todo-header-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.todo-stats-pills {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+.stat-pill strong {
+  color: #38bdf8;
+}
+
+/* Input group */
+.todo-input-bar {
+  padding: 20px 24px;
+  background-color: var(--gray-100);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.todo-input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.todo-input-group .form-control {
+  font-size: 1rem;
+  padding: 12px 16px;
+}
+
+/* Filter tabs */
+.todo-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+  background-color: var(--gray-200);
+  padding: 4px;
+  border-radius: var(--radius);
+}
+
+.filter-tab {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--gray-700);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-tab:hover {
+  color: var(--gray-900);
+}
+
+.filter-tab.active {
+  background-color: var(--white);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Task list */
+.task-list {
+  list-style: none;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--gray-200);
+  transition: var(--transition);
+  background-color: var(--white);
+}
+
+.task-item:hover {
+  background-color: #fafbfc;
+}
+
+.task-item-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.task-text {
+  font-size: 0.98rem;
+  color: var(--gray-900);
+  word-break: break-word;
+  transition: var(--transition);
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: var(--gray-500);
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+}
+
+.btn-delete-task {
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--gray-400);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+.btn-delete-task:hover {
+  background-color: var(--danger-light);
+  color: var(--danger);
+  border-color: var(--danger-border);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--gray-500);
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.empty-state-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Todo footer */
+.todo-footer {
+  padding: 14px 24px;
+  background-color: var(--gray-100);
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ==================== FOOTER ==================== */
+.app-footer {
+  background-color: var(--white);
+  border-top: 1px solid var(--gray-300);
+  padding: 20px;
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+.app-footer strong {
+  color: var(--gray-800);
+}

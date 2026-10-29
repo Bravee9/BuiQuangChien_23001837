@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài 3: Quản lý công việc cá nhân - Vue.js | Bùi Quang Chiến 23001837</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Styling riêng cho bài 3 */
+    .filter-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      font-size: 0.72rem;
+      border-radius: 9999px;
+      background-color: var(--gray-300);
+      color: var(--gray-700);
+      margin-left: 4px;
+      font-weight: 700;
+    }
+    .filter-tab.active .filter-badge {
+      background-color: var(--primary);
+      color: white;
+    }
+    .task-time-tag {
+      font-size: 0.72rem;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+    .action-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER DÙNG CHUNG -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-brand">
+        <div class="brand-icon">V</div>
+        <div class="brand-text">
+          <h1>BÀI TẬP THỰC HÀNH SỐ 6 - VUEJS</h1>
+          <span>Phát triển ứng dụng web (MAT3542 1)</span>
+        </div>
+      </a>
+
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">🏠 Trang chủ</a>
+        <a href="bai1.html" class="nav-link">Bài 1: Thẻ sinh viên</a>
+        <a href="bai2.html" class="nav-link">Bài 2: Đặt vé xem phim</a>
+        <a href="bai3.html" class="nav-link active">Bài 3: Quản lý công việc</a>
+      </nav>
+
+      <div class="student-tag">
+        <span>👨‍🎓 Bùi Quang Chiến</span>
+        <span>• 23001837</span>
+        <span>• K68A3</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-content" id="app">
+    <div class="page-intro" style="text-align: center; max-width: 760px; margin: 0 auto 24px;">
+      <h2 class="page-title" style="justify-content: center;">
+        <span>📝</span> Bài 3: Quản lý công việc cá nhân (Todo List)
+      </h2>
+      <p class="page-subtitle">
+        Ứng dụng quản lý danh sách việc cần làm trong ngày với khả năng lọc theo trạng thái, thêm, xóa và thống kê theo thời gian thực mà không cần tải lại trang.
+      </p>
+      <div class="badge-concept" style="display: inline-flex;">
+        💡 Kiến thức áp dụng: v-for, :key, v-model, checkbox, methods, computed, modifier sự kiện (@keyup.enter)
+      </div>
+    </div>
+
+    <!-- KHUNG ỨNG DỤNG TODO LIST -->
+    <div class="todo-app-card">
+      <!-- HEADER ỨNG DỤNG & THỐNG KÊ (8. Computed) -->
+      <div class="todo-header">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h3 class="todo-header-title">
+              <span>📋</span> Danh sách công việc hôm nay
+            </h3>
+            <p style="font-size: 0.85rem; color: #94a3b8;">
+              Kế hoạch học tập & làm việc của Bùi Quang Chiến
+            </p>
+          </div>
+          <button 
+            type="button" 
+            class="btn btn-outline btn-sm" 
+            style="background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.25);" 
+            @click="reloadSampleTasks"
+            title="Khôi phục danh sách công việc mẫu"
+          >
+            🔄 Nạp việc mẫu
+          </button>
+        </div>
+
+        <!-- 8. Dùng computed tính tổng số công việc và số việc chưa hoàn thành -->
+        <div class="todo-stats-pills">
+          <div class="stat-pill">
+            Tổng cộng: <strong>{{ totalTasks }}</strong> công việc
+          </div>
+          <div class="stat-pill">
+            Chưa hoàn thành: <strong style="color: #fde047;">{{ uncompletedTasks }}</strong>
+          </div>
+          <div class="stat-pill">
+            Đã hoàn thành: <strong style="color: #4ade80;">{{ completedTasks }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 & 3. THANH NHẬP CÔNG VIỆC MỚI (Nút Thêm hoặc Enter, cấm chuỗi rỗng/chỉ chứa khoảng trắng) -->
+      <div class="todo-input-bar">
+        <div class="todo-input-group">
+          <!-- Phím Enter (modifier: @keyup.enter) -->
+          <input 
+            type="text" 
+            class="form-control" 
+            v-model="newTaskTitle"
+            @keyup.enter="addTask"
+            placeholder="✍️ Nhập tên công việc cần làm rồi nhấn Enter hoặc bấm 'Thêm'..."
+            autofocus
+          />
+          <!-- 2. Nút "Thêm" -->
+          <button 
+            type="button" 
+            class="btn btn-primary" 
+            @click="addTask"
+            :disabled="!newTaskTitle.trim()"
+            title="Thêm công việc vào danh sách"
+          >
+            ➕ Thêm
+          </button>
+        </div>
+
+        <!-- 3. Báo lỗi khi người dùng cố gắng thêm rỗng hoặc chỉ chứa khoảng trắng -->
+        <div v-if="errorMessage" class="form-feedback-error">
+          ⚠️ {{ errorMessage }}
+        </div>
+      </div>
+
+      <!-- 7. THANH LỌC THEO BA TRẠNG THÁI: Tất cả, Chưa hoàn thành, Đã hoàn thành -->
+      <div class="todo-filter-bar">
+        <div class="filter-tabs">
+          <button 
+            type="button" 
+            class="filter-tab" 
+            :class="{ active: currentFilter === 'all' }"
+            @click="currentFilter = 'all'"
+          >
+            Tất cả
+            <span class="filter-badge">{{ totalTasks }}</span>
+          </button>
+          <button 
+            type="button" 
+            class="filter-tab" 
+            :class="{ active: currentFilter === 'uncompleted' }"
+            @click="currentFilter = 'uncompleted'"
+          >
+            Chưa hoàn thành
+            <span class="filter-badge">{{ uncompletedTasks }}</span>
+          </button>
+          <button 
+            type="button" 
+            class="filter-tab" 
+            :class="{ active: currentFilter === 'completed' }"
+            @click="currentFilter = 'completed'"
+          >
+            Đã hoàn thành
+            <span class="filter-badge">{{ completedTasks }}</span>
+          </button>
+        </div>
+
+        <!-- 9. Nút “Xóa các việc đã hoàn thành” -->
+        <button 
+          type="button" 
+          class="btn btn-outline-danger btn-sm" 
+          @click="clearCompletedTasks"
+          :disabled="completedTasks === 0"
+          title="Xóa tất cả các công việc đã gạch ngang hoàn thành"
+        >
+          🧹 Xóa các việc đã hoàn thành ({{ completedTasks }})
+        </button>
+      </div>
+
+      <!-- 4. HIỂN THỊ DANH SÁCH BẰNG v-for, SỬ DỤNG id LÀM :key -->
+      <ul v-if="filteredTasks.length > 0" class="task-list">
+        <li 
+          v-for="task in filteredTasks" 
+          :key="task.id" 
+          class="task-item"
+          :class="{ completed: task.completed }"
+        >
+          <div class="task-item-main">
+            <!-- 5. Cho phép đánh dấu hoàn thành bằng checkbox -->
+            <input 
+              type="checkbox" 
+              class="task-checkbox" 
+              v-model="task.completed"
+              @change="persistTasks"
+              :id="'task-' + task.id"
+            />
+            <!-- 5. Công việc đã hoàn thành hiển thị gạch ngang -->
+            <label :for="'task-' + task.id" style="cursor: pointer; flex: 1;">
+              <span class="task-text">{{ task.title }}</span>
+              <div v-if="task.createdAt" class="task-time-tag">
+                🕒 Tạo lúc: {{ task.createdAt }}
+              </div>
+            </label>
+          </div>
+
+          <!-- 6. Xóa từng công việc -->
+          <div class="task-actions">
+            <button 
+              type="button" 
+              class="btn-delete-task" 
+              @click="deleteTask(task.id)"
+              title="Xóa công việc này"
+            >
+              🗑️
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <!-- 10. HIỂN THỊ THÔNG BÁO PHÙ HỢP KHI DANH SÁCH HOẶC KẾT QUẢ LỌC RỖNG -->
+      <div v-else class="empty-state">
+        <!-- Trường hợp 1: Danh sách tổng hoàn toàn rỗng -->
+        <div v-if="totalTasks === 0">
+          <span class="empty-state-icon">📭</span>
+          <p class="empty-state-text">
+            Danh sách công việc đang trống! Hãy nhập tên công việc ở trên và bấm <strong>"Thêm"</strong> hoặc nhấn <strong>Enter</strong> để tạo việc cần làm.
+          </p>
+        </div>
+
+        <!-- Trường hợp 2: Lọc "Chưa hoàn thành" nhưng không còn việc nào -->
+        <div v-else-if="currentFilter === 'uncompleted'">
+          <span class="empty-state-icon">🎉</span>
+          <p class="empty-state-text" style="color: #059669;">
+            <strong>Tuyệt vời!</strong> Bạn đã hoàn thành toàn bộ tất cả công việc trong ngày!
+          </p>
+        </div>
+
+        <!-- Trường hợp 3: Lọc "Đã hoàn thành" nhưng chưa có việc nào xong -->
+        <div v-else-if="currentFilter === 'completed'">
+          <span class="empty-state-icon">⏳</span>
+          <p class="empty-state-text">
+            Chưa có công việc nào được đánh dấu hoàn thành. Hãy tích vào ô tròn của các công việc đã làm xong nhé!
+          </p>
+        </div>
+      </div>
+
+      <!-- FOOTER THÔNG TIN DƯỚI DANH SÁCH -->
+      <div class="todo-footer">
+        <div>
+          <span>Trạng thái lọc: </span>
+          <strong style="color: var(--primary);">
+            {{ currentFilter === 'all' ? 'Tất cả' : (currentFilter === 'uncompleted' ? 'Chưa hoàn thành' : 'Đã hoàn thành') }}
+          </strong>
+          ({{ filteredTasks.length }} công việc)
+        </div>
+        <div>
+          <span>Mẹo: Nhấn <strong>Enter</strong> để thêm nhanh mà không cần dùng chuột.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER DÙNG CHUNG -->
+  <footer class="app-footer">
+    <p>Bài tập thực hành buổi 6 - Vue.js | Lớp: <strong>K68A3</strong> | Sinh viên thực hiện: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
+    <p style="color: var(--gray-500); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
+  </footer>
+
+  <!-- VUE 3 CDN & LOCAL FALLBACK -->
+  <script src="assets/js/vue.global.js"></script>
+  <script>
+    if (typeof Vue === 'undefined') {
+      document.write('<script src="https://unpkg.com/vue@3/dist/vue.global.js"><\/script>');
+    }
+  </script>
+
+  <script>
+    const { createApp } = Vue;
+
+    // Dữ liệu mẫu khởi tạo phong phú
+    const DEFAULT_TASKS = [
+      { id: 1, title: 'Ôn tập cú pháp Vue.js: createApp, data(), v-model, computed', completed: true, createdAt: '08:00' },
+      { id: 2, title: 'Hoàn thành Bài 1: Thẻ thông tin sinh viên với v-bind và v-if', completed: true, createdAt: '09:15' },
+      { id: 3, title: 'Hoàn thành Bài 2: Đặt vé xem phim với computed tính tổng tiền', completed: true, createdAt: '10:30' },
+      { id: 4, title: 'Hoàn thành Bài 3: Ứng dụng quản lý công việc cá nhân', completed: false, createdAt: '11:00' },
+      { id: 5, title: 'Kiểm tra kỹ các trường hợp biên & test reactivity trên giao diện', completed: false, createdAt: '11:30' },
+      { id: 6, title: 'Đóng gói mã nguồn & thực hiện git commit nộp bài', completed: false, createdAt: '11:45' }
+    ];
+
+    createApp({
+      data() {
+        // Khôi phục từ localStorage nếu có, nếu chưa có thì dùng danh sách mẫu
+        let initialTasks = DEFAULT_TASKS;
+        try {
+          const stored = localStorage.getItem('vue_buoi6_tasks_23001837');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              initialTasks = parsed;
+            }
+          }
+        } catch (e) {
+          console.warn('Không thể đọc dữ liệu từ localStorage', e);
+        }
+
+        return {
+          // 1. Mỗi công việc gồm: id, tên công việc (title) và trạng thái hoàn thành (completed)
+          tasks: initialTasks,
+          // Biến liên kết nhập công việc mới
+          newTaskTitle: '',
+          // 7. Lọc theo ba trạng thái: “Tất cả”, “Chưa hoàn thành”, “Đã hoàn thành”
+          currentFilter: 'all', // 'all' | 'uncompleted' | 'completed'
+          // Thông báo lỗi khi nhập rỗng
+          errorMessage: ''
+        };
+      },
+
+      computed: {
+        // 8. Dùng computed tính tổng số công việc
+        totalTasks() {
+          return this.tasks.length;
+        },
+
+        // 8. Dùng computed tính số việc chưa hoàn thành
+        uncompletedTasks() {
+          return this.tasks.filter(t => !t.completed).length;
+        },
+
+        // Số việc đã hoàn thành
+        completedTasks() {
+          return this.tasks.filter(t => t.completed).length;
+        },
+
+        // 7. Danh sách công việc theo bộ lọc
+        filteredTasks() {
+          if (this.currentFilter === 'uncompleted') {
+            return this.tasks.filter(t => !t.completed);
+          }
+          if (this.currentFilter === 'completed') {
+            return this.tasks.filter(t => t.completed);
+          }
+          return this.tasks;
+        }
+      },
+
+      methods: {
+        // 2 & 3. Thêm công việc bằng nút “Thêm” hoặc nhấn Enter (Không cho thêm rỗng hoặc chỉ khoảng trắng)
+        addTask() {
+          const trimmed = this.newTaskTitle.trim();
+          if (!trimmed) {
+            this.errorMessage = 'Tên công việc không được để trống hoặc chỉ chứa khoảng trắng!';
+            return;
+          }
+
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+
+          const newTask = {
+            id: Date.now(),
+            title: trimmed,
+            completed: false,
+            createdAt: timeStr
+          };
+
+          this.tasks.unshift(newTask);
+          this.newTaskTitle = '';
+          this.errorMessage = '';
+          this.persistTasks();
+        },
+
+        // 6. Xóa từng công việc
+        deleteTask(id) {
+          this.tasks = this.tasks.filter(task => task.id !== id);
+          this.persistTasks();
+        },
+
+        // 9. Nút “Xóa các việc đã hoàn thành”
+        clearCompletedTasks() {
+          this.tasks = this.tasks.filter(task => !task.completed);
+          this.persistTasks();
+        },
+
+        // Nạp lại danh sách công việc mẫu
+        reloadSampleTasks() {
+          this.tasks = JSON.parse(JSON.stringify(DEFAULT_TASKS));
+          this.currentFilter = 'all';
+          this.errorMessage = '';
+          this.persistTasks();
+        },
+
+        // Lưu vào localStorage để dữ liệu tồn tại an toàn
+        persistTasks() {
+          try {
+            localStorage.setItem('vue_buoi6_tasks_23001837', JSON.stringify(this.tasks));
+          } catch (e) {
+            // Không chặn ứng dụng nếu localStorage bị tắt hoặc lỗi
+          }
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
