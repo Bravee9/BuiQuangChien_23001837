@@ -77,6 +77,11 @@
   --transition: all 0.15s ease;
 }
 
+/* ─── VUE CLOAK (CHỐNG NHẤP NHÁY TEMPLATE TRƯỚC KHI MOUNT) ─── */
+[v-cloak] {
+  display: none !important;
+}
+
 /* ─── BASE RESET ─── */
 * {
   margin: 0;
@@ -103,6 +108,24 @@ body {
 
 code, kbd, samp, pre {
   font-family: var(--font-mono);
+}
+
+/* ─── ACCESSIBILITY HELPERS (MODERN WEB GUIDANCE) ─── */
+.visually-hidden {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
 }
 
 /* ─── APP HEADER (SLIM, CLEAN, HAIRLINE BORDER) ─── */
@@ -231,6 +254,12 @@ code, kbd, samp, pre {
   margin-bottom: 24px;
 }
 
+.page-intro-centered {
+  text-align: center;
+  max-width: 740px;
+  margin: 0 auto 24px;
+}
+
 .page-title {
   font-size: 1.45rem;
   font-weight: 700;
@@ -240,6 +269,10 @@ code, kbd, samp, pre {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.page-title-centered {
+  justify-content: center;
 }
 
 .page-title svg {
@@ -498,6 +531,14 @@ code, kbd, samp, pre {
   line-height: 1.4;
 }
 
+.btn-block {
+  width: 100%;
+}
+
+.btn-flex-1 {
+  flex: 1;
+}
+
 .btn svg {
   width: 15px;
   height: 15px;
@@ -506,7 +547,6 @@ code, kbd, samp, pre {
 .btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
-  pointer-events: none;
 }
 
 /* Outline is the canonical default button */
@@ -519,6 +559,18 @@ code, kbd, samp, pre {
 .btn-outline:hover:not(:disabled) {
   background-color: var(--surface-hover);
   border-color: var(--border-strong);
+}
+
+/* Dark Header Button Variant */
+.btn-dark-ghost {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-dark-ghost:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 /* Primary Button: Solid Bravechat Ocean */
@@ -572,9 +624,32 @@ code, kbd, samp, pre {
   font-size: 0.95rem;
 }
 
-/* ─── FORM CONTROLS (LOCKED RULE 9, M14) ─── */
+/* ─── FORM CONTROLS (LOCKED RULE 9, M14, MODERN WEB GUIDANCE) ─── */
 .form-group {
   margin-bottom: 16px;
+}
+
+.form-group-last {
+  margin-bottom: 0;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 560px) {
+  .form-row-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
 }
 
 .form-label {
@@ -583,6 +658,11 @@ code, kbd, samp, pre {
   font-weight: 600;
   color: var(--foreground);
   margin-bottom: 6px;
+}
+
+.form-label-hint {
+  font-weight: 400;
+  color: var(--muted);
 }
 
 .form-label .required {
@@ -603,12 +683,18 @@ code, kbd, samp, pre {
   outline: none;
 }
 
+.form-control-sm-mt {
+  margin-top: 8px;
+  font-size: 0.825rem;
+}
+
 .form-control:focus {
   border-color: var(--border-focus);
   box-shadow: 0 0 0 3px var(--ring-focus);
 }
 
-.form-control.is-invalid {
+.form-control.is-invalid,
+.form-control:user-invalid {
   border-color: var(--danger);
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
 }
@@ -626,6 +712,24 @@ code, kbd, samp, pre {
   font-size: 0.775rem;
   color: var(--muted);
   margin-top: 4px;
+}
+
+.form-note-muted {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.form-submit-hint {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 8px;
+  text-align: center;
+}
+
+.card-header-note {
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
 /* ─── CARD LAYOUTS (M13: 1px BORDER + ROUNDED, NO SHADOW) ─── */
@@ -767,6 +871,16 @@ code, kbd, samp, pre {
   margin-bottom: 2px;
 }
 
+.student-class-line {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.student-class-value {
+  color: var(--foreground);
+}
+
 .student-meta-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -798,40 +912,73 @@ code, kbd, samp, pre {
   color: var(--foreground);
 }
 
-/* ─── RANK BADGES (M7: SUBTLE TINT + 700 TEXT) ─── */
+.meta-value-gpa {
+  font-size: 1.05rem;
+  font-family: var(--font-mono);
+  color: var(--primary);
+}
+
+.gpa-progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.gpa-progress-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+.bio-toggle-section {
+  margin-top: 14px;
+}
+
+/* ─── RANK BADGES (M7: SUBTLE TINT + 600 TEXT, NO !IMPORTANT NEEDED) ─── */
 .rank-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   padding: 3px 10px;
   border-radius: var(--radius-full);
   font-size: 0.775rem;
   font-weight: 600;
-  border: 1px solid;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.rank-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .rank-gioi {
-  background-color: var(--success-bg) !important;
-  color: var(--success) !important;
-  border-color: var(--success-border) !important;
+  background-color: var(--success-bg);
+  color: var(--success);
+  border-color: var(--success-border);
 }
 
 .rank-kha {
-  background-color: var(--primary-light) !important;
-  color: var(--primary) !important;
-  border-color: var(--primary-border) !important;
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary-border);
 }
 
 .rank-trungbinh {
-  background-color: var(--warning-bg) !important;
-  color: var(--warning) !important;
-  border-color: var(--warning-border) !important;
+  background-color: var(--warning-bg);
+  color: var(--warning);
+  border-color: var(--warning-border);
 }
 
 .rank-chuadat {
-  background-color: var(--danger-bg) !important;
-  color: var(--danger) !important;
-  border-color: var(--danger-border) !important;
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border-color: var(--danger-border);
 }
 
 /* ─── STATUS PILL ─── */
@@ -898,6 +1045,63 @@ code, kbd, samp, pre {
   margin-bottom: 4px;
 }
 
+/* ─── BÀI 1 CONTROLS ─── */
+.quick-score-group {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.boundary-test-row {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.boundary-btn-list {
+  display: inline-flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.inline-radio-group {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+.inline-radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.inline-radio-label input[type="radio"] {
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.gpa-number-input {
+  width: 72px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  text-align: center;
+  color: var(--primary);
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
 /* ─── BÀI 2: ĐẶT VÉ XEM PHIM ─── */
 .movie-banner {
   background-color: var(--surface-dark-surface);
@@ -931,6 +1135,16 @@ code, kbd, samp, pre {
   margin-bottom: 4px;
 }
 
+.movie-meta-line {
+  color: #cbd5e1;
+  font-size: 0.825rem;
+}
+
+.cinema-subtitle {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
 .movie-badges {
   display: flex;
   gap: 6px;
@@ -957,15 +1171,21 @@ code, kbd, samp, pre {
   color: var(--foreground);
 }
 
+.test-preset-desc {
+  margin: 3px 0;
+  font-size: 0.825rem;
+}
+
 .test-preset-btn {
   background-color: var(--surface);
   border: 1px solid var(--primary);
   color: var(--primary);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: var(--radius-xs);
   cursor: pointer;
   font-weight: 600;
   font-size: 0.775rem;
+  font-family: inherit;
   margin-top: 8px;
   transition: var(--transition);
   display: inline-flex;
@@ -983,6 +1203,12 @@ code, kbd, samp, pre {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .radio-cards-group {
+    grid-template-columns: 1fr;
+  }
 }
 
 .radio-card {
@@ -1033,6 +1259,18 @@ code, kbd, samp, pre {
 }
 
 /* Quantity input with stepper */
+.quantity-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.quantity-limit-note {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
 .quantity-stepper {
   display: flex;
   align-items: center;
@@ -1077,12 +1315,19 @@ code, kbd, samp, pre {
   text-align: center;
   font-size: 0.95rem;
   font-weight: 700;
+  font-family: var(--font-mono);
   border-top: 1px solid var(--border-strong);
   border-bottom: 1px solid var(--border-strong);
   border-left: none;
   border-right: none;
   outline: none;
   color: var(--foreground);
+  background-color: var(--surface);
+}
+
+.quantity-input.is-invalid {
+  background-color: var(--danger-bg);
+  color: var(--danger-text);
 }
 
 /* Checkbox Combo Card */
@@ -1191,8 +1436,39 @@ code, kbd, samp, pre {
   gap: 6px;
 }
 
+.ticket-code-badge {
+  font-size: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+}
+
 .ticket-body-pass {
   padding: 18px;
+}
+
+.ticket-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.ticket-section-kicker {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+.ticket-movie-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--foreground);
 }
 
 .ticket-info-grid {
@@ -1220,10 +1496,106 @@ code, kbd, samp, pre {
   color: var(--foreground);
 }
 
+.ticket-info-val-primary {
+  color: var(--primary);
+}
+
+.ticket-info-val-mono {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+}
+
 .ticket-perforated-line {
   border: none;
   border-top: 1px dashed var(--border-strong);
   margin: 14px 0;
+}
+
+.ticket-total-banner {
+  background-color: var(--success-bg);
+  border: 1px solid var(--success-border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-total-label {
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--success-text);
+  text-transform: uppercase;
+}
+
+.ticket-total-amount {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--success);
+  font-family: var(--font-mono);
+}
+
+.ticket-pass-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.ticket-Pending-notice {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background-color: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-text);
+  border-radius: var(--radius-sm);
+  font-size: 0.775rem;
+}
+
+.booking-empty-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.booking-empty-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.booking-empty-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 6px;
+}
+
+.booking-empty-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: 340px;
+  margin-bottom: 16px;
+}
+
+.booking-empty-pill {
+  font-size: 0.75rem;
+  color: var(--muted);
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: var(--radius);
 }
 
 /* ─── BÀI 3: QUẢN LÝ CÔNG VIỆC CÁ NHÂN (TODO APP) ─── */
@@ -1243,6 +1615,14 @@ code, kbd, samp, pre {
   padding: 20px 24px;
 }
 
+.todo-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .todo-header-title {
   font-size: 1.25rem;
   font-weight: 700;
@@ -1257,6 +1637,11 @@ code, kbd, samp, pre {
   width: 18px;
   height: 18px;
   color: var(--primary);
+}
+
+.todo-header-subtitle {
+  font-size: 0.8rem;
+  color: #94a3b8;
 }
 
 .todo-stats-pills {
@@ -1278,6 +1663,14 @@ code, kbd, samp, pre {
 
 .stat-pill strong {
   color: #ffffff;
+}
+
+.stat-pill .stat-highlight-warn {
+  color: #fde047;
+}
+
+.stat-pill .stat-highlight-ok {
+  color: #86efac;
 }
 
 .todo-input-bar {
@@ -1320,6 +1713,7 @@ code, kbd, samp, pre {
   padding: 5px 12px;
   font-size: 0.775rem;
   font-weight: 600;
+  font-family: inherit;
   border: none;
   background: transparent;
   color: var(--muted);
@@ -1394,10 +1788,22 @@ code, kbd, samp, pre {
   flex-shrink: 0;
 }
 
+.task-label {
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
 .task-text {
   font-size: 0.9rem;
   color: var(--foreground);
   word-break: break-word;
+}
+
+.task-meta-time {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
 }
 
 .task-item.completed .task-text {
@@ -1454,6 +1860,10 @@ code, kbd, samp, pre {
   margin: 0 auto;
 }
 
+.empty-state-btn {
+  margin-top: 12px;
+}
+
 /* Todo footer */
 .todo-footer {
   padding: 12px 20px;
@@ -1466,6 +1876,16 @@ code, kbd, samp, pre {
   color: var(--muted);
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.todo-footer-sub {
+  color: var(--muted);
+  margin-left: 4px;
+}
+
+.todo-footer-note {
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
 /* ─── HELPER COMPONENTS FOR EXERCISES ─── */
@@ -1500,6 +1920,17 @@ code, kbd, samp, pre {
   cursor: pointer;
 }
 
+/* Fallback for older browsers without accent-color (brand-consistent-forms) */
+@supports not (accent-color: #1A659E) {
+  .score-range-wrapper input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--border-strong);
+    height: 6px;
+    border-radius: var(--radius-full);
+  }
+}
+
 .score-badge-number {
   min-width: 44px;
   text-align: right;
@@ -1518,6 +1949,7 @@ code, kbd, samp, pre {
 .avatar-option {
   width: 44px;
   height: 44px;
+  padding: 0;
   border-radius: var(--radius-full);
   border: 2px solid var(--border-strong);
   cursor: pointer;
@@ -1530,6 +1962,7 @@ code, kbd, samp, pre {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .avatar-option.selected {
@@ -1554,6 +1987,7 @@ code, kbd, samp, pre {
   align-items: center;
   gap: 8px;
   margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
 .cinema-logo {
@@ -1591,6 +2025,11 @@ code, kbd, samp, pre {
   font-weight: 600;
   text-align: center;
   padding: 4px;
+  flex-shrink: 0;
+}
+
+.qr-placeholder svg {
+  margin-bottom: 2px;
 }
 
 .action-toolbar {
@@ -1614,4 +2053,43 @@ code, kbd, samp, pre {
 
 .app-footer strong {
   color: var(--foreground);
+}
+
+.footer-subline {
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ─── PRINT STYLES (HỖ TRỢ IN CUỐNG VÉ BÀI 2 CHUẨN UI/UX) ─── */
+@media print {
+  .app-header,
+  .page-intro,
+  .movie-banner,
+  .test-preset-box,
+  .ticket-pass-actions,
+  .app-footer {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .main-content {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .grid-2col {
+    display: block;
+  }
+
+  .grid-2col > div:first-child {
+    display: none !important;
+  }
+
+  .ticket-confirmation {
+    border: 1px solid #000000;
+    box-shadow: none;
+  }
 }

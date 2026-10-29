@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bài 1: Thẻ thông tin sinh viên với Vue.js 3 | Bùi Quang Chiến - 23001837">
   <title>Bài 1: Thẻ thông tin sinh viên - Vue.js | Bùi Quang Chiến 23001837</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -12,28 +13,28 @@
   <header class="app-header">
     <div class="header-inner">
       <a href="index.html" class="header-brand">
-        <div class="brand-icon">V</div>
+        <div class="brand-icon" aria-hidden="true">V</div>
         <div class="brand-text">
           <h1>MAT3542 1 • BÀI THỰC HÀNH 6</h1>
           <span>Lập trình Vue.js 3 cơ bản</span>
         </div>
       </a>
 
-      <nav class="header-nav">
+      <nav class="header-nav" aria-label="Điều hướng bài thực hành">
         <a href="index.html" class="nav-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           Tổng quan
         </a>
-        <a href="bai1.html" class="nav-link active">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <a href="bai1.html" class="nav-link active" aria-current="page">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Bài 1: Thẻ sinh viên
         </a>
         <a href="bai2.html" class="nav-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"/><line x1="7" x2="7" y1="2" y2="22"/><line x1="17" x2="17" y1="2" y2="22"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="2" x2="7" y1="7" y2="7"/><line x1="2" x2="7" y1="17" y2="17"/><line x1="17" x2="22" y1="17" y2="17"/><line x1="17" x2="22" y1="7" y2="7"/></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="2.18" ry="2.18"/><line x1="7" x2="7" y1="2" y2="22"/><line x1="17" x2="17" y1="2" y2="22"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="2" x2="7" y1="7" y2="7"/><line x1="2" x2="7" y1="17" y2="17"/><line x1="17" x2="22" y1="17" y2="17"/><line x1="17" x2="22" y1="7" y2="7"/></svg>
           Bài 2: Đặt vé xem phim
         </a>
         <a href="bai3.html" class="nav-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           Bài 3: Quản lý công việc
         </a>
       </nav>
@@ -48,10 +49,10 @@
   </header>
 
   <!-- NỘI DUNG CHÍNH -->
-  <main class="main-content" id="app">
+  <main class="main-content" id="app" v-cloak>
     <div class="page-intro">
       <h2 class="page-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Bài 1: Thẻ thông tin sinh viên
       </h2>
       <p class="page-subtitle">
@@ -66,14 +67,14 @@
     <div class="grid-2col">
       <!-- CỘT 1: THẺ SINH VIÊN (GIAO DIỆN HIỂN THỊ CHÍNH) -->
       <div>
-        <div class="student-card-preview">
+        <article class="student-card-preview" aria-label="Thẻ thông tin sinh viên">
           <!-- Banner phía trên thẻ -->
           <div class="student-card-banner">
             <div>
               <div class="school-name">ĐẠI HỌC KHOA HỌC TỰ NHIÊN - ĐHQGHN</div>
               <small>KHOA TOÁN - CƠ - TIN HỌC</small>
             </div>
-            <div class="chip-icon" title="Thẻ sinh viên thông minh"></div>
+            <div class="chip-icon" title="Thẻ sinh viên thông minh" aria-hidden="true"></div>
           </div>
 
           <!-- Nội dung thân thẻ -->
@@ -81,9 +82,12 @@
             <!-- 3. Gắn đường dẫn ảnh và nội dung thay thế bằng v-bind -->
             <div class="avatar-wrapper">
               <img 
-                v-bind:src="avatar" 
-                v-bind:alt="fullName" 
-                class="student-avatar-img" 
+                v-bind:src="safeAvatar" 
+                v-bind:alt="fullName || 'Ảnh đại diện sinh viên'" 
+                class="student-avatar-img"
+                width="84"
+                height="84"
+                @error="handleAvatarError"
               />
             </div>
 
@@ -91,8 +95,8 @@
             <h3 class="student-name-display">{{ fullName }}</h3>
 
             <!-- 2. Tên lớp bằng v-text -->
-            <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 8px;">
-              Lớp: <strong style="color: var(--foreground);" v-text="className"></strong>
+            <p class="student-class-line">
+              Lớp: <strong class="student-class-value" v-text="className"></strong>
             </p>
 
             <!-- Lưới thông tin sinh viên -->
@@ -117,16 +121,21 @@
 
               <div class="meta-item">
                 <span class="meta-label">Điểm trung bình (GPA)</span>
-                <span class="meta-value" style="font-size: 1.05rem; font-family: var(--font-mono); color: var(--primary);">
-                  {{ Number(gpa).toFixed(1) }} / 10
+                <span class="meta-value meta-value-gpa">
+                  {{ formattedGpa }} / 10
                 </span>
+                <!-- Thanh tiến độ trực quan dùng :style cập nhật theo GPA -->
+                <div class="gpa-progress-track" aria-hidden="true">
+                  <div class="gpa-progress-bar" :style="gpaProgressStyle"></div>
+                </div>
               </div>
 
-              <!-- 4 & 5. Xếp loại theo GPA (v-if) và Đổi màu bằng :class / :style -->
+              <!-- 4 & 5. Xếp loại theo GPA (v-if) và đổi màu xếp loại bằng :class -->
               <div class="meta-item">
                 <span class="meta-label">Xếp loại học lực</span>
                 <div>
-                  <span :class="['rank-badge', rankClass]" :style="rankStyle">
+                  <span :class="['rank-badge', rankClass]">
+                    <span class="rank-dot" :style="{ backgroundColor: rankAccentColor }" aria-hidden="true"></span>
                     <span v-if="gpa >= 8 && gpa <= 10">Giỏi</span>
                     <span v-else-if="gpa >= 6.5 && gpa < 8">Khá</span>
                     <span v-else-if="gpa >= 5 && gpa < 6.5">Trung bình</span>
@@ -137,160 +146,233 @@
             </div>
 
             <!-- 7. Tạo nút bật/tắt phần giới thiệu bằng v-show -->
-            <div style="margin-top: 14px;">
+            <div class="bio-toggle-section">
               <button 
                 type="button" 
-                class="btn btn-outline btn-sm" 
+                class="btn btn-outline btn-sm btn-block" 
                 @click="showBio = !showBio"
-                style="width: 100%;"
+                :aria-expanded="showBio ? 'true' : 'false'"
+                aria-controls="student-bio-section"
               >
                 <span v-if="showBio">Thu gọn thông tin giới thiệu</span>
                 <span v-else>Xem thông tin giới thiệu sinh viên</span>
               </button>
 
               <!-- Phần giới thiệu được điều khiển bật/tắt bằng v-show -->
-              <div v-show="showBio" class="bio-box">
+              <div id="student-bio-section" v-show="showBio" class="bio-box">
                 <h4>Thông tin giới thiệu</h4>
                 <p>{{ bio }}</p>
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
 
       <!-- CỘT 2: BẢNG ĐIỀU KHIỂN DỮ LIỆU TƯƠNG TÁC (KIỂM TRA REACTIVITY & CÁC TRƯỜNG HỢP BIÊN) -->
       <div>
-        <div class="card">
+        <section class="card" aria-labelledby="reactive-panel-title">
           <div class="card-header">
-            <h3 class="card-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <h3 class="card-title" id="reactive-panel-title">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
               Bảng thử nghiệm dữ liệu phản ứng
             </h3>
-            <button class="btn btn-outline btn-sm" @click="resetToDefault" title="Khôi phục dữ liệu ban đầu">
+            <button type="button" class="btn btn-outline btn-sm" @click="resetToDefault" title="Khôi phục dữ liệu ban đầu">
               Đặt lại
             </button>
           </div>
 
           <div class="card-body">
-            <p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 14px;">
+            <p class="form-note-muted">
               Thay đổi dữ liệu tại đây để kiểm tra tính năng phản ứng tự động cập nhật của Vue.js 3:
             </p>
 
             <!-- Họ tên -->
             <div class="form-group">
-              <label class="form-label">Họ và tên sinh viên (kiểm tra <code>{{ '{{ }}' }}</code>):</label>
-              <input type="text" class="form-control" v-model="fullName" placeholder="Nhập họ và tên...">
+              <label class="form-label" for="studentFullName">
+                Họ và tên sinh viên (kiểm tra <code>{{ '{{ }}' }}</code>):
+              </label>
+              <input 
+                type="text" 
+                id="studentFullName"
+                name="fullName"
+                class="form-control" 
+                v-model.trim="fullName" 
+                maxlength="80"
+                autocomplete="name"
+                placeholder="Nhập họ và tên..."
+              />
             </div>
 
             <!-- Mã sinh viên & Lớp -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-row-2col">
               <div class="form-group">
-                <label class="form-label">Mã sinh viên:</label>
-                <input type="text" class="form-control" v-model="studentId" placeholder="Mã SV...">
+                <label class="form-label" for="studentIdInput">Mã sinh viên:</label>
+                <input 
+                  type="text" 
+                  id="studentIdInput"
+                  name="studentId"
+                  class="form-control" 
+                  v-model.trim="studentId" 
+                  maxlength="20"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  placeholder="Mã SV..."
+                />
               </div>
               <div class="form-group">
-                <label class="form-label">Lớp (kiểm tra <code>v-text</code>):</label>
-                <input type="text" class="form-control" v-model="className" placeholder="Tên lớp...">
+                <label class="form-label" for="classNameInput">Lớp (kiểm tra <code>v-text</code>):</label>
+                <input 
+                  type="text" 
+                  id="classNameInput"
+                  name="className"
+                  class="form-control" 
+                  v-model.trim="className" 
+                  maxlength="30"
+                  autocorrect="off"
+                  spellcheck="false"
+                  placeholder="Tên lớp..."
+                />
               </div>
             </div>
 
             <!-- Điểm trung bình & Xếp loại -->
             <div class="form-group">
-              <label class="form-label">
+              <label class="form-label" for="gpaRangeInput">
                 Điểm trung bình (GPA):
-                <span style="font-weight: 400; color: var(--muted);">(Kiểm tra các mốc xếp loại)</span>
+                <span class="form-label-hint">(Thang điểm từ 0.0 đến 10.0)</span>
               </label>
               
               <div class="score-range-wrapper">
                 <input 
                   type="range" 
+                  id="gpaRangeInput"
+                  name="gpaRange"
                   min="0" 
                   max="10" 
                   step="0.1" 
-                  v-model.number="gpa" 
+                  v-model.number="gpa"
+                  @input="validateAndClampGpa"
                 />
-                <span class="score-badge-number">{{ Number(gpa).toFixed(1) }}</span>
+                <label for="gpaNumberInput" class="visually-hidden">Nhập điểm GPA bằng số</label>
+                <input
+                  type="number"
+                  id="gpaNumberInput"
+                  name="gpaNumber"
+                  class="gpa-number-input"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  v-model.number="gpa"
+                  @blur="validateAndClampGpa"
+                  aria-describedby="gpaBoundaryHelp"
+                />
+              </div>
+
+              <div v-if="gpaWarning" class="form-feedback-error" role="alert" aria-live="polite">
+                {{ gpaWarning }}
               </div>
 
               <!-- Nút chọn nhanh để test các mốc biên theo đề bài -->
-              <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px;">
-                <button type="button" class="quick-score-btn" @click="gpa = 9.2">9.2 (Giỏi: 8.0 - 10)</button>
-                <button type="button" class="quick-score-btn" @click="gpa = 7.0">7.0 (Khá: 6.5 - &lt;8.0)</button>
-                <button type="button" class="quick-score-btn" @click="gpa = 5.8">5.8 (Trung bình: 5.0 - &lt;6.5)</button>
-                <button type="button" class="quick-score-btn" @click="gpa = 3.5">3.5 (Chưa đạt: &lt;5.0)</button>
+              <div class="quick-score-group" id="gpaBoundaryHelp">
+                <button type="button" class="quick-score-btn" @click="setGpa(9.2)">9.2 (Giỏi: 8.0 - 10)</button>
+                <button type="button" class="quick-score-btn" @click="setGpa(7.0)">7.0 (Khá: 6.5 - &lt;8.0)</button>
+                <button type="button" class="quick-score-btn" @click="setGpa(5.8)">5.8 (Trung bình: 5.0 - &lt;6.5)</button>
+                <button type="button" class="quick-score-btn" @click="setGpa(3.5)">3.5 (Chưa đạt: &lt;5.0)</button>
               </div>
 
               <!-- Thử nghiệm các trường hợp biên sát nút -->
-              <div style="margin-top: 8px; font-size: 0.75rem; color: var(--muted);">
+              <div class="boundary-test-row">
                 <strong>Test giá trị biên chính xác:</strong>
-                <span style="display: inline-flex; gap: 4px; margin-left: 6px;">
-                  <button type="button" class="quick-score-btn" @click="gpa = 8.0">8.0</button>
-                  <button type="button" class="quick-score-btn" @click="gpa = 7.9">7.9</button>
-                  <button type="button" class="quick-score-btn" @click="gpa = 6.5">6.5</button>
-                  <button type="button" class="quick-score-btn" @click="gpa = 6.4">6.4</button>
-                  <button type="button" class="quick-score-btn" @click="gpa = 5.0">5.0</button>
-                  <button type="button" class="quick-score-btn" @click="gpa = 4.9">4.9</button>
-                </span>
+                <div class="boundary-btn-list">
+                  <button type="button" class="quick-score-btn" @click="setGpa(10.0)">10.0</button>
+                  <button type="button" class="quick-score-btn" @click="setGpa(8.0)">8.0</button>
+                  <button type="button" class="quick-score-btn" @click="setGpa(7.9)">7.9</button>
+                  <button type="button" class="quick-score-btn" @click="setGpa(6.5)">6.5</button>
+                  <button type="button" class="quick-score-btn" @click="setGpa(6.4)">6.4</button>
+                  <button type="button" class="quick-score-btn" @click="setGpa(5.0)">5.0</button>
+                  <button type="button" class="quick-score-btn" @click="setGpa(4.9)">4.9</button>
+                  <button type="button" class="quick-score-btn" @click="setGpa(0.0)">0.0</button>
+                </div>
               </div>
             </div>
 
             <!-- Trạng thái học tập -->
             <div class="form-group">
-              <label class="form-label">Trạng thái học tập (kiểm tra <code>v-if</code>):</label>
-              <div style="display: flex; gap: 16px; align-items: center; margin-top: 4px; font-size: 0.85rem;">
-                <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
-                  <input type="radio" :value="true" v-model="isStudying" />
-                  <span>Đang học</span>
-                </label>
-                <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
-                  <input type="radio" :value="false" v-model="isStudying" />
-                  <span>Đã nghỉ</span>
-                </label>
-              </div>
+              <fieldset class="form-fieldset">
+                <legend class="form-label">Trạng thái học tập (kiểm tra <code>v-if</code>):</legend>
+                <div class="inline-radio-group">
+                  <label class="inline-radio-label" for="statusStudying">
+                    <input type="radio" id="statusStudying" name="isStudying" :value="true" v-model="isStudying" />
+                    <span>Đang học</span>
+                  </label>
+                  <label class="inline-radio-label" for="statusPaused">
+                    <input type="radio" id="statusPaused" name="isStudying" :value="false" v-model="isStudying" />
+                    <span>Đã nghỉ</span>
+                  </label>
+                </div>
+              </fieldset>
             </div>
 
             <!-- Ảnh đại diện -->
             <div class="form-group">
-              <label class="form-label">Ảnh đại diện (kiểm tra <code>v-bind:src</code> & <code>v-bind:alt</code>):</label>
-              <div class="avatar-picker">
-                <div 
+              <label class="form-label" for="avatarUrlInput">
+                Ảnh đại diện (kiểm tra <code>v-bind:src</code> &amp; <code>v-bind:alt</code>):
+              </label>
+              <div class="avatar-picker" role="group" aria-label="Chọn nhanh ảnh đại diện mẫu">
+                <button 
+                  type="button"
                   class="avatar-option" 
                   :class="{ selected: avatar === avatarOptions[0] }"
-                  @click="avatar = avatarOptions[0]"
+                  :aria-pressed="avatar === avatarOptions[0] ? 'true' : 'false'"
+                  @click="selectAvatar(avatarOptions[0])"
                   title="Avatar 1 (Nam - Kính mắt)"
                 >
-                  <img :src="avatarOptions[0]" alt="Avatar 1">
-                </div>
-                <div 
+                  <img :src="avatarOptions[0]" alt="Mẫu ảnh đại diện 1" width="44" height="44">
+                </button>
+                <button 
+                  type="button"
                   class="avatar-option" 
                   :class="{ selected: avatar === avatarOptions[1] }"
-                  @click="avatar = avatarOptions[1]"
+                  :aria-pressed="avatar === avatarOptions[1] ? 'true' : 'false'"
+                  @click="selectAvatar(avatarOptions[1])"
                   title="Avatar 2 (Nam - Phong cách xanh)"
                 >
-                  <img :src="avatarOptions[1]" alt="Avatar 2">
-                </div>
+                  <img :src="avatarOptions[1]" alt="Mẫu ảnh đại diện 2" width="44" height="44">
+                </button>
               </div>
               <input 
-                type="text" 
-                class="form-control" 
-                v-model="avatar" 
-                placeholder="Hoặc dán URL ảnh tùy chỉnh..." 
-                style="margin-top: 8px; font-size: 0.825rem;"
-              >
+                type="url" 
+                id="avatarUrlInput"
+                name="avatarUrl"
+                class="form-control form-control-sm-mt" 
+                v-model.trim="avatar"
+                @input="avatarError = ''"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                placeholder="Hoặc dán đường dẫn ảnh hợp lệ (https://... hoặc assets/...)" 
+              />
+              <div v-if="avatarError" class="form-feedback-error" role="alert" aria-live="polite">
+                {{ avatarError }}
+              </div>
             </div>
 
             <!-- Phần giới thiệu -->
-            <div class="form-group" style="margin-bottom: 0;">
-              <label class="form-label">Nội dung giới thiệu (kiểm tra <code>v-show</code>):</label>
+            <div class="form-group form-group-last">
+              <label class="form-label" for="studentBioInput">Nội dung giới thiệu (kiểm tra <code>v-show</code>):</label>
               <textarea 
+                id="studentBioInput"
+                name="bio"
                 class="form-control" 
                 rows="3" 
+                maxlength="500"
                 v-model="bio"
                 placeholder="Nhập nội dung giới thiệu..."
               ></textarea>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   </main>
@@ -298,16 +380,11 @@
   <!-- FOOTER DÙNG CHUNG -->
   <footer class="app-footer">
     <p>Bài tập thực hành buổi 6 - Vue.js | Lớp: <strong>K68A3</strong> | Sinh viên thực hiện: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
-    <p style="color: var(--muted); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
+    <p class="footer-subline">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
   </footer>
 
-  <!-- VUE 3 CDN & LOCAL FALLBACK -->
+  <!-- VUE 3 GLOBAL BUILD (LOCAL ENGINE) -->
   <script src="assets/js/vue.global.js"></script>
-  <script>
-    if (typeof Vue === 'undefined') {
-      document.write('<script src="https://unpkg.com/vue@3/dist/vue.global.js"><\/script>');
-    }
-  </script>
 
   <script>
     const { createApp } = Vue;
@@ -324,6 +401,8 @@
           isStudying: true,
           bio: 'Sinh viên năm 3 khoa Toán - Cơ - Tin học, Đại học Khoa học Tự nhiên (HUS). Đam mê lập trình Front-end & Back-end với Vue.js, PHP và hệ sinh thái web hiện đại.',
           showBio: true,
+          gpaWarning: '',
+          avatarError: '',
           // Danh sách avatar mẫu hỗ trợ đổi nhanh
           avatarOptions: [
             'assets/images/student-avatar.svg',
@@ -333,13 +412,42 @@
       },
 
       computed: {
-        // 5. Dùng :class hoặc :style để đổi màu xếp loại:
+        // Chuẩn hóa GPA trong đoạn [0, 10] để phòng chống giá trị biên ngoài miền
+        normalizedGpa() {
+          const num = Number(this.gpa);
+          if (Number.isNaN(num)) return 0;
+          return Math.min(10, Math.max(0, num));
+        },
+
+        // Định dạng điểm GPA hiển thị
+        formattedGpa() {
+          return this.normalizedGpa.toFixed(1);
+        },
+
+        // Kiểm tra bảo mật đường dẫn ảnh đại diện (chặn javascript:, data:text/html,...)
+        safeAvatar() {
+          const raw = (this.avatar || '').trim();
+          if (!raw) {
+            return this.avatarOptions[0];
+          }
+          const lower = raw.toLowerCase();
+          if (
+            lower.startsWith('javascript:') ||
+            lower.startsWith('vbscript:') ||
+            (lower.startsWith('data:') && !lower.startsWith('data:image/'))
+          ) {
+            return this.avatarOptions[0];
+          }
+          return raw;
+        },
+
+        // 5. Dùng :class để đổi màu xếp loại theo thang điểm:
         // • Từ 8 đến 10: Giỏi
         // • Từ 6,5 đến dưới 8: Khá
         // • Từ 5 đến dưới 6,5: Trung bình
         // • Dưới 5: Chưa đạt
         rankClass() {
-          const score = Number(this.gpa);
+          const score = this.normalizedGpa;
           if (score >= 8 && score <= 10) {
             return 'rank-gioi';
           } else if (score >= 6.5 && score < 8) {
@@ -351,38 +459,71 @@
           }
         },
 
-        // Dùng :style linh hoạt bổ sung cho styling
-        rankStyle() {
-          const score = Number(this.gpa);
+        // Màu nhấn (accent) tương ứng với từng mức xếp loại để dùng cho :style
+        rankAccentColor() {
+          const score = this.normalizedGpa;
           if (score >= 8 && score <= 10) {
-            return {
-              backgroundColor: '#ecfdf5',
-              color: '#047857',
-              borderColor: '#a7f3d0'
-            };
+            return '#047857';
           } else if (score >= 6.5 && score < 8) {
-            return {
-              backgroundColor: '#f0f7fc',
-              color: '#1A659E',
-              borderColor: '#cce3f5'
-            };
+            return '#1A659E';
           } else if (score >= 5 && score < 6.5) {
-            return {
-              backgroundColor: '#fffbeb',
-              color: '#b45309',
-              borderColor: '#fde68a'
-            };
+            return '#b45309';
           } else {
-            return {
-              backgroundColor: '#fef2f2',
-              color: '#b91c1c',
-              borderColor: '#fecaca'
-            };
+            return '#b91c1c';
           }
+        },
+
+        // 5. Dùng :style cập nhật thanh tiến độ và màu sắc theo điểm trung bình
+        gpaProgressStyle() {
+          return {
+            width: `${this.normalizedGpa * 10}%`,
+            backgroundColor: this.rankAccentColor
+          };
         }
       },
 
       methods: {
+        // Gán nhanh điểm GPA từ nút thử nghiệm
+        setGpa(val) {
+          this.gpa = val;
+          this.gpaWarning = '';
+        },
+
+        // Kiểm soát trường hợp biên khi người dùng nhập số âm, > 10 hoặc rỗng
+        validateAndClampGpa() {
+          const raw = Number(this.gpa);
+          if (this.gpa === '' || this.gpa === null || Number.isNaN(raw)) {
+            this.gpa = 0;
+            this.gpaWarning = 'Điểm GPA không hợp lệ, hệ thống đã tự động đưa về 0.0.';
+            return;
+          }
+          if (raw < 0) {
+            this.gpa = 0;
+            this.gpaWarning = 'Điểm trung bình không được nhỏ hơn 0 (đã chuẩn hóa về 0.0).';
+          } else if (raw > 10) {
+            this.gpa = 10;
+            this.gpaWarning = 'Điểm trung bình tối đa là 10.0 (đã chuẩn hóa về 10.0).';
+          } else {
+            this.gpa = Math.round(raw * 10) / 10;
+            this.gpaWarning = '';
+          }
+        },
+
+        // Chọn ảnh đại diện mẫu
+        selectAvatar(url) {
+          this.avatar = url;
+          this.avatarError = '';
+        },
+
+        // Xử lý khi URL ảnh tùy chỉnh bị lỗi hoặc không tồn tại
+        handleAvatarError() {
+          if (this.avatar !== this.avatarOptions[0]) {
+            this.avatarError = 'Không thể tải ảnh từ đường dẫn đã nhập, đã chuyển về ảnh mặc định.';
+            this.avatar = this.avatarOptions[0];
+          }
+        },
+
+        // Khôi phục dữ liệu mặc định
         resetToDefault() {
           this.studentId = '23001837';
           this.fullName = 'Bùi Quang Chiến';
@@ -392,6 +533,8 @@
           this.isStudying = true;
           this.bio = 'Sinh viên năm 3 khoa Toán - Cơ - Tin học, Đại học Khoa học Tự nhiên (HUS). Đam mê lập trình Front-end & Back-end với Vue.js, PHP và hệ sinh thái web hiện đại.';
           this.showBio = true;
+          this.gpaWarning = '';
+          this.avatarError = '';
         }
       }
     }).mount('#app');
