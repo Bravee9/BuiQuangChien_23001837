@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buổi 7: Bài tập thực hành Vue 3 | Bùi Quang Chiến 23001837</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: white;
+      padding: 40px 30px;
+      border-radius: var(--radius-xl);
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::after {
+      content: "Vue 3 Advanced";
+      position: absolute;
+      right: 20px;
+      bottom: -15px;
+      font-size: 4rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.04);
+      pointer-events: none;
+    }
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      color: #94a3b8;
+      max-width: 680px;
+    }
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+    @media (max-width: 992px) {
+      .exercise-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .exercise-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+    .exercise-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    .exercise-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    .icon-1 { background: #eff6ff; }
+    .icon-2 { background: #fdf2f8; }
+    .icon-3 { background: #ecfdf5; }
+    .exercise-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .exercise-card p {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .concept-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .concept-tag {
+      font-size: 0.75rem;
+      background-color: var(--gray-100);
+      color: var(--gray-700);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--gray-200);
+      font-family: monospace;
+    }
+    .info-summary-box {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 768px) {
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER DÙNG CHUNG -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-brand">
+        <div class="brand-icon">V3</div>
+        <div class="brand-text">
+          <h1>BÀI TẬP THỰC HÀNH VUE 3 - BUỔI 7</h1>
+          <span>Phát triển ứng dụng web (MAT3542 1)</span>
+        </div>
+      </a>
+
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link active">Trang chủ</a>
+        <a href="bai1.html" class="nav-link">Bài 1: Danh sách sản phẩm</a>
+        <a href="bai2.html" class="nav-link">Bài 2: Component TheSanPham</a>
+        <a href="bai3.html" class="nav-link">Bài 3: Giỏ hàng $emit</a>
+      </nav>
+
+      <div class="student-tag">
+        <span>Bùi Quang Chiến</span>
+        <span>• 23001837</span>
+        <span>• K68A3</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-content">
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <h2 class="hero-title">Bài thực hành số 7: Lập trình Vue 3 Nâng cao</h2>
+      <p class="hero-subtitle">
+        Khám phá các kỹ thuật nâng cao trong Vue 3: Phản ứng dữ liệu kết hợp (Directives, Methods, Computed, Watch, Mounted), 
+        Kiến trúc Component hóa (Props validation, Data độc lập, Tách file .js), và Luồng dữ liệu một chiều qua Custom Events ($emit).
+      </p>
+    </section>
+
+    <!-- GRID 3 BÀI TẬP -->
+    <div class="exercise-grid">
+      <!-- BÀI 1 -->
+      <div class="exercise-card">
+        <div class="exercise-icon icon-1">📊</div>
+        <h3>Bài 1: Danh sách sản phẩm có tìm kiếm và thống kê</h3>
+        <p>
+          Quản lý danh sách sản phẩm với tìm kiếm không phân biệt hoa thường, lọc theo danh mục, sắp xếp theo đơn giá tăng/giảm mà không biến đổi mảng gốc. Thống kê số lượng và tổng giá trị tồn kho động qua <code>computed</code>, giám sát từ khóa qua <code>watch</code> và đặt trạng thái "Sẵn sàng" tại <code>mounted()</code>.
+        </p>
+        <div class="concept-tags">
+          <span class="concept-tag">v-for</span>
+          <span class="concept-tag">computed</span>
+          <span class="concept-tag">watch</span>
+          <span class="concept-tag">mounted()</span>
+          <span class="concept-tag">immutability</span>
+        </div>
+        <a href="bai1.html" class="btn btn-primary" style="width: 100%;">
+          Xem chi tiết Bài 1 →
+        </a>
+      </div>
+
+      <!-- BÀI 2 -->
+      <div class="exercise-card">
+        <div class="exercise-icon icon-2">🧩</div>
+        <h3>Bài 2: Danh mục sản phẩm bằng component</h3>
+        <p>
+          Xây dựng component <code>&lt;the-san-pham&gt;</code> tách riêng tại <code>components/TheSanPham.js</code>. Nhận props có định kiểu chặt chẽ, kiểm tra prop bắt buộc và giá trị mặc định. Quản lý trạng thái mở/đóng mô tả độc lập trong <code>data()</code> từng component và khóa nút "Mua" khi hết hàng.
+        </p>
+        <div class="concept-tags">
+          <span class="concept-tag">app.component</span>
+          <span class="concept-tag">props: { type, required, default }</span>
+          <span class="concept-tag">isolated data()</span>
+          <span class="concept-tag">TheSanPham.js</span>
+        </div>
+        <a href="bai2.html" class="btn btn-primary" style="width: 100%;">
+          Xem chi tiết Bài 2 →
+        </a>
+      </div>
+
+      <!-- BÀI 3 -->
+      <div class="exercise-card">
+        <div class="exercise-icon icon-3">🛒</div>
+        <h3>Bài 3: Giỏ hàng với props và $emit</h3>
+        <p>
+          Thực hiện luồng dữ liệu 1 chiều (One-Way Data Flow): Component cha quản lý mảng giỏ hàng, component con <code>&lt;dong-gio-hang&gt;</code> nhận props hiển thị và phát sự kiện <code>doi-so-luong</code> (giới hạn 1-99), <code>yeu-cau-xoa</code>. Tính tổng số lượng và tổng tiền qua <code>computed</code>. Hiển thị "Giỏ hàng trống" khi hết hàng.
+        </p>
+        <div class="concept-tags">
+          <span class="concept-tag">One-Way Data Flow</span>
+          <span class="concept-tag">emits: ['doi-so-luong', 'yeu-cau-xoa']</span>
+          <span class="concept-tag">this.$emit</span>
+          <span class="concept-tag">Test Case: 2 bút + 3 vở = 46k</span>
+        </div>
+        <a href="bai3.html" class="btn btn-primary" style="width: 100%;">
+          Xem chi tiết Bài 3 →
+        </a>
+      </div>
+    </div>
+
+    <!-- TÓM TẮT THÔNG TIN SINH VIÊN & HỌC PHẦN -->
+    <div class="info-summary-box">
+      <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px;">
+        <span>📌</span> Thông tin học phần & Sinh viên thực hiện
+      </h3>
+      <div class="summary-grid">
+        <div class="meta-item">
+          <span class="meta-label">Sinh viên thực hiện</span>
+          <span class="meta-value">Bùi Quang Chiến</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Mã sinh viên</span>
+          <span class="meta-value">23001837</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Lớp sinh hoạt</span>
+          <span class="meta-value">K68A3</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Học phần</span>
+          <span class="meta-value">MAT3542 1 - Phát triển ứng dụng web</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER DÙNG CHUNG -->
+  <footer class="app-footer">
+    <p>Bài tập thực hành Vue 3 (Buổi 7) | Lớp: <strong>K68A3</strong> | Sinh viên thực hiện: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
+    <p style="color: var(--gray-400); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
+  </footer>
+
+</body>
+</html>

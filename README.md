@@ -1,36 +1,37 @@
-# MAT3542 1 - Phát triển ứng dụng web
+# MAT3542 1 - Web Application Development
 
-Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phát triển ứng dụng web** (Mã học phần: MAT3542 1).
-
----
-
-## Thông tin sinh viên
-
-- **Họ và tên:** Bùi Quang Chiến
-- **Mã sinh viên:** 23001837
-- **Lớp:** K68A3
-- **Học phần:** [2026] MAT3542 1 - Phát triển ứng dụng web
+This repository contains practical laboratory assignments and source code for the course **Web Application Development** (Course Code: MAT3542 1).
 
 ---
 
-## Cấu trúc thư mục
+## Student Information
+
+- **Full Name:** Bui Quang Chien
+- **Student ID:** 23001837
+- **Class:** K68A3
+- **Course:** [2026] MAT3542 1 - Web Application Development
+- **Institution:** VNU University of Science (HUS), Vietnam National University, Hanoi
+
+---
+
+## Repository Structure
 
 ```text
 .
-├── Buoi_1/                              # Bài thực hành PHP cơ bản (Biến, mảng, hàm & OOP sơ cấp)
+├── Buoi_1/                              # Fundamentals of PHP: Variables, Arrays, Functions, and OOP Basics
 │   ├── Bai_thuc_hanh_PHP_Buoi_1.pdf
 │   ├── bai1.php
 │   ├── bai2.php
 │   ├── bai3.php
 │   └── bai4.php
-├── Buoi_2/                              # Bài thực hành PHP - Function & OOP
-│   ├── Bài thực hành buổi 2.pdf
+├── Buoi_2/                              # PHP Advanced Functions and Object-Oriented Programming
+│   ├── Bai_thuc_hanh_buoi_2.pdf
 │   ├── bai1.php
 │   └── bai2.php
-├── Buoi_3/                              # Bài thực hành MySQL
-│   ├── Bài thực hành buổi 3 - MYSQL.pdf
+├── Buoi_3/                              # Relational Database Management with MySQL
+│   ├── Bai_thuc_hanh_buoi_3_MYSQL.pdf
 │   └── BuiQuangChien_23001837_ThucHanhBuoi3.sql
-├── Buoi_4/                              # Bài thực hành PHP + MySQL - Quản lý giỏ hàng
+├── Buoi_4/                              # Full-stack PHP and MySQL Shopping Cart CRUD
 │   ├── Bai_thuc_hanh_4_quan_ly_gio_hang.pdf
 │   ├── BuiQuangChien_23001837_ThucHanhBuoi4.sql
 │   └── app/
@@ -48,182 +49,225 @@ Repository lưu trữ mã nguồn các bài tập thực hành môn học **Phá
 │       ├── product_add.php
 │       ├── product_edit.php
 │       └── product_delete.php
-├── Buoi_5/                              # Bài thực hành PHP + MySQL - Quản lý giỏ hàng & Đăng ký / Đăng nhập
-│   ├── De_thuc_hanh_PHP_MySQL_Quan_ly_gio_hang_va_dang_ky_dăng_nhap.pdf
+├── Buoi_5/                              # PHP and MySQL User Authentication and Access Control
+│   ├── De_thuc_hanh_PHP_MySQL_Quan_ly_gio_hang_va_dang_ky_dang_nhap.pdf
 │   ├── BuiQuangChien_23001837_ThucHanhBuoi5.sql
 │   └── app/
 │       ├── common/
-│       │   ├── dbConnect.php            # Kết nối PDO CSDL shopping_cart
-│       │   └── auth.php                 # Quản lý session & kiểm soát quyền truy cập
+│       │   ├── dbConnect.php            # PDO connection with exception handling
+│       │   └── auth.php                 # Session management and access control helpers
 │       ├── model/
-│       │   ├── product.php              # CRUD sản phẩm (Prepared Statements)
-│       │   └── user.php                 # Xác thực & đăng ký tài khoản (password_hash)
+│       │   ├── product.php              # Product model with PDO prepared statements
+│       │   └── user.php                 # User model with password_hash and verify
 │       ├── view/
-│       │   ├── header.php               # Header dùng chung, hiển thị tên user & nút đăng xuất
-│       │   └── footer.php               # Footer dùng chung
+│       │   ├── header.php               # Shared navigation and user identity bar
+│       │   └── footer.php               # Shared footer
 │       ├── assets/
-│       │   └── style.css                # Giao diện responsive, hiện đại
-│       ├── index.php                    # Điều hướng thông minh theo trạng thái đăng nhập
-│       ├── login.php                    # Form & xử lý đăng nhập (password_verify)
-│       ├── register.php                 # Form & xử lý đăng ký tài khoản mới
-│       ├── logout.php                   # Đăng xuất & hủy session
-│       ├── product_list.php             # Danh sách sản phẩm (yêu cầu đăng nhập)
-│       ├── product_add.php              # Thêm sản phẩm & validate dữ liệu (yêu cầu đăng nhập)
-│       ├── product_edit.php             # Sửa thông tin sản phẩm (yêu cầu đăng nhập)
-│       └── product_delete.php           # Xóa sản phẩm kèm xác nhận an toàn (yêu cầu đăng nhập)
-├── Buoi_6/                              # Bài thực hành Vue.js cơ bản (Data Binding, Directives, Computed)
-│   ├── Bài tập thực hành buổi 6 - VueJs.pdf
-│   ├── index.html                       # Trang chủ điều hướng tổng quan 3 bài tập
-│   ├── bai1.html                        # Bài 1: Thẻ thông tin sinh viên (v-bind, v-text, v-if, v-show, :class)
-│   ├── bai2.html                        # Bài 2: Đặt vé xem phim (v-model.trim, v-model.number, computed)
-│   ├── bai3.html                        # Bài 3: Quản lý công việc cá nhân (v-for, :key, checkbox, filter)
+│       │   └── style.css                # Responsive user interface styling
+│       ├── index.php                    # Router based on authentication state
+│       ├── login.php                    # User sign-in handler
+│       ├── register.php                 # User account registration handler
+│       ├── logout.php                   # Session termination and invalidation
+│       ├── product_list.php             # Protected product list view
+│       ├── product_add.php              # Protected product creation view
+│       ├── product_edit.php             # Protected product modification view
+│       └── product_delete.php           # Protected product removal with confirmation
+├── Buoi_6/                              # Vue.js Fundamentals: Data Binding, Directives, and Computed Properties
+│   ├── Bai tap thuc hanh buoi 6 - VueJs.pdf
+│   ├── index.html                       # Navigation hub for Session 6
+│   ├── bai1.html                        # Exercise 1: Student Information Card
+│   ├── bai2.html                        # Exercise 2: Cinema Ticket Booking System
+│   ├── bai3.html                        # Exercise 3: Personal Task Management (Todo Application)
 │   └── assets/
 │       ├── css/
-│       │   └── style.css                # Giao diện Ocean Swiss Minimalist (chuẩn UI/UX hiện đại)
+│       │   └── style.css                # Shared responsive stylesheet
 │       ├── js/
-│       │   └── vue.global.js            # Thư viện Vue 3 (hỗ trợ chạy offline độc lập)
+│       │   └── vue.global.js            # Standalone Vue 3 runtime build
 │       └── images/
-│           ├── student-avatar.svg       # Ảnh đại diện sinh viên mẫu
-│           └── student-avatar-alt.svg   # Ảnh đại diện sinh viên thay thế
+│           ├── student-avatar.svg
+│           └── student-avatar-alt.svg
+├── Buoi_7/                              # Advanced Vue 3: Directives, Computed, Watch, Components, Props, and $emit
+│   ├── Bai tap thuc hanh 7 - vuejs.pdf
+│   ├── index.html                       # Navigation hub for Session 7
+│   ├── bai1.html                        # Exercise 1: Product List with Search, Filter, Sort, and Statistics
+│   ├── bai2.html                        # Exercise 2: Product Catalog with Component <the-san-pham>
+│   ├── bai3.html                        # Exercise 3: Shopping Cart with Props and Custom Events ($emit)
+│   ├── components/
+│   │   ├── TheSanPham.js                # Separate reusable component definition for Exercise 2
+│   │   └── DongGioHang.js               # Separate shopping cart row component for Exercise 3
+│   └── assets/
+│       ├── css/
+│       │   └── style.css                # Responsive stylesheet for Session 7
+│       ├── js/
+│       │   └── vue.global.js            # Standalone Vue 3 runtime build
+│       └── images/
+│           ├── laptop.svg
+│           ├── keyboard.svg
+│           ├── mouse.svg
+│           ├── pen.svg
+│           ├── notebook.svg
+│           ├── backpack.svg
+│           ├── bottle.svg
+│           └── default-product.svg
+├── Midterm/                             # Midterm Practical Examination
+│   └── BuiQuangChien_23001837.php       # PHP programming test with validation and security
 └── README.md
 ```
 
 ---
 
-## Nội dung chi tiết các buổi thực hành
+## Detailed Curriculum and Laboratory Modules
 
-### Buổi 1: PHP cơ bản, Mảng, Vòng lặp & Hướng đối tượng
-- `bai1.php`: Làm quen với biến, mảng và vòng lặp (duyệt mảng sinh viên, tính điểm trung bình).
-- `bai2.php`: Tách hàm xử lý (`calculateAverageScore`, `getRank`, `displayStudent`).
-- `bai3.php`: Xử lý danh sách sinh viên (`findBestStudent`, `findWorstStudent`, `countPassedStudents`, `findStudentByName`).
-- `bai4.php`: Lập trình hướng đối tượng (OOP) với class `Student`.
+### Session 1: PHP Fundamentals, Arrays, Loops, and Basic OOP
+- `bai1.php`: Fundamental PHP syntax, variables, indexed and associative arrays, array traversal, and average calculation.
+- `bai2.php`: Function modularization (`calculateAverageScore`, `getRank`, `displayStudent`).
+- `bai3.php`: Complex array operations (`findBestStudent`, `findWorstStudent`, `countPassedStudents`, `findStudentByName`).
+- `bai4.php`: Object-Oriented Programming (OOP) foundation utilizing the `Student` class.
 
-### Buổi 2: PHP – Function & OOP nâng cao
-- `bai1.php`: Quản lý giỏ hàng mua sắm (`CartItem`, `ShoppingCart`):
-  - Class `CartItem` (tên, giá, số lượng, `getTotal()`).
-  - Class `ShoppingCart` quản lý danh sách sản phẩm (`addItem`, `removeItem`, `calculateTotal`, `displayCart`).
-  - Kiểm tra hợp lệ: giá và số lượng phải lớn hơn 0; xử lý giỏ hàng rỗng; xóa sản phẩm không tồn tại.
-- `bai2.php`: Quản lý vé xem phim (`Movie` & functions xử lý danh sách):
-  - Class `Movie` (ID, tên phim, đơn giá, tổng số ghế, số ghế còn lại).
-  - Phương thức đặt vé (`bookTicket`), hủy vé (`cancelTicket`), tính số ghế đã bán (`getSoldSeats`), doanh thu (`getRevenue`), hiển thị (`displayInfo`).
-  - Các hàm xử lý danh sách: `findMovieById`, `getTotalRevenue`, `getBestSellingMovie`.
-  - Xử lý các ngoại lệ / trường hợp lỗi: đặt/hủy số vé $\le 0$, đặt vượt số ghế trống, hủy quá số vé đã bán, tìm phim không tồn tại, danh sách rỗng.
+### Session 2: Advanced Functions and Object-Oriented Architecture
+- `bai1.php`: Shopping Cart management module:
+  - `CartItem` class: Item encapsulation, price, quantity, and subtotal calculation (`getTotal`).
+  - `ShoppingCart` class: Product collection management (`addItem`, `removeItem`, `calculateTotal`, `displayCart`).
+  - Validation: Positive price and quantity constraints, empty cart handling, non-existent product error handling.
+- `bai2.php`: Cinema Ticketing management module:
+  - `Movie` class: Movie ID, title, unit price, capacity, and remaining seats.
+  - Core business methods: `bookTicket`, `cancelTicket`, `getSoldSeats`, `getRevenue`, `displayInfo`.
+  - Analytical helpers: `findMovieById`, `getTotalRevenue`, `getBestSellingMovie`.
+  - Edge cases: Negative or zero tickets, booking exceeding available seats, canceling more tickets than sold.
 
-### Buổi 3: Thực hành MySQL
-- `BuiQuangChien_23001837_ThucHanhBuoi3.sql`: Tệp chứa tập lệnh SQL bao gồm tạo CSDL, tạo bảng và các câu truy vấn xử lý:
-  - **Bài 1 - Quản lý giỏ hàng:** Tạo bảng `cart_items` và thực hiện các lệnh `INSERT`, `SELECT`, lọc, sắp xếp, `UPDATE`, `DELETE`, và tính tổng (`SUM`).
-  - **Bài 2 - Quản lý vé xem phim:** Tạo bảng `movies` và thực hiện truy vấn hiển thị, cập nhật ghế trống, tính doanh thu vé bán ra, tìm phim bán được nhiều vé nhất (dùng truy vấn con với `MAX`).
+### Session 3: Relational Database Architecture with MySQL
+- `BuiQuangChien_23001837_ThucHanhBuoi3.sql`: Comprehensive SQL script for database creation, table schemas, and data manipulation queries:
+  - **Exercise 1 (Shopping Cart):** Table `cart_items` with `INSERT`, `SELECT`, filtering, sorting, `UPDATE`, `DELETE`, and aggregate computations (`SUM`).
+  - **Exercise 2 (Cinema Management):** Table `movies` with remaining seat updates, revenue analysis, and subquery calculations identifying peak performing movies using `MAX`.
 
-### Buổi 4: PHP + MySQL – Quản lý giỏ hàng (Shopping Cart)
-- `BuiQuangChien_23001837_ThucHanhBuoi4.sql`: Tập lệnh tạo CSDL `shopping_cart`, bảng `products` (`id`, `name`, `price`, `quantity`) và chèn 6 sản phẩm mẫu.
-- `app/common/dbConnect.php`: Kết nối CSDL MySQL sử dụng PDO, xử lý ngoại lệ an toàn, ẩn thông tin bảo mật, hỗ trợ UTF-8 `utf8mb4`.
-- `app/model/product.php`: Tầng Model chứa các hàm thao tác CSDL:
-  - `getAllProducts()`: Lấy danh sách toàn bộ sản phẩm.
-  - `getProductById($id)`: Lấy chi tiết sản phẩm theo ID.
-  - `addProduct($name, $price, $quantity)`: Thêm sản phẩm mới.
-  - `updateProduct($id, $name, $price, $quantity)`: Cập nhật thông tin sản phẩm.
-  - `deleteProduct($id)`: Xóa sản phẩm khỏi CSDL.
-  - *Toàn bộ các hàm đều sử dụng PDO Prepared Statements để phòng chống tấn công SQL Injection.*
-- `app/product_list.php`: Hiển thị bảng danh sách sản phẩm với các cột `ID | Tên sản phẩm | Giá | Số lượng | Chức năng`, có nút `[Sửa]` và `[Xóa]`.
-- `app/product_add.php`: Form thêm sản phẩm với xác thực chặt chẽ (Tên không rỗng, Giá > 0, Số lượng >= 0).
-- `app/product_edit.php`: Form hiển thị thông tin hiện tại và cho phép cập nhật sản phẩm.
-- `app/product_delete.php`: Xóa sản phẩm theo ID kèm theo xác nhận an toàn qua POST, hiển thị thông báo lỗi phù hợp khi sản phẩm không tồn tại.
-- `app/view/`: Tách `header.php` và `footer.php` tái sử dụng giao diện dùng chung.
-- `app/assets/style.css`: Giao diện hiện đại, responsive, thẩm mỹ cao dựa trên HTML cơ bản.
+### Session 4: Full-Stack PHP and MySQL Shopping Cart CRUD
+- `BuiQuangChien_23001837_ThucHanhBuoi4.sql`: Database schema initialization for `shopping_cart` and table `products`.
+- `app/common/dbConnect.php`: Secure PDO database connector with UTF-8 character encoding and sanitized exception handling.
+- `app/model/product.php`: Model layer implementing CRUD operations with PDO Prepared Statements:
+  - `getAllProducts()`: Retrieves all product records.
+  - `getProductById($id)`: Fetches product details by primary key.
+  - `addProduct($name, $price, $quantity)`: Inserts new product record.
+  - `updateProduct($id, $name, $price, $quantity)`: Updates existing product record.
+  - `deleteProduct($id)`: Removes product record.
+- `app/product_list.php`: Data presentation table with management actions.
+- `app/product_add.php`: Input validation and sanitized record creation.
+- `app/product_edit.php`: Record modification interface.
+- `app/product_delete.php`: Safe record removal with POST confirmation.
 
-### Buổi 5: PHP + MySQL – Quản lý giỏ hàng & Đăng ký / Đăng nhập
-- `BuiQuangChien_23001837_ThucHanhBuoi5.sql`:
-  - Tạo CSDL `shopping_cart`, bảng `products` (với 6 sản phẩm mẫu) và bảng `users` (`id`, `username`, `password`).
-  - Thêm tài khoản mẫu đã được mã hóa an toàn bằng `password_hash()` (Bcrypt):
-    - Tài khoản Admin: `admin` / Mật khẩu: `admin123`
-    - Tài khoản User: `chienbq` / Mật khẩu: `123456`
-- `app/common/dbConnect.php`: Kết nối CSDL bằng PDO, xử lý lỗi an toàn.
-- `app/common/auth.php`: Quản lý phiên làm việc (`$_SESSION`), phòng chống Session Fixation (`session_regenerate_id`), cung cấp các hàm `isLoggedIn()`, `requireLogin()`, `loginUser()`, `logoutUser()`.
-- `app/model/user.php`: Tầng Model quản lý người dùng:
-  - `checkUsernameExists($username)`: Kiểm tra tên đăng nhập đã tồn tại.
-  - `registerUser($username, $password)`: Đăng ký người dùng mới, tự động mã hóa mật khẩu với `password_hash()`.
-  - `authenticateUser($username, $password)`: Xác thực đăng nhập sử dụng `password_verify()`.
-- `app/model/product.php`: Tầng Model quản lý sản phẩm với đầy đủ 5 hàm CRUD bằng Prepared Statements.
-- `app/register.php`: Form đăng ký tài khoản với đầy đủ kiểm tra hợp lệ: không để trống, kiểm tra trùng lặp tên, độ dài mật khẩu, xác nhận mật khẩu; chuyển hướng đến trang đăng nhập khi thành công.
-- `app/login.php`: Form đăng nhập tài khoản; kiểm tra thông tin qua `password_verify()`, lưu session và chuyển hướng tới `product_list.php`; báo lỗi phù hợp khi thông tin không chính xác; hiển thị gợi ý tài khoản mẫu.
-- `app/logout.php`: Hủy phiên đăng nhập (`session_destroy()`) và chuyển hướng về `login.php`.
-- **Kiểm soát truy cập (Access Control):**
-  - Các trang `product_list.php`, `product_add.php`, `product_edit.php`, `product_delete.php` đều được bảo vệ nghiêm ngặt bằng `requireLogin()`. Nếu chưa đăng nhập, hệ thống tự động chuyển hướng về `login.php?msg=login_required`.
-  - Hiển thị tên tài khoản đang đăng nhập và liên kết **Đăng xuất** nổi bật trên thanh điều hướng (`header.php`).
-- `app/product_list.php`, `app/product_add.php`, `app/product_edit.php`, `app/product_delete.php`: Hoàn thiện trọn vẹn nghiệp vụ quản lý sản phẩm theo chuẩn đề bài.
+### Session 5: User Authentication and Access Control Architecture
+- `BuiQuangChien_23001837_ThucHanhBuoi5.sql`: Extended schema incorporating `users` table and secure password hashing.
+- `app/common/auth.php`: Session lifecycle manager, session fixation mitigation via `session_regenerate_id`, and route protection (`requireLogin`, `isLoggedIn`).
+- `app/model/user.php`: User authentication and registration models utilizing Bcrypt (`password_hash`, `password_verify`).
+- `app/register.php`: Account registration with validation and duplicate prevention.
+- `app/login.php`: Authentication endpoint with credential verification.
+- `app/logout.php`: Session termination endpoint.
+- Route protection applied to all administrative endpoints (`product_list.php`, `product_add.php`, `product_edit.php`, `product_delete.php`).
 
-### Buổi 6: Lập trình Vue.js cơ bản (Data Binding, Directives & Computed)
-- `index.html`: Cổng điều hướng hiện đại, tổng quan mục tiêu & kiến thức của cả 3 bài tập.
-- `bai1.html`: **Thẻ thông tin sinh viên**
-  - Khai báo và quản lý dữ liệu phản ứng qua `createApp` và `data()`.
-  - Hiển thị họ tên bằng `{{ }}`, tên lớp bằng chỉ thị `v-text`.
-  - Gắn liên kết và thuộc tính alt ảnh đại diện bằng `v-bind:src` và `v-bind:alt`.
-  - Tự động xếp loại học lực dựa trên điểm trung bình bằng chuỗi rẽ nhánh `v-if`, `v-else-if`, `v-else` (Giỏi: 8.0 - 10, Khá: 6.5 - <8.0, Trung bình: 5.0 - <6.5, Chưa đạt: <5.0).
-  - Đổi màu xếp loại trực quan bằng `:class` và `:style`.
-  - Hiển thị linh hoạt trạng thái "Đang học" / "Đã nghỉ" bằng `v-if` / `v-else`.
-  - Bật / tắt phần giới thiệu sinh viên bằng chỉ thị `v-show`.
-  - Tích hợp **Bảng điều khiển tương tác (Testing Panel)** cho phép thay đổi dữ liệu, kéo slider điểm trung bình để kiểm chứng tính phản ứng (reactivity) và các trường hợp biên.
-- `bai2.html`: **Đặt vé xem phim (CGV HUS Cinema)**
-  - Nhập họ tên khách hàng với modifier `v-model.trim`.
-  - Chọn suất chiếu qua dropdown `select` (4 suất chiếu phong phú).
-  - Chọn loại vé bằng `radio`: Vé thường (70.000 đ) / Vé VIP (100.000 đ).
-  - Nhập số lượng vé với `v-model.number`, kiểm tra nghiêm ngặt số nguyên trong khoảng [1, 10], kèm nút tăng/giảm và nút đặt lại form (`resetForm`).
-  - Checkbox chọn combo bắp nước (+45.000 đ / đơn đặt vé).
-  - Dùng `computed` tính toán tự động tổng tiền theo công thức: `Tổng tiền = Giá vé × Số lượng + Tiền combo`.
-  - Nút "Đặt vé" kích hoạt có điều kiện: chỉ bật khi họ tên không rỗng và số lượng hợp lệ.
-  - Ngăn chặn reload và xử lý gửi form qua `@submit.prevent`, xuất ngay phiếu xác nhận đặt vé dạng Boarding Pass chuyên nghiệp.
-  - *Kiểm tra kết quả chuẩn:* Đặt 2 vé VIP kèm combo cho tổng tiền chính xác **245.000 đồng** (có sẵn nút bấm test nhanh 1-click).
-- `bai3.html`: **Quản lý công việc cá nhân (Todo List)**
-  - Cấu trúc công việc: `{ id, title, completed, createdAt }`.
-  - Thêm công việc qua nút "Thêm" hoặc phím Enter (`@keyup.enter`), chặn tuyệt đối tên rỗng hoặc chỉ có khoảng trắng.
-  - Hiển thị danh sách phản ứng bằng `v-for` với `:key="task.id"`.
-  - Đánh dấu hoàn thành qua `checkbox`, tự động gạch ngang tên công việc (`text-decoration: line-through`).
-  - Xóa từng công việc độc lập.
-  - Lọc theo 3 trạng thái: "Tất cả", "Chưa hoàn thành", "Đã hoàn thành".
-  - Dùng `computed` tính tổng số công việc (`totalTasks`), số việc chưa hoàn thành (`uncompletedTasks`), và số việc đã hoàn thành.
-  - Nút "Xóa các việc đã hoàn thành" thông minh (chỉ bật khi có ít nhất 1 việc hoàn thành).
-  - Hiển thị các thông báo trực quan (Empty State) tương ứng khi danh sách rỗng hoặc từng bộ lọc không có dữ liệu.
-  - Đồng bộ an toàn với `localStorage` và có nút "Nạp việc mẫu" hỗ trợ người chấm kiểm tra nhanh.
+### Session 6: Vue.js Fundamentals
+- `index.html`: Portal and documentation overview for Session 6.
+- `bai1.html`: **Student Information Card**
+  - Application bootstrapping via `createApp` and reactive state initialization via `data()`.
+  - Data binding with interpolation `{{ }}`, `v-text`, `v-bind:src`, and `v-bind:alt`.
+  - Conditional rendering using `v-if`, `v-else-if`, and `v-else` for academic evaluation classification (Distinction: 8.0 - 10.0, Good: 6.5 - <8.0, Average: 5.0 - <6.5, Unsatisfactory: <5.0).
+  - Dynamic class and style binding (`:class`, `:style`) for classification visualization.
+  - Status toggling with `v-if` and biographical information toggling with `v-show`.
+  - Interactive testing panel for real-time reactivity verification across boundary scores.
+- `bai2.html`: **Cinema Ticket Booking System**
+  - Two-way data binding with modifiers: `v-model.trim` for customer name and `v-model.number` for ticket quantity.
+  - Form controls: Dropdown `select` for showtimes, `radio` group for ticket tiers (Standard: 70,000 VND, VIP: 100,000 VND), and `checkbox` for combo snacks (45,000 VND).
+  - Dynamic computation of total cost via `computed`: Total = Ticket Price * Quantity + Combo Price.
+  - Quantity boundaries constrained to integers in [1, 10] with step controls.
+  - Submission prevention and handling with `@submit.prevent` rendering an immediate boarding pass receipt.
+  - Standard verification test case: 2 VIP tickets with combo snack equals exactly 245,000 VND.
+- `bai3.html`: **Personal Task Management (Todo Application)**
+  - Task schema: `{ id, title, completed, createdAt }`.
+  - Task creation via button click or Enter key modifier (`@keyup.enter`) with non-empty string validation.
+  - List rendering with `v-for` and unique key binding `:key="task.id"`.
+  - Completion status toggle with checkbox and strikethrough styling.
+  - Task filtering across three states: All, Active, and Completed.
+  - Computed summary statistics (`totalTasks`, `uncompletedTasks`, `completedTasks`).
+  - Batch removal of completed items and contextual empty-state notices.
+  - State persistence via `localStorage`.
+
+### Session 7: Advanced Vue 3 (Directives, Watch, Mounted, Components, Props, $emit)
+- `index.html`: Navigation hub and technical overview for Session 7.
+- `bai1.html`: **Product Management with Search, Filtering, and Statistics**
+  - Dataset: 7 initial products categorized across 3 categories (Electronics, Stationery, Lifestyle).
+  - Stock status visualization: In-Stock vs. Out-of-Stock badge indicators.
+  - Case-insensitive search on product names (`searchQuery.trim().toLowerCase()`).
+  - Category filtering across all items and individual categories.
+  - Price sorting: Ascending and descending sort without mutating the original source array (`[...array].sort()`).
+  - Combined filtering: Search keyword, category selection, and price sorting operate cohesively.
+  - Product creation with strict validation: non-empty name, price > 0, and integer stock >= 0.
+  - Product removal with window confirmation.
+  - Computed metrics: Displayed count vs. total count ratio, total inventory valuation (price * stock) of displayed items.
+  - Watcher implementation: `watch` monitors `searchQuery` length, triggering a prompt when length equals exactly 1 character, and clearing it when empty or >= 2 characters.
+  - Lifecycle hook: `mounted()` sets application status to "Ready" (`pageStatus = 'Sẵn sàng'`).
+- `bai2.html` & `components/TheSanPham.js`: **Product Catalog with Custom Component**
+  - Component separation: Clean architecture with `<the-san-pham>` defined in `components/TheSanPham.js`.
+  - Component registration: Registered globally via `app.component('the-san-pham', TheSanPham)` prior to `app.mount()`.
+  - Props validation:
+    - `ten`: Type `String`, required.
+    - `gia`: Type `Number`, required, validator ensuring non-negative.
+    - `anh`: Type `String`, default fallback image `default-product.svg`.
+    - `moTa`: Type `String`, default placeholder description.
+    - `soLuongTon`: Type `Number`, default 0.
+  - Independent component state: Description toggle state `hienThiMoTa` stored within each component's local `data()`, preventing cross-component state leakage.
+  - Out-of-stock behavior: Automatic out-of-stock badge and button lock (`disabled`) when `soLuongTon <= 0`.
+- `bai3.html` & `components/DongGioHang.js`: **Shopping Cart with Props and Custom Events ($emit)**
+  - One-Way Data Flow: Parent maintains central cart state; child `<dong-gio-hang>` consumes props and emits change requests.
+  - Item schema: `{ id, ten, donGia, soLuong }`.
+  - Component communication:
+    - Event `doi-so-luong`: Emits product ID and new quantity clamped to [1, 99].
+    - Event `yeu-cau-xoa`: Emits product ID to request removal.
+  - Child immutability: Child never mutates received props directly.
+  - Parent state management: Validates received payload integers within [1, 99] before updating the array.
+  - Computed summary: Parent computes total item count and total payable price.
+  - Empty state: Displays "Cart is Empty" notice when all items are removed, with an action to reload test data.
+  - Standard verification test case: 2 pens (5,000 VND each) and 3 notebooks (12,000 VND each) yield total quantity of 5 and total price of 46,000 VND.
 
 ---
 
-## Hướng dẫn chạy chương trình
+## Execution Instructions
 
-### 1. Khởi tạo cơ sở dữ liệu
+### 1. Database Initialization
 
-#### Dành cho Buổi 4:
+#### For Session 4:
 ```bash
 mysql -u root -p < Buoi_4/BuiQuangChien_23001837_ThucHanhBuoi4.sql
 ```
 
-#### Dành cho Buổi 5:
+#### For Session 5:
 ```bash
 mysql -u root -p < Buoi_5/BuiQuangChien_23001837_ThucHanhBuoi5.sql
 ```
 
-### 2. Khởi chạy Web Server cục bộ
+### 2. Local Web Server Execution
 
-Sử dụng PHP Built-in Server:
-
+#### PHP Applications (Session 4 and Session 5):
+Run the built-in PHP development server:
 ```bash
-# Khởi chạy server cho Buổi 5
+# Launch server for Session 5
 php -S localhost:8000 -t Buoi_5/app/
 ```
+Then navigate to: `http://localhost:8000`
 
-Sau đó mở trình duyệt và truy cập: `http://localhost:8000`
+Default test accounts:
+- Administrator: `admin` / `admin123`
+- Standard User: `chienbq` / `123456`
 
-- **Tài khoản đăng nhập thử nghiệm:**
-  - `admin` / `admin123`
-  - `chienbq` / `123456`
-- Hoặc bấm vào **"Đăng ký ngay tại đây"** để tự tạo tài khoản mới.
-
-### 3. Dành cho Buổi 6 (Vue.js)
-
-Có thể mở trực tiếp các tệp HTML trong trình duyệt:
-- Mở `Buoi_6/index.html` hoặc nhấp đúp trực tiếp vào các file `bai1.html`, `bai2.html`, `bai3.html`.
-- Hoặc khởi chạy thông qua PHP Built-in Server:
+#### Vue.js Applications (Session 6 and Session 7):
+All Vue.js exercises are client-side implementations using modern standards. They can be executed directly without requiring PHP or backend services:
+1. Open HTML files directly in any modern browser:
+   - Session 6 Hub: `Buoi_6/index.html`
+   - Session 7 Hub: `Buoi_7/index.html`
+2. Or serve via lightweight HTTP server using Node.js:
 ```bash
-# Khởi chạy server cho Buổi 6
-php -S localhost:8000 -t Buoi_6/
+# Serve Session 7 using Node.js npx serve
+npx serve Buoi_7
 ```
-Sau đó truy cập: `http://localhost:8000`
+```bash
+# Serve Session 7 using Python
+python -m http.server 8000 --directory Buoi_7
+```
+Then open: `http://localhost:8000`
