@@ -101,14 +101,14 @@ This repository contains practical laboratory assignments and source code for th
 │       ├── js/
 │       │   └── vue.global.js            # Standalone Vue 3 runtime build
 │       └── images/
-│           ├── laptop.svg
-│           ├── keyboard.svg
-│           ├── mouse.svg
-│           ├── pen.svg
-│           ├── notebook.svg
-│           ├── backpack.svg
-│           ├── bottle.svg
-│           └── default-product.svg
+│           ├── laptop.jpg
+│           ├── keyboard.jpg
+│           ├── mouse.jpg
+│           ├── pen.jpg
+│           ├── notebook.jpg
+│           ├── backpack.jpg
+│           ├── bottle.jpg
+│           └── default-product.jpg
 ├── Midterm/                             # Midterm Practical Examination
 │   └── BuiQuangChien_23001837.php       # PHP programming test with validation and security
 └── README.md
@@ -209,7 +209,7 @@ This repository contains practical laboratory assignments and source code for th
   - Props validation:
     - `ten`: Type `String`, required.
     - `gia`: Type `Number`, required, validator ensuring non-negative.
-    - `anh`: Type `String`, default fallback image `default-product.svg`.
+    - `anh`: Type `String`, default fallback image `default-product.jpg`.
     - `moTa`: Type `String`, default placeholder description.
     - `soLuongTon`: Type `Number`, default 0.
   - Independent component state: Description toggle state `hienThiMoTa` stored within each component's local `data()`, preventing cross-component state leakage.

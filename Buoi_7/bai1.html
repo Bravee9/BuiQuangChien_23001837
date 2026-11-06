@@ -31,7 +31,7 @@
       border: none;
       color: var(--gray-400);
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.9rem;
       padding: 4px;
     }
     .clear-search-btn:hover {
@@ -90,86 +90,75 @@
     <div class="page-intro" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
       <div>
         <h2 class="page-title">
-          <span>📦</span> Bài 1: Quản lý sản phẩm có tìm kiếm và thống kê
+          Bài 1: Danh sách sản phẩm có tìm kiếm và thống kê
         </h2>
         <p class="page-subtitle">
-          Quản lý danh sách sản phẩm, tìm kiếm không phân biệt hoa thường, lọc danh mục, sắp xếp giá không biến đổi mảng gốc và thống kê động bằng <code>computed</code>, <code>watch</code>, <code>mounted()</code>.
+          Quản lý sản phẩm với tìm kiếm, lọc danh mục, sắp xếp giá không biến đổi mảng gốc và thống kê tổng hợp.
         </p>
-        <div class="badge-concept">
-          Kiến thức áp dụng: Directives (v-for, v-if, v-model), methods, computed, watch, lifecycle hook mounted()
-        </div>
       </div>
 
       <!-- 10. Dùng mounted() đặt trạng thái trang thành "Sẵn sàng" -->
-      <div class="status-indicator" title="Lifecycle hook mounted() đã thực thi">
+      <div class="status-indicator">
         <span class="status-dot"></span>
-        <span>Trạng thái trang: <strong>{{ pageStatus }}</strong></span>
+        <span>Trạng thái: <strong>{{ pageStatus }}</strong></span>
       </div>
     </div>
 
     <!-- 8. THỐNG KÊ BẰNG COMPUTED -->
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon" style="background-color: #eff6ff; color: #2563eb;">📊</div>
         <div class="stat-info">
-          <span class="stat-label">Sản phẩm hiển thị / Tổng</span>
-          <span class="stat-value" style="color: #2563eb;">{{ displayedCount }} / {{ totalCount }}</span>
+          <span class="stat-label">Hiển thị / Tổng số</span>
+          <span class="stat-value" style="color: var(--primary);">{{ displayedCount }} / {{ totalCount }}</span>
         </div>
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon" style="background-color: #f0fdf4; color: #16a34a;">💰</div>
         <div class="stat-info">
-          <span class="stat-label">Tổng giá trị tồn kho hiển thị</span>
-          <span class="stat-value" style="color: #16a34a;">{{ formatCurrency(totalInventoryValue) }}</span>
+          <span class="stat-label">Tổng giá trị tồn kho</span>
+          <span class="stat-value" style="color: var(--success);">{{ formatCurrency(totalInventoryValue) }}</span>
         </div>
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon" style="background-color: #fef2f2; color: #dc2626;">⚠️</div>
         <div class="stat-info">
           <span class="stat-label">Sản phẩm hết hàng</span>
-          <span class="stat-value" style="color: #dc2626;">{{ outOfStockCount }} sản phẩm</span>
+          <span class="stat-value" style="color: var(--danger);">{{ outOfStockCount }} sản phẩm</span>
         </div>
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon" style="background-color: #fef3c7; color: #d97706;">🏷️</div>
         <div class="stat-info">
-          <span class="stat-label">Số danh mục</span>
-          <span class="stat-value" style="color: #d97706;">{{ categories.length }} danh mục</span>
+          <span class="stat-label">Tổng số danh mục</span>
+          <span class="stat-value" style="color: var(--gray-800);">{{ categories.length }} danh mục</span>
         </div>
       </div>
     </div>
 
-    <!-- 9. WATCH: THÔNG BÁO TỪ KHÓA CÓ ĐÚNG 1 KÝ TỰ -->
+    <!-- 9. WATCH: THÔNG BÁO KHI TỪ KHÓA CÓ ĐÚNG 1 KÝ TỰ -->
     <div v-if="keywordNotice" class="alert-box alert-warning">
-      <span>🔔</span>
       <div>
-        <strong>Thông báo tìm kiếm (watch):</strong> {{ keywordNotice }}
+        <strong>Tìm kiếm:</strong> {{ keywordNotice }}
       </div>
     </div>
 
-    <!-- THANH CÔNG CỤ TÌM KIẾM, LỌC VÀ SẮP XẾP (5. HOẠT ĐỘNG KẾT HỢP) -->
+    <!-- THANH CÔNG CỤ TÌM KIẾM, LỌC VÀ SẮP XẾP -->
     <div class="card" style="margin-bottom: 24px;">
       <div class="card-header">
-        <h3 class="card-title">
-          <span>🔍</span> Bộ lọc & Tìm kiếm sản phẩm
-        </h3>
+        <h3 class="card-title">Bộ lọc & Danh mục</h3>
         <div style="display: flex; gap: 8px;">
-          <button type="button" class="btn btn-outline btn-sm" @click="resetFilters" title="Đặt lại bộ lọc về mặc định">
-            🔄 Đặt lại bộ lọc
+          <button type="button" class="btn btn-outline btn-sm" @click="resetFilters">
+            Đặt lại bộ lọc
           </button>
           <button type="button" class="btn btn-primary btn-sm" @click="showAddForm = !showAddForm">
-            <span v-if="showAddForm">✖ Đóng form thêm</span>
-            <span v-else>➕ Thêm sản phẩm mới</span>
+            {{ showAddForm ? 'Đóng form' : 'Thêm sản phẩm mới' }}
           </button>
         </div>
       </div>
 
       <div class="card-body">
         <div class="filter-toolbar">
-          <!-- 2. Tìm kiếm theo tên, không phân biệt hoa thường -->
+          <!-- 2. Tìm kiếm theo tên -->
           <div class="filter-search-box">
             <label class="form-label" for="searchBox">Tìm kiếm theo tên sản phẩm:</label>
             <div style="position: relative;">
@@ -178,14 +167,14 @@
                 type="text" 
                 class="form-control" 
                 v-model="searchQuery" 
-                placeholder="Nhập tên sản phẩm cần tìm (ví dụ: laptop, bút, vở...)"
+                placeholder="Nhập tên sản phẩm cần tìm..."
               />
               <button 
                 v-if="searchQuery" 
                 type="button" 
                 class="clear-search-btn" 
                 @click="searchQuery = ''"
-                title="Xóa từ khóa"
+                title="Xóa tìm kiếm"
               >
                 ✕
               </button>
@@ -196,33 +185,32 @@
           <div class="filter-select-box">
             <label class="form-label" for="categoryFilter">Lọc theo danh mục:</label>
             <select id="categoryFilter" class="form-control" v-model="selectedCategory">
-              <option value="all">-- Tất cả danh mục ({{ totalCount }}) --</option>
+              <option value="all">Tất cả danh mục ({{ totalCount }})</option>
               <option v-for="cat in categories" :key="cat" :value="cat">
                 {{ cat }}
               </option>
             </select>
           </div>
 
-          <!-- 4. Sắp xếp theo giá tăng hoặc giảm dần (Không làm đổi thứ tự gốc) -->
+          <!-- 4. Sắp xếp theo giá (Không làm thay đổi mảng gốc) -->
           <div class="filter-select-box">
             <label class="form-label" for="priceSort">Sắp xếp theo đơn giá:</label>
             <select id="priceSort" class="form-control" v-model="sortOrder">
-              <option value="default">Thứ tự mặc định (gốc)</option>
-              <option value="asc">Giá: Thấp đến cao (Tăng dần)</option>
-              <option value="desc">Giá: Cao đến thấp (Giảm dần)</option>
+              <option value="default">Thứ tự mặc định</option>
+              <option value="asc">Giá: Thấp đến cao</option>
+              <option value="desc">Giá: Cao đến thấp</option>
             </select>
           </div>
         </div>
 
         <!-- 6. FORM THÊM SẢN PHẨM MỚI -->
         <div v-show="showAddForm" class="add-product-panel">
-          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--gray-800); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
-            <span>➕</span> Thêm sản phẩm mới vào danh sách
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--gray-800); margin-bottom: 12px;">
+            Thêm sản phẩm mới
           </h4>
 
           <form @submit.prevent="addProduct">
             <div class="form-row">
-              <!-- Tên sản phẩm: kiểm tra không rỗng -->
               <div class="form-group">
                 <label class="form-label">Tên sản phẩm <span class="required">*</span></label>
                 <input 
@@ -233,11 +221,10 @@
                   placeholder="Nhập tên sản phẩm..."
                 />
                 <div v-if="formErrors.name" class="form-feedback-error">
-                  ⚠️ {{ formErrors.name }}
+                  {{ formErrors.name }}
                 </div>
               </div>
 
-              <!-- Danh mục -->
               <div class="form-group">
                 <label class="form-label">Danh mục <span class="required">*</span></label>
                 <select class="form-control" v-model="newProduct.category">
@@ -245,7 +232,6 @@
                 </select>
               </div>
 
-              <!-- Giá: kiểm tra > 0 -->
               <div class="form-group">
                 <label class="form-label">Đơn giá (VNĐ) <span class="required">*</span></label>
                 <input 
@@ -257,11 +243,10 @@
                   min="1"
                 />
                 <div v-if="formErrors.price" class="form-feedback-error">
-                  ⚠️ {{ formErrors.price }}
+                  {{ formErrors.price }}
                 </div>
               </div>
 
-              <!-- Tồn kho: số nguyên không âm (>= 0) -->
               <div class="form-group">
                 <label class="form-label">Số lượng tồn kho <span class="required">*</span></label>
                 <input 
@@ -274,14 +259,14 @@
                   step="1"
                 />
                 <div v-if="formErrors.stock" class="form-feedback-error">
-                  ⚠️ {{ formErrors.stock }}
+                  {{ formErrors.stock }}
                 </div>
               </div>
             </div>
 
             <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
               <button type="button" class="btn btn-outline btn-sm" @click="resetForm">
-                Làm mới form
+                Đặt lại
               </button>
               <button type="submit" class="btn btn-success btn-sm">
                 Lưu sản phẩm
@@ -295,7 +280,7 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th style="width: 50px;" class="text-center">#ID</th>
+                <th style="width: 60px;" class="text-center">ID</th>
                 <th>Tên sản phẩm</th>
                 <th>Danh mục</th>
                 <th class="text-right">Đơn giá</th>
@@ -306,9 +291,8 @@
               </tr>
             </thead>
             <tbody>
-              <!-- v-for hiển thị danh sách đã qua tìm kiếm, lọc và sắp xếp -->
               <tr v-for="item in filteredAndSortedProducts" :key="item.id">
-                <td class="text-center" style="font-weight: 600; color: var(--gray-500);">
+                <td class="text-center" style="color: var(--gray-500); font-weight: 600;">
                   #{{ item.id }}
                 </td>
                 <td style="font-weight: 600; color: var(--gray-900);">
@@ -323,17 +307,16 @@
                 <td class="text-center" style="font-weight: 700;">
                   {{ item.soLuongTon }}
                 </td>
-                <!-- 1. Gắn nhãn "Còn hàng" hoặc "Hết hàng" bằng màu khác nhau -->
+                <!-- 1. Gắn nhãn Còn hàng hoặc Hết hàng bằng màu khác nhau -->
                 <td class="text-center">
                   <span 
                     class="badge-stock" 
                     :class="item.soLuongTon > 0 ? 'badge-in-stock' : 'badge-out-of-stock'"
                   >
-                    <span v-if="item.soLuongTon > 0">✓ Còn hàng</span>
-                    <span v-else>✕ Hết hàng</span>
+                    {{ item.soLuongTon > 0 ? 'Còn hàng' : 'Hết hàng' }}
                   </span>
                 </td>
-                <!-- 8. Giá trị tồn kho của một sản phẩm = giá * số lượng tồn -->
+                <!-- 8. Giá trị tồn kho của sản phẩm = giá * số lượng tồn -->
                 <td class="text-right inventory-val-col">
                   {{ formatCurrency(item.gia * item.soLuongTon) }}
                 </td>
@@ -343,38 +326,23 @@
                     type="button" 
                     class="btn btn-outline-danger btn-sm" 
                     @click="deleteProduct(item)"
-                    title="Xóa sản phẩm"
+                    title="Xóa"
                   >
-                    🗑️
+                    Xóa
                   </button>
                 </td>
               </tr>
 
-              <!-- Trạng thái khi không tìm thấy sản phẩm nào khớp -->
               <tr v-if="filteredAndSortedProducts.length === 0">
-                <td colspan="8" class="text-center" style="padding: 40px 20px; color: var(--gray-500);">
-                  <div style="font-size: 2.5rem; margin-bottom: 8px;">🔍</div>
-                  <strong style="color: var(--gray-700); font-size: 1.05rem;">Không tìm thấy sản phẩm nào!</strong>
+                <td colspan="8" class="text-center" style="padding: 36px 20px; color: var(--gray-500);">
+                  <strong style="color: var(--gray-700); font-size: 1rem;">Không có sản phẩm phù hợp</strong>
                   <p style="font-size: 0.85rem; margin-top: 4px;">
-                    Không có sản phẩm nào khớp với từ khóa "{{ searchQuery }}" trong danh mục "{{ selectedCategory === 'all' ? 'Tất cả' : selectedCategory }}".
+                    Không tìm thấy sản phẩm nào khớp với bộ lọc hiện tại.
                   </p>
-                  <button type="button" class="btn btn-outline btn-sm" style="margin-top: 12px;" @click="resetFilters">
-                    Xóa bộ lọc để hiển thị lại toàn bộ
-                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div>
-
-        <!-- MẸO KIỂM THỬ: KIỂM CHỨNG MẢNG GỐC KHÔNG BỊ ĐỔI THỨ TỰ -->
-        <div style="margin-top: 16px; padding: 12px 16px; background-color: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); font-size: 0.8rem; color: var(--gray-600); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-          <div>
-            <strong>Kiểm chứng yêu cầu 4:</strong> Khi chọn sắp xếp "Giá tăng dần" hoặc "Giá giảm dần", mảng gốc <code>this.products</code> được giữ nguyên thứ tự ban đầu bằng kỹ thuật <code>[...array].sort()</code>.
-          </div>
-          <button type="button" class="btn btn-outline btn-sm" @click="restoreDefaultData">
-            🔄 Khôi phục dữ liệu mẫu ban đầu
-          </button>
         </div>
       </div>
     </div>
@@ -386,7 +354,7 @@
     <p style="color: var(--gray-400); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
   </footer>
 
-  <!-- VUE 3 CDN & LOCAL SCRIPT -->
+  <!-- SCRIPT VUE 3 -->
   <script src="assets/js/vue.global.js"></script>
   <script>
     if (typeof Vue === 'undefined') {
@@ -397,33 +365,26 @@
   <script>
     const { createApp } = Vue;
 
-    // Danh sách ít nhất 6 sản phẩm thuộc 3 danh mục theo đúng yêu cầu đề bài
     const INITIAL_PRODUCTS = [
       { id: 1, ten: 'Laptop Dell Inspiron 15', gia: 15500000, danhMuc: 'Điện tử', soLuongTon: 12 },
       { id: 2, ten: 'Bàn phím cơ không dây', gia: 1200000, danhMuc: 'Điện tử', soLuongTon: 0 },
       { id: 3, ten: 'Chuột quang Logitech Silent', gia: 350000, danhMuc: 'Điện tử', soLuongTon: 25 },
-      { id: 4, ten: 'Bút bi cao cấp Parker', gia: 85000, danhMuc: 'Văn phòng phẩm', soLuongTon: 120 },
-      { id: 5, ten: 'Sổ tay bìa da ghi chép A5', gia: 120000, danhMuc: 'Văn phòng phẩm', soLuongTon: 0 },
+      { id: 4, ten: 'Bút ký kim loại cao cấp', gia: 85000, danhMuc: 'Văn phòng phẩm', soLuongTon: 120 },
+      { id: 5, ten: 'Sổ tay da ghi chép A5', gia: 120000, danhMuc: 'Văn phòng phẩm', soLuongTon: 0 },
       { id: 6, ten: 'Balo laptop chống sốc', gia: 450000, danhMuc: 'Thời trang & Đời sống', soLuongTon: 18 },
-      { id: 7, ten: 'Bình giữ nhiệt Lock&Lock 500ml', gia: 210000, danhMuc: 'Thời trang & Đời sống', soLuongTon: 35 }
+      { id: 7, ten: 'Bình giữ nhiệt Inox 500ml', gia: 210000, danhMuc: 'Thời trang & Đời sống', soLuongTon: 35 }
     ];
 
     createApp({
       data() {
         return {
-          // Mảng dữ liệu gốc
           products: JSON.parse(JSON.stringify(INITIAL_PRODUCTS)),
-          // 3 danh mục sản phẩm
           categories: ['Điện tử', 'Văn phòng phẩm', 'Thời trang & Đời sống'],
-          // Bộ lọc & tìm kiếm
           searchQuery: '',
           selectedCategory: 'all',
-          sortOrder: 'default', // 'default' | 'asc' | 'desc'
-          // 9. Dùng watch thông báo khi từ khóa có đúng một ký tự
+          sortOrder: 'default',
           keywordNotice: '',
-          // 10. Dùng mounted() đặt trạng thái trang thành “Sẵn sàng”
           pageStatus: 'Đang khởi tạo...',
-          // Form thêm mới
           showAddForm: false,
           newProduct: {
             name: '',
@@ -439,27 +400,22 @@
         };
       },
 
-      // 9. WATCH: thông báo khi từ khóa có đúng một ký tự; xóa thông báo khi từ khóa rỗng hoặc có từ hai ký tự
       watch: {
         searchQuery(newVal) {
           if (newVal.length === 1) {
-            this.keywordNotice = 'Từ khóa tìm kiếm hiện có đúng 1 ký tự. Vui lòng nhập từ 2 ký tự trở lên để kết quả chính xác hơn!';
+            this.keywordNotice = 'Từ khóa tìm kiếm có đúng 1 ký tự. Hãy nhập từ 2 ký tự trở lên để lọc chính xác hơn.';
           } else {
             this.keywordNotice = '';
           }
         }
       },
 
-      // 10. DÙNG MOUNTED() ĐẶT TRẠNG THÁI TRANG THÀNH "SẴN SÀNG"
       mounted() {
         this.pageStatus = 'Sẵn sàng';
       },
 
       computed: {
-        // 5. TÌM KIẾM, LỌC VÀ SẮP XẾP HOẠT ĐỘNG KẾT HỢP
-        // 4. KHI SẮP XẾP, KHÔNG LÀM THAY ĐỔI THỨ TỰ MẢNG GỐC
         filteredAndSortedProducts() {
-          // Bước 1: Lọc theo từ khóa tìm kiếm (không phân biệt hoa thường)
           const keyword = this.searchQuery.trim().toLowerCase();
           let result = this.products.filter(item => {
             const matchesName = keyword === '' || item.ten.toLowerCase().includes(keyword);
@@ -467,70 +423,59 @@
             return matchesName && matchesCat;
           });
 
-          // Bước 2: Sắp xếp theo giá (tạo bản sao bằng shallow copy để không làm biến đổi mảng gốc)
           if (this.sortOrder === 'asc') {
             return [...result].sort((a, b) => a.gia - b.gia);
           } else if (this.sortOrder === 'desc') {
             return [...result].sort((a, b) => b.gia - a.gia);
           }
 
-          // Thứ tự mặc định của mảng gốc
           return result;
         },
 
-        // 8. Số sản phẩm đang hiển thị
         displayedCount() {
           return this.filteredAndSortedProducts.length;
         },
 
-        // Tổng số sản phẩm trong cơ sở dữ liệu
         totalCount() {
           return this.products.length;
         },
 
-        // 8. Tổng giá trị tồn kho của các sản phẩm đang hiển thị (Giá trị = giá * tồn)
         totalInventoryValue() {
           return this.filteredAndSortedProducts.reduce((sum, item) => {
             return sum + (item.gia * item.soLuongTon);
           }, 0);
         },
 
-        // Thống kê số sản phẩm hết hàng trong danh sách hiển thị
         outOfStockCount() {
           return this.filteredAndSortedProducts.filter(item => item.soLuongTon <= 0).length;
         }
       },
 
       methods: {
-        // 6. THÊM SẢN PHẨM MỚI: kiểm tra tên không rỗng, giá lớn hơn 0, tồn kho số nguyên không âm
         addProduct() {
           this.formErrors = { name: '', price: '', stock: '' };
           let isValid = true;
 
-          // Kiểm tra tên sản phẩm không rỗng (sau trim)
           const trimmedName = (this.newProduct.name || '').trim();
           if (!trimmedName) {
-            this.formErrors.name = 'Tên sản phẩm không được để trống hoặc chỉ chứa khoảng trắng!';
+            this.formErrors.name = 'Tên sản phẩm không được để trống.';
             isValid = false;
           }
 
-          // Kiểm tra giá lớn hơn 0
           const priceNum = Number(this.newProduct.price);
           if (this.newProduct.price === null || this.newProduct.price === '' || isNaN(priceNum) || priceNum <= 0) {
-            this.formErrors.price = 'Giá sản phẩm phải là một số lớn hơn 0!';
+            this.formErrors.price = 'Giá sản phẩm phải lớn hơn 0.';
             isValid = false;
           }
 
-          // Kiểm tra tồn kho là số nguyên không âm (>= 0)
           const stockNum = Number(this.newProduct.stock);
           if (this.newProduct.stock === null || this.newProduct.stock === '' || !Number.isInteger(stockNum) || stockNum < 0) {
-            this.formErrors.stock = 'Số lượng tồn kho phải là số nguyên không âm (>= 0)!';
+            this.formErrors.stock = 'Số lượng tồn kho phải là số nguyên không âm.';
             isValid = false;
           }
 
           if (!isValid) return;
 
-          // Tạo ID mới tự tăng an toàn
           const maxId = this.products.reduce((max, item) => Math.max(max, item.id), 0);
           const newItem = {
             id: maxId + 1,
@@ -543,7 +488,6 @@
           this.products.push(newItem);
           this.resetForm();
           this.showAddForm = false;
-          alert(`Đã thêm thành công sản phẩm "${newItem.ten}"!`);
         },
 
         resetForm() {
@@ -556,10 +500,8 @@
           this.formErrors = { name: '', price: '', stock: '' };
         },
 
-        // 7. XÓA SẢN PHẨM SAU KHI NGƯỜI DÙNG XÁC NHẬN
         deleteProduct(item) {
-          const isConfirmed = window.confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${item.ten}" (Mã #${item.id}) không?`);
-          if (isConfirmed) {
+          if (window.confirm(`Xác nhận xóa sản phẩm "${item.ten}"?`)) {
             this.products = this.products.filter(p => p.id !== item.id);
           }
         },
@@ -568,11 +510,6 @@
           this.searchQuery = '';
           this.selectedCategory = 'all';
           this.sortOrder = 'default';
-        },
-
-        restoreDefaultData() {
-          this.products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS));
-          this.resetFilters();
         },
 
         formatCurrency(value) {

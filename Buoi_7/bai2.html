@@ -38,51 +38,16 @@
   <main class="main-content" id="app">
     <div class="page-intro">
       <h2 class="page-title">
-        <span>🧩</span> Bài 2: Danh mục sản phẩm bằng Component &lt;the-san-pham&gt;
+        Bài 2: Danh mục sản phẩm bằng Component &lt;the-san-pham&gt;
       </h2>
       <p class="page-subtitle">
-        Tái sử dụng giao diện bằng component con tách rời trong file <code>components/TheSanPham.js</code>, truyền dữ liệu qua <code>props</code> có kiểm tra kiểu dữ liệu, giá trị bắt buộc và giá trị mặc định, quản lý trạng thái hiển thị mô tả độc lập giữa từng thẻ.
+        Danh mục sản phẩm tái sử dụng component con <code>&lt;the-san-pham&gt;</code> được định nghĩa độc lập trong file <code>components/TheSanPham.js</code>.
       </p>
-      <div class="badge-concept">
-        Kiến thức áp dụng: Đăng ký Component (app.component), Props validation (type, required, default), Data riêng biệt trong component con, Tách file .js
-      </div>
-    </div>
-
-    <!-- KHỐI GIẢI THÍCH & KIỂM CHỨNG TÍNH ĐỘC LẬP -->
-    <div class="card" style="margin-bottom: 24px;">
-      <div class="card-header">
-        <h3 class="card-title">
-          <span>💡</span> Kiểm chứng yêu cầu kỹ thuật Component
-        </h3>
-        <span class="badge-stock badge-in-stock">
-          Đã đăng ký Component: &lt;the-san-pham&gt;
-        </span>
-      </div>
-      <div class="card-body" style="font-size: 0.9rem; color: var(--gray-700);">
-        <ul style="padding-left: 20px; line-height: 1.8;">
-          <li>
-            <strong>Props bắt buộc:</strong> <code>ten</code> (String) và <code>gia</code> (Number) — nếu thiếu sẽ có cảnh báo của Vue.
-          </li>
-          <li>
-            <strong>Props có giá trị mặc định:</strong> <code>anh</code> (ảnh mặc định SVG), <code>moTa</code> (chuỗi mặc định) và <code>soLuongTon</code> (0).
-          </li>
-          <li>
-            <strong>Tính độc lập của dữ liệu:</strong> Mỗi thẻ có biến <code>hienThiMoTa</code> nằm trong <code>data()</code> riêng. Bạn có thể mở mô tả của sản phẩm này mà các sản phẩm bên cạnh hoàn toàn không bị ảnh hưởng.
-          </li>
-          <li>
-            <strong>Sản phẩm hết hàng:</strong> Các sản phẩm có <code>soLuongTon = 0</code> sẽ tự động gắn nhãn "Hết hàng" và khóa (disable) nút "Mua".
-          </li>
-        </ul>
-      </div>
     </div>
 
     <!-- 1. COMPONENT CHA QUẢN LÝ DANH SÁCH ÍT NHẤT 4 SẢN PHẨM -->
-    <!-- 4. TRUYỀN DỮ LIỆU TỪ CHA XUỐNG CON BẰNG CÚ PHÁP BINDING -->
+    <!-- 4. TRUYỀN DỮ LIỆU TỪ CHA XUỐNG CON BẰNG BINDING -->
     <div class="product-grid">
-      <!-- 
-        Sử dụng component <the-san-pham> đã được đăng ký từ file components/TheSanPham.js
-        Truyền props: :ten, :gia, :anh, :mo-ta, :so-luong-ton
-      -->
       <the-san-pham
         v-for="sp in danhSachSanPham"
         :key="sp.id"
@@ -101,7 +66,7 @@
     <p style="color: var(--gray-400); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
   </footer>
 
-  <!-- 8. NẠP FILE VUE VÀ FILE COMPONENT components/TheSanPham.js TRƯỚC KHI MOUNT -->
+  <!-- NẠP RUNTIME VÀ COMPONENT FILE components/TheSanPham.js TRƯỚC KHI MOUNT -->
   <script src="assets/js/vue.global.js"></script>
   <script>
     if (typeof Vue === 'undefined') {
@@ -113,17 +78,16 @@
   <script>
     const { createApp } = Vue;
 
-    // Khởi tạo ứng dụng Vue cho component cha
     const app = createApp({
       data() {
         return {
-          // 1. Component cha quản lý danh sách ít nhất bốn sản phẩm (ở đây cung cấp 6 sản phẩm đa dạng)
+          // 1. Component cha quan ly danh sach san pham su dung anh that
           danhSachSanPham: [
             {
               id: 101,
               ten: 'Laptop Dell Inspiron 15 (Core i7)',
               gia: 16800000,
-              anh: 'assets/images/laptop.svg',
+              anh: 'assets/images/laptop.jpg',
               moTa: 'Laptop học tập và lập trình hiệu năng cao với CPU Intel Core i7 thế hệ mới, RAM 16GB, SSD 512GB và màn hình Full HD chống chói.',
               soLuongTon: 8
             },
@@ -131,50 +95,64 @@
               id: 102,
               ten: 'Bàn phím cơ không dây RGB',
               gia: 1250000,
-              anh: 'assets/images/keyboard.svg',
+              anh: 'assets/images/keyboard.jpg',
               moTa: 'Bàn phím cơ layout 75% gọn gàng, switch bấm êm ái, hỗ trợ kết nối 3 chế độ: Bluetooth 5.0, 2.4GHz và dây Type-C.',
-              soLuongTon: 0 // Hết hàng để kiểm tra khóa nút "Mua"
+              soLuongTon: 0 // Het hang de kiem tra khoa nut Mua
             },
             {
               id: 103,
-              ten: 'Chuột công thái học Wireless',
+              ten: 'Chuột không dây công thái học',
               gia: 380000,
-              anh: 'assets/images/mouse.svg',
-              moTa: 'Thiết kế công thái học chống mỏi cổ tay khi làm việc lâu, cảm biến quang học chính xác 4000 DPI, thời lượng pin lên đến 12 tháng.',
+              anh: 'assets/images/mouse.jpg',
+              moTa: 'Thiết kế công thái học chống mỏi cổ tay khi làm việc lâu, cảm biến quang học chính xác 4000 DPI, thời lượng pin 12 tháng.',
               soLuongTon: 15
             },
             {
               id: 104,
-              ten: 'Bút dạ bi kim loại cao cấp',
+              ten: 'Bút ký kim loại cao cấp',
               gia: 145000,
-              anh: 'assets/images/pen.svg',
+              anh: 'assets/images/pen.jpg',
               moTa: 'Vỏ hợp kim titan cao cấp chống trầy xước, ngòi bút 0.5mm nét chữ thanh mảnh và mực gel khô nhanh không bị nhòe.',
               soLuongTon: 45
             },
             {
               id: 105,
-              ten: 'Sổ tay da Planner A5',
+              ten: 'Sổ tay da cao cấp A5',
               gia: 95000,
-              anh: 'assets/images/notebook.svg',
+              anh: 'assets/images/notebook.jpg',
               moTa: 'Bìa da PU mềm mịn chống thấm, ruột giấy kẻ ô Dot Grid định lượng 100gsm chống thấm mực thích hợp ghi chép bullet journal.',
-              soLuongTon: 0 // Hết hàng
+              soLuongTon: 0 // Het hang
             },
             {
               id: 106,
-              ten: 'Balo laptop HUS Tech Pack',
+              ten: 'Balo laptop văn phòng chống sốc',
               gia: 480000,
-              // Thử nghiệm prop 'anh' và 'moTa' không truyền hoặc rỗng để kiểm chứng prop default
+              anh: 'assets/images/backpack.jpg',
+              moTa: 'Chất liệu vải Oxford trượt nước cao cấp, ngăn chống sốc dày dặn cho laptop 15.6 inch, quai đeo êm ái thoáng khí.',
               soLuongTon: 22
+            },
+            {
+              id: 107,
+              ten: 'Bình giữ nhiệt Inox 500ml',
+              gia: 210000,
+              anh: 'assets/images/bottle.jpg',
+              moTa: 'Inox 304 tiêu chuẩn an toàn thực phẩm, giữ nhiệt nóng 8 giờ và giữ lạnh 12 giờ, nắp đậy kín chống tràn tuyệt đối.',
+              soLuongTon: 30
+            },
+            {
+              id: 108,
+              ten: 'Phụ kiện công nghệ đa năng',
+              gia: 180000,
+              // Khong truyen prop 'anh' va 'moTa' de kiem tra prop default
+              soLuongTon: 10
             }
           ]
         };
       }
     });
 
-    // 8. Đăng ký component <the-san-pham> trước khi mount ứng dụng
+    // 8. Dang ky component truoc khi mount
     app.component('the-san-pham', TheSanPham);
-
-    // Tiến hành mount ứng dụng vào phần tử #app
     app.mount('#app');
   </script>
 </body>

@@ -6,29 +6,6 @@
   <title>Bài 3: Giỏ hàng với Props và $emit - Vue 3 | Bùi Quang Chiến 23001837</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
-    .test-case-box {
-      background: linear-gradient(135deg, #eff6ff, #dbeafe);
-      border: 1.5px solid #93c5fd;
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .test-case-info h4 {
-      font-size: 1rem;
-      font-weight: 800;
-      color: #1e40af;
-      margin-bottom: 4px;
-    }
-    .test-case-info p {
-      font-size: 0.85rem;
-      color: #1e3a8a;
-      margin: 0;
-    }
     .cart-actions-bar {
       display: flex;
       justify-content: space-between;
@@ -69,74 +46,63 @@
 
   <!-- NỘI DUNG CHÍNH -->
   <main class="main-content" id="app">
-    <div class="page-intro">
-      <h2 class="page-title">
-        <span>🛒</span> Bài 3: Giỏ hàng với Props và Sự kiện tùy chỉnh ($emit)
-      </h2>
-      <p class="page-subtitle">
-        Minh họa chuẩn mực luồng dữ liệu một chiều (One-Way Data Flow): Component cha nắm giữ dữ liệu giỏ hàng, component con <code>&lt;dong-gio-hang&gt;</code> nhận props hiển thị và phát sự kiện <code>doi-so-luong</code>, <code>yeu-cau-xoa</code> để cha xử lý cập nhật.
-      </p>
-      <div class="badge-concept">
-        Kiến thức áp dụng: Luồng dữ liệu 1 chiều, Custom Events ($emit), Component Communication, Props, Computed
-      </div>
-    </div>
-
-    <!-- KHỐI KIỂM THỬ TRƯỜNG HỢP CHUẨN ĐỀ BÀI -->
-    <div class="test-case-box">
-      <div class="test-case-info">
-        <h4>🎯 Kiểm tra kết quả chuẩn đề bài:</h4>
-        <p>
-          "Với <strong>2 bút</strong> giá <strong>5.000 đồng</strong> và <strong>3 quyển vở</strong> giá <strong>12.000 đồng</strong>, giỏ phải hiển thị tổng số lượng là <strong>5</strong> và tổng tiền là <strong>46.000 đồng</strong>."
+    <div class="page-intro" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+      <div>
+        <h2 class="page-title">
+          Bài 3: Giỏ hàng với Props và $emit
+        </h2>
+        <p class="page-subtitle">
+          Mô hình luồng dữ liệu một chiều: Component cha giữ dữ liệu giỏ hàng, component con <code>&lt;dong-gio-hang&gt;</code> nhận props và phát sự kiện <code>doi-so-luong</code>, <code>yeu-cau-xoa</code>.
         </p>
       </div>
-      <button type="button" class="btn btn-primary btn-sm" @click="loadStandardTestCase">
-        ⚡ Nạp trường hợp kiểm tra mẫu (2 bút + 3 vở)
-      </button>
+
+      <div style="display: flex; gap: 8px;">
+        <button type="button" class="btn btn-outline btn-sm" @click="loadStandardTestCase">
+          Nạp dữ liệu mẫu (2 bút + 3 vở)
+        </button>
+      </div>
     </div>
 
     <div class="cart-container">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">
-            <span>🛍️</span> Chi tiết giỏ hàng của bạn
-          </h3>
+          <h3 class="card-title">Chi tiết giỏ hàng</h3>
           <span style="font-size: 0.85rem; color: var(--gray-500);">
-            Giới hạn số lượng mỗi món: 1 - 99 sản phẩm
+            Giới hạn số lượng: 1 - 99
           </span>
         </div>
 
         <div class="card-body">
           <!-- 8. HIỂN THỊ "GIỎ HÀNG TRỐNG" KHI XÓA HẾT SẢN PHẨM -->
           <div v-if="gioHang.length === 0" class="empty-cart-view">
-            <span class="empty-cart-icon">🛒</span>
-            <h3>Giỏ hàng của bạn đang trống!</h3>
+            <h3>Giỏ hàng trống</h3>
             <p>
-              Bạn đã xóa toàn bộ sản phẩm khỏi giỏ hàng. Hãy thêm sản phẩm mới hoặc khôi phục dữ liệu mẫu để tiếp tục thử nghiệm.
+              Hiện chưa có sản phẩm nào trong giỏ hàng.
             </p>
             <div style="display: flex; gap: 10px; justify-content: center;">
-              <button type="button" class="btn btn-primary" @click="loadStandardTestCase">
-                🔄 Khôi phục giỏ hàng mẫu
+              <button type="button" class="btn btn-primary btn-sm" @click="loadStandardTestCase">
+                Khôi phục giỏ hàng mẫu
               </button>
             </div>
           </div>
 
-          <!-- BẢNG GIỎ HÀNG KHI CÓ SẢN PHẨM -->
+          <!-- BẢNG GIỎ HÀNG -->
           <div v-else class="table-responsive">
             <table class="cart-table">
               <thead>
                 <tr>
                   <th>Sản phẩm</th>
                   <th style="width: 140px;">Đơn giá</th>
-                  <th style="width: 160px;">Số lượng (1-99)</th>
+                  <th style="width: 160px;">Số lượng</th>
                   <th style="width: 150px;">Thành tiền</th>
                   <th style="width: 90px; text-align: center;">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
                 <!-- 
-                  2. Component con <dong-gio-hang> nhận dữ liệu bằng props
-                  3. Phát sự kiện @doi-so-luong và @yeu-cau-xoa
-                  4. Component cha nhận sự kiện, kiểm tra dữ liệu rồi cập nhật mảng
+                  2. Component con <dong-gio-hang> nhan du lieu bang props
+                  3. Phat su kien @doi-so-luong va @yeu-cau-xoa
+                  4. Component cha cap nhat mang
                 -->
                 <tr 
                   is="vue:dong-gio-hang"
@@ -152,39 +118,36 @@
               </tbody>
             </table>
 
-            <!-- THANH THAO TÁC DƯỚI BẢNG -->
             <div class="cart-actions-bar">
               <button 
                 type="button" 
                 class="btn btn-outline-danger btn-sm" 
                 @click="clearAllCart"
-                title="Xóa toàn bộ giỏ hàng để kiểm tra trạng thái Giỏ hàng trống"
               >
-                🧹 Xóa toàn bộ giỏ hàng
+                Làm trống giỏ hàng
               </button>
 
               <button 
                 type="button" 
                 class="btn btn-outline btn-sm" 
                 @click="addNewRandomProduct"
-                title="Thêm một sản phẩm ngẫu nhiên vào giỏ"
               >
-                ➕ Thêm sản phẩm khác vào giỏ
+                Thêm sản phẩm khác
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 7. COMPONENT CHA DÙNG COMPUTED TÍNH TỔNG SỐ LƯỢNG VÀ TỔNG TIỀN -->
+      <!-- 7. COMPUTED TÍNH TỔNG SỐ LƯỢNG VÀ TỔNG TIỀN -->
       <div v-if="gioHang.length > 0" class="cart-summary-card">
         <div class="cart-summary-item">
-          <span class="cart-summary-label">Tổng số lượng sản phẩm</span>
-          <span class="cart-summary-num">{{ tongSoLuong }} món</span>
+          <span class="cart-summary-label">Tổng số lượng</span>
+          <span class="cart-summary-num">{{ tongSoLuong }}</span>
         </div>
 
         <div class="cart-summary-item" style="text-align: right;">
-          <span class="cart-summary-label">Tổng tiền thanh toán</span>
+          <span class="cart-summary-label">Tổng thanh toán</span>
           <span class="cart-summary-total">{{ formatMoney(tongTien) }}</span>
         </div>
       </div>
@@ -209,7 +172,7 @@
   <script>
     const { createApp } = Vue;
 
-    // Dữ liệu kiểm tra chuẩn mực theo đề bài
+    // Du lieu kiem tra chuan de bai: 2 but (5.000 d) va 3 vo (12.000 d) -> tong so luong 5, tong tien 46.000 d
     const STANDARD_TEST_ITEMS = [
       { id: 1, ten: 'Bút bi học sinh', donGia: 5000, soLuong: 2 },
       { id: 2, ten: 'Quyển vở kẻ ngang', donGia: 12000, soLuong: 3 }
@@ -218,34 +181,28 @@
     const app = createApp({
       data() {
         return {
-          // 1. Mỗi mục trong giỏ gồm: id, tên, đơn giá và số lượng
           gioHang: JSON.parse(JSON.stringify(STANDARD_TEST_ITEMS))
         };
       },
 
       computed: {
-        // 7. Component cha dùng computed tính tổng số lượng
         tongSoLuong() {
           return this.gioHang.reduce((sum, item) => sum + item.soLuong, 0);
         },
 
-        // 7. Component cha dùng computed tính tổng tiền
         tongTien() {
           return this.gioHang.reduce((sum, item) => sum + (item.donGia * item.soLuong), 0);
         }
       },
 
       methods: {
-        // 4. Component cha nhận sự kiện doi-so-luong, kiểm tra dữ liệu rồi cập nhật mảng
         handleDoiSoLuong(id, newQuantity) {
-          // 5. Số lượng chỉ được nhận giá trị nguyên từ 1 đến 99
           if (
             typeof newQuantity !== 'number' || 
             !Number.isInteger(newQuantity) || 
             newQuantity < 1 || 
             newQuantity > 99
           ) {
-            console.warn('Dữ liệu số lượng không hợp lệ từ component con:', newQuantity);
             return;
           }
 
@@ -255,31 +212,27 @@
           }
         },
 
-        // 4. Component cha nhận sự kiện yeu-cau-xoa, kiểm tra và cập nhật mảng
         handleYeuCauXoa(id) {
           const itemToDelete = this.gioHang.find(item => item.id === id);
           const confirmMsg = itemToDelete 
-            ? `Bạn có chắc muốn xóa "${itemToDelete.ten}" khỏi giỏ hàng?` 
-            : 'Xác nhận xóa mục này khỏi giỏ hàng?';
+            ? `Xác nhận xóa "${itemToDelete.ten}" khỏi giỏ hàng?` 
+            : 'Xác nhận xóa mục này?';
 
           if (window.confirm(confirmMsg)) {
             this.gioHang = this.gioHang.filter(item => item.id !== id);
           }
         },
 
-        // Nạp nhanh trường hợp kiểm tra mẫu theo đề bài: 2 bút (5.000 đ) + 3 vở (12.000 đ) = 46.000 đ
         loadStandardTestCase() {
           this.gioHang = JSON.parse(JSON.stringify(STANDARD_TEST_ITEMS));
         },
 
-        // Xóa hết toàn bộ giỏ hàng để kiểm tra yêu cầu 8 (Hiển thị "Giỏ hàng trống")
         clearAllCart() {
-          if (window.confirm('Bạn có chắc chắn muốn làm trống toàn bộ giỏ hàng?')) {
+          if (window.confirm('Xác nhận làm trống toàn bộ giỏ hàng?')) {
             this.gioHang = [];
           }
         },
 
-        // Thêm một sản phẩm mẫu ngẫu nhiên để test độ linh hoạt
         addNewRandomProduct() {
           const sampleCatalog = [
             { ten: 'Thước kẻ dẻo 20cm', donGia: 8000 },
@@ -306,9 +259,7 @@
       }
     });
 
-    // Đăng ký component <dong-gio-hang>
     app.component('dong-gio-hang', DongGioHang);
-
     app.mount('#app');
   </script>
 </body>
