@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài tập thực hành 8: Quản lý sản phẩm - PHP API & Vue.js | Bùi Quang Chiến 23001837</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- HEADER DÙNG CHUNG -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-brand">
+        <div class="brand-icon">V8</div>
+        <div class="brand-text">
+          <h1>BÀI TẬP THỰC HÀNH SỐ 8 - PHP & VUE.JS</h1>
+          <span>Phát triển ứng dụng web (MAT3542 1)</span>
+        </div>
+      </a>
+
+      <div class="student-tag">
+        <span>Bùi Quang Chiến</span>
+        <span>• 23001837</span>
+        <span>• K68A3</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-content" id="app">
+    <div class="page-intro">
+      <h2 class="page-title">Quản lý sản phẩm với RESTful API</h2>
+      <p class="page-subtitle">
+        Tích hợp toàn diện PHP RESTful API (GET, POST, PUT, DELETE) với giao diện tương tác phản ứng Vue.js, cập nhật dữ liệu thời gian thực không tải lại trang.
+      </p>
+    </div>
+
+    <!-- KHỐI HIỂN THỊ THÔNG BÁO THÀNH CÔNG / THẤT BẠI TỪ API -->
+    <div v-if="successMessage" class="alert alert-success">
+      <div>
+        <strong>Thành công:</strong> {{ successMessage }}
+      </div>
+      <button type="button" class="alert-close" @click="successMessage = ''" title="Đóng thông báo">✕</button>
+    </div>
+
+    <div v-if="errorMessage" class="alert alert-danger">
+      <div>
+        <strong>Thông báo lỗi:</strong> {{ errorMessage }}
+      </div>
+      <button type="button" class="alert-close" @click="errorMessage = ''" title="Đóng thông báo">✕</button>
+    </div>
+
+    <!-- BỐ CỤC 2 CỘT: FORM THAO TÁC & BẢNG SẢN PHẨM -->
+    <div class="grid-layout">
+      <!-- CỘT 1: BIỂU MẪU THÊM / SỬA SẢN PHẨM (CÂU 3.2 & 3.3) -->
+      <section class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span v-if="formMode === 'add'">Thêm sản phẩm mới</span>
+            <span v-else>Cập nhật sản phẩm</span>
+          </h3>
+          <span 
+            class="mode-badge" 
+            :class="formMode === 'add' ? 'mode-add' : 'mode-edit'"
+          >
+            {{ formMode === 'add' ? 'Chế độ: Thêm' : 'Chế độ: Sửa #' + editingId }}
+          </span>
+        </div>
+
+        <div class="card-body">
+          <form @submit.prevent="handleSubmit">
+            <!-- Ô 1: Tên sản phẩm -->
+            <div class="form-group">
+              <label class="form-label" for="productName">
+                Tên sản phẩm <span class="required">*</span>
+              </label>
+              <input 
+                id="productName"
+                type="text" 
+                class="form-control" 
+                :class="{ 'is-invalid': formErrors.name }"
+                v-model="formData.name"
+                placeholder="Nhập tên sản phẩm (1 - 100 ký tự)..."
+                maxlength="100"
+              />
+              <div v-if="formErrors.name" class="form-feedback-error">
+                {{ formErrors.name }}
+              </div>
+              <div class="form-help">Bắt buộc nhập, độ dài từ 1 đến 100 ký tự sau khi bỏ khoảng trắng.</div>
+            </div>
+
+            <!-- Ô 2: Đơn giá -->
+            <div class="form-group">
+              <label class="form-label" for="productPrice">
+                Đơn giá (đồng) <span class="required">*</span>
+              </label>
+              <input 
+                id="productPrice"
+                type="number" 
+                class="form-control" 
+                :class="{ 'is-invalid': formErrors.price }"
+                v-model.number="formData.price"
+                placeholder="Nhập đơn giá (số nguyên > 0)..."
+                min="1"
+                step="1"
+              />
+              <div v-if="formErrors.price" class="form-feedback-error">
+                {{ formErrors.price }}
+              </div>
+              <div class="form-help">Đơn vị: đồng. Phải là số nguyên lớn hơn 0.</div>
+            </div>
+
+            <!-- Ô 3: Số lượng tồn -->
+            <div class="form-group">
+              <label class="form-label" for="productStock">
+                Số lượng tồn <span class="required">*</span>
+              </label>
+              <input 
+                id="productStock"
+                type="number" 
+                class="form-control" 
+                :class="{ 'is-invalid': formErrors.stock }"
+                v-model.number="formData.stock"
+                placeholder="Nhập số lượng tồn (số nguyên >= 0)..."
+                min="0"
+                step="1"
+              />
+              <div v-if="formErrors.stock" class="form-feedback-error">
+                {{ formErrors.stock }}
+              </div>
+              <div class="form-help">Số nguyên không âm (lớn hơn hoặc bằng 0).</div>
+            </div>
+
+            <!-- NÚT ĐIỀU KHIỂN BIỂU MẪU -->
+            <div style="display: flex; gap: 10px; margin-top: 24px;">
+              <button 
+                type="submit" 
+                class="btn btn-primary" 
+                style="flex: 1;"
+                :disabled="isSubmitting"
+              >
+                <span v-if="isSubmitting">Đang xử lý...</span>
+                <span v-else-if="formMode === 'add'">Lưu sản phẩm</span>
+                <span v-else>Cập nhật</span>
+              </button>
+
+              <button 
+                v-if="formMode === 'edit'" 
+                type="button" 
+                class="btn btn-outline" 
+                @click="cancelEdit"
+                :disabled="isSubmitting"
+              >
+                Hủy
+              </button>
+
+              <button 
+                v-if="formMode === 'add'" 
+                type="button" 
+                class="btn btn-outline" 
+                @click="resetForm"
+                :disabled="isSubmitting"
+              >
+                Đặt lại
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- CỘT 2: BẢNG DANH SÁCH SẢN PHẨM (CÂU 3.1) -->
+      <section class="card">
+        <div class="card-header">
+          <h3 class="card-title">Danh sách sản phẩm trong kho</h3>
+          <button 
+            type="button" 
+            class="btn btn-outline btn-sm" 
+            @click="fetchProducts" 
+            :disabled="isLoading"
+            title="Tải lại danh sách từ API"
+          >
+            {{ isLoading ? 'Đang tải...' : 'Làm mới' }}
+          </button>
+        </div>
+
+        <div class="card-body" style="padding: 0;">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px; text-align: center;">ID</th>
+                  <th>Tên sản phẩm</th>
+                  <th style="width: 150px; text-align: right;">Đơn giá</th>
+                  <th style="width: 140px; text-align: center;">Số lượng tồn</th>
+                  <th style="width: 140px; text-align: center;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Câu 3.1: v-for hiển thị tên sản phẩm, đơn giá, số lượng tồn và 2 nút Sửa, Xóa -->
+                <tr v-for="product in products" :key="product.id">
+                  <td style="text-align: center; color: var(--gray-500); font-weight: 600;">
+                    #{{ product.id }}
+                  </td>
+                  <td style="font-weight: 600; color: var(--gray-900);">
+                    {{ product.name }}
+                  </td>
+                  <td class="price-cell" style="text-align: right;">
+                    {{ formatCurrency(product.price) }}
+                  </td>
+                  <td style="text-align: center;">
+                    <span 
+                      class="badge-stock" 
+                      :class="product.stock > 0 ? 'badge-in-stock' : 'badge-out-of-stock'"
+                    >
+                      {{ product.stock > 0 ? product.stock + ' sản phẩm' : 'Hết hàng (0)' }}
+                    </span>
+                  </td>
+                  <td style="text-align: center;">
+                    <div style="display: inline-flex; gap: 6px;">
+                      <!-- Câu 3.3: Nút Sửa -->
+                      <button 
+                        type="button" 
+                        class="btn btn-outline btn-sm" 
+                        @click="startEdit(product)"
+                        title="Chỉnh sửa thông tin sản phẩm"
+                      >
+                        Sửa
+                      </button>
+                      <!-- Câu 3.4: Nút Xóa -->
+                      <button 
+                        type="button" 
+                        class="btn btn-outline-danger btn-sm" 
+                        @click="handleDelete(product)"
+                        title="Xóa sản phẩm"
+                      >
+                        Xóa
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Trường hợp danh sách rỗng -->
+                <tr v-if="!isLoading && products.length === 0">
+                  <td colspan="5" style="text-align: center; padding: 40px 20px; color: var(--gray-500);">
+                    <div style="font-size: 1rem; font-weight: 600; color: var(--gray-700); margin-bottom: 4px;">
+                      Chưa có sản phẩm nào trong cơ sở dữ liệu
+                    </div>
+                    <p style="font-size: 0.85rem; margin: 0;">
+                      Vui lòng nhập thông tin vào biểu mẫu bên cạnh và nhấn "Lưu sản phẩm" để thêm mới.
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Đang tải dữ liệu -->
+                <tr v-if="isLoading && products.length === 0">
+                  <td colspan="5" style="text-align: center; padding: 30px; color: var(--gray-500);">
+                    Đang kết nối API và tải danh sách sản phẩm...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- DÒNG THỐNG KÊ TỔNG KẾT BẢNG -->
+          <div v-if="products.length > 0" class="table-summary">
+            <div>
+              Tổng số mặt hàng: <strong>{{ products.length }}</strong>
+            </div>
+            <div>
+              Tổng giá trị tồn kho: <strong>{{ formatCurrency(totalInventoryValue) }}</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER DÙNG CHUNG -->
+  <footer class="app-footer">
+    <p>Bài tập thực hành số 8 - PHP REST API & Vue.js | Lớp: <strong>K68A3</strong> | Sinh viên thực hiện: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
+    <p style="color: var(--gray-400); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) • MAT3542 1 - Phát triển ứng dụng web</p>
+  </footer>
+
+  <!-- NẠP THƯ VIỆN VUE 3 (HỖ TRỢ OFFLINE VÀ FALLBACK CDN) -->
+  <script src="assets/js/vue.global.js"></script>
+  <script>
+    if (typeof Vue === 'undefined') {
+      document.write('<script src="https://unpkg.com/vue@3/dist/vue.global.js"><\/script>');
+    }
+  </script>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          apiUrl: 'api/products.php',
+          products: [],
+          isLoading: false,
+          isSubmitting: false,
+          errorMessage: '',
+          successMessage: '',
+
+          // Chế độ biểu mẫu: 'add' (Thêm mới) hoặc 'edit' (Cập nhật)
+          formMode: 'add',
+          editingId: null,
+
+          // Dữ liệu biểu mẫu ràng buộc với v-model
+          formData: {
+            name: '',
+            price: null,
+            stock: null
+          },
+
+          // Thông báo lỗi validation phía client
+          formErrors: {
+            name: '',
+            price: '',
+            stock: ''
+          }
+        };
+      },
+
+      computed: {
+        totalInventoryValue() {
+          return this.products.reduce((sum, item) => sum + (item.price * item.stock), 0);
+        }
+      },
+
+      // 1. Khi mở trang, gọi API và lấy danh sách sản phẩm
+      mounted() {
+        this.fetchProducts();
+      },
+
+      methods: {
+        // Tải danh sách sản phẩm qua GET api/products.php
+        async fetchProducts() {
+          this.isLoading = true;
+          try {
+            const res = await fetch(this.apiUrl, {
+              method: 'GET',
+              headers: { 'Accept': 'application/json' }
+            });
+
+            const result = await res.json();
+            if (result.success && Array.isArray(result.data)) {
+              this.products = result.data;
+            } else {
+              this.errorMessage = result.message || 'Không thể tải danh sách sản phẩm từ máy chủ.';
+            }
+          } catch (err) {
+            this.errorMessage = 'Lỗi kết nối tới API: ' + (err.message || 'Không thể kết nối đến máy chủ.');
+          } finally {
+            this.isLoading = false;
+          }
+        },
+
+        // Kiểm tra hợp lệ dữ liệu biểu mẫu trước khi gửi
+        validateForm() {
+          this.formErrors = { name: '', price: '', stock: '' };
+          let isValid = true;
+
+          const trimmedName = (this.formData.name || '').trim();
+          if (!trimmedName || trimmedName.length < 1 || trimmedName.length > 100) {
+            this.formErrors.name = 'Tên sản phẩm phải có từ 1 đến 100 ký tự sau khi bỏ khoảng trắng.';
+            isValid = false;
+          }
+
+          const price = this.formData.price;
+          if (price === null || price === '' || isNaN(price) || !Number.isInteger(Number(price)) || Number(price) <= 0) {
+            this.formErrors.price = 'Đơn giá phải là số nguyên lớn hơn 0.';
+            isValid = false;
+          }
+
+          const stock = this.formData.stock;
+          if (stock === null || stock === '' || isNaN(stock) || !Number.isInteger(Number(stock)) || Number(stock) < 0) {
+            this.formErrors.stock = 'Số lượng tồn kho phải là số nguyên không âm (>= 0).';
+            isValid = false;
+          }
+
+          return isValid;
+        },
+
+        // 2 & 3. Xử lý gửi biểu mẫu khi bấm Lưu
+        async handleSubmit() {
+          this.errorMessage = '';
+          this.successMessage = '';
+
+          if (!this.validateForm()) {
+            return;
+          }
+
+          this.isSubmitting = true;
+          const payload = {
+            name: this.formData.name.trim(),
+            price: parseInt(this.formData.price, 10),
+            stock: parseInt(this.formData.stock, 10)
+          };
+
+          try {
+            let res;
+            if (this.formMode === 'add') {
+              // Câu 3.2: Khi bấm Lưu ở chế độ thêm, gửi yêu cầu POST
+              res = await fetch(this.apiUrl, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+              });
+            } else {
+              // Câu 3.3: Khi bấm Lưu ở chế độ sửa, gửi yêu cầu PUT theo đúng mã sản phẩm
+              res = await fetch(`${this.apiUrl}?id=${this.editingId}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+              });
+            }
+
+            const result = await res.json();
+            if (result.success) {
+              this.successMessage = result.message || 'Thao tác thành công.';
+              this.resetForm();
+              // Câu 3.5: Gọi lại API để cập nhật bảng mà không tải lại trang
+              await this.fetchProducts();
+            } else {
+              // Câu 3.5: Nếu API trả lỗi, hiển thị thông báo trên giao diện
+              this.errorMessage = result.message || 'Thao tác không thành công.';
+            }
+          } catch (err) {
+            this.errorMessage = 'Lỗi gửi yêu cầu tới máy chủ: ' + err.message;
+          } finally {
+            this.isSubmitting = false;
+          }
+        },
+
+        // 3. Khi bấm Sửa, đưa dữ liệu của dòng được chọn lên biểu mẫu
+        startEdit(product) {
+          this.formMode = 'edit';
+          this.editingId = product.id;
+          this.formData = {
+            name: product.name,
+            price: product.price,
+            stock: product.stock
+          };
+          this.formErrors = { name: '', price: '', stock: '' };
+          this.errorMessage = '';
+          this.successMessage = '';
+
+          // Cuộn mượt lên vị trí biểu mẫu trên thiết bị di động
+          const inputEl = document.getElementById('productName');
+          if (inputEl) {
+            inputEl.focus();
+          }
+        },
+
+        // Hủy chế độ sửa, quay về chế độ thêm
+        cancelEdit() {
+          this.resetForm();
+        },
+
+        // Đặt lại dữ liệu biểu mẫu về mặc định
+        resetForm() {
+          this.formMode = 'add';
+          this.editingId = null;
+          this.formData = {
+            name: '',
+            price: null,
+            stock: null
+          };
+          this.formErrors = { name: '', price: '', stock: '' };
+        },
+
+        // 4. Khi bấm Xóa, yêu cầu người dùng xác nhận. Chỉ gửi DELETE nếu đồng ý.
+        async handleDelete(product) {
+          this.errorMessage = '';
+          this.successMessage = '';
+
+          const isConfirmed = window.confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${product.name}" (Mã #${product.id}) không?`);
+          if (!isConfirmed) {
+            return;
+          }
+
+          try {
+            const res = await fetch(`${this.apiUrl}?id=${product.id}`, {
+              method: 'DELETE',
+              headers: { 'Accept': 'application/json' }
+            });
+
+            const result = await res.json();
+            if (result.success) {
+              this.successMessage = result.message || 'Đã xóa sản phẩm thành công.';
+              // Nếu đang sửa đúng sản phẩm vừa bị xóa thì reset form
+              if (this.editingId === product.id) {
+                this.resetForm();
+              }
+              // Câu 3.5: Cập nhật lại danh sách không tải lại trang
+              await this.fetchProducts();
+            } else {
+              this.errorMessage = result.message || 'Không thể xóa sản phẩm.';
+            }
+          } catch (err) {
+            this.errorMessage = 'Lỗi gửi yêu cầu xóa: ' + err.message;
+          }
+        },
+
+        // Định dạng tiền tệ VNĐ
+        formatCurrency(value) {
+          if (typeof value !== 'number' || isNaN(value)) return '0 đ';
+          return value.toLocaleString('vi-VN') + ' đ';
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
