@@ -109,6 +109,18 @@ This repository contains practical laboratory assignments and source code for th
 │           ├── backpack.jpg
 │           ├── bottle.jpg
 │           └── default-product.jpg
+├── Buoi_8/                              # Full-Stack Integration: RESTful PHP API and Vue 3 CRUD Application
+│   ├── Bai tap thuc hanh 8 - api vuejs.pdf
+│   ├── database.sql                     # Database schema and seed data for products table
+│   ├── index.html                       # Vue 3 reactive Single Page Application for product CRUD
+│   ├── api/
+│   │   ├── dbConnect.php                # PDO connection helper with schema initialization
+│   │   └── products.php                 # RESTful API controller (GET, POST, PUT, DELETE) with validation
+│   └── assets/
+│       ├── css/
+│       │   └── style.css                # Responsive stylesheet for Session 8
+│       └── js/
+│           └── vue.global.js            # Standalone Vue 3 runtime build
 ├── Midterm/                             # Midterm Practical Examination
 │   └── BuiQuangChien_23001837.php       # PHP programming test with validation and security
 └── README.md
@@ -226,6 +238,32 @@ This repository contains practical laboratory assignments and source code for th
   - Empty state: Displays "Cart is Empty" notice when all items are removed, with an action to reload test data.
   - Standard verification test case: 2 pens (5,000 VND each) and 3 notebooks (12,000 VND each) yield total quantity of 5 and total price of 46,000 VND.
 
+### Session 8: Full-Stack Integration (RESTful PHP API and Vue 3)
+- `database.sql`:
+  - Definition of `products` table schema (`id INT AUTO_INCREMENT PRIMARY KEY`, `name VARCHAR(100) NOT NULL`, `price INT NOT NULL`, `stock INT NOT NULL`).
+  - Seed records: `Bút bi` (5,000 VND, stock 20), `Vở ô ly` (12,000 VND, stock 15), `Thước kẻ` (8,000 VND, stock 0).
+- `api/dbConnect.php`:
+  - Secure PDO database connection helper with UTF-8 character encoding and sanitized exception handling.
+  - Automatic database verification and table creation fallback.
+- `api/products.php`:
+  - RESTful API routing supporting `GET`, `POST`, `PUT`, and `DELETE` HTTP methods.
+  - Format compliance: Standardized JSON responses containing boolean `success`, data payload `data`, and feedback `message`.
+  - Server-side parameter validation:
+    - `name`: Trimmed length between 1 and 100 characters.
+    - `price`: Integer strictly greater than 0 (`price > 0`).
+    - `stock`: Integer greater than or equal to 0 (`stock >= 0`). Invalid inputs (such as negative stock or decimal values) are rejected with HTTP 400 prior to database execution.
+  - Parameterized queries using PDO prepared statements to prevent SQL injection vulnerabilities.
+  - Entity existence verification returning HTTP 404 when attempting to update or delete non-existent IDs.
+- `index.html`:
+  - Single-page application built with Vue 3 reactive Composition/Options API.
+  - Automatic initial data hydration via `GET api/products.php` in `mounted()`.
+  - Reactive product table rendered with `v-for`, including visual badges for in-stock and out-of-stock statuses.
+  - Two-way data binding with `v-model` for product form inputs (name, price, stock).
+  - Mode switching between Add (`POST`) and Edit (`PUT api/products.php?id=X`).
+  - Safe record deletion with explicit window confirmation dialog before dispatching `DELETE api/products.php?id=X`.
+  - Seamless in-place UI updates without full page reloads following mutations.
+  - Contextual user feedback alerts for API successes and errors.
+
 ---
 
 ## Execution Instructions
@@ -242,6 +280,11 @@ mysql -u root -p < Buoi_4/BuiQuangChien_23001837_ThucHanhBuoi4.sql
 mysql -u root -p < Buoi_5/BuiQuangChien_23001837_ThucHanhBuoi5.sql
 ```
 
+#### For Session 8:
+```bash
+mysql -u root -p < Buoi_8/database.sql
+```
+
 ### 2. Local Web Server Execution
 
 #### PHP Applications (Session 4 and Session 5):
@@ -255,6 +298,14 @@ Then navigate to: `http://localhost:8000`
 Default test accounts:
 - Administrator: `admin` / `admin123`
 - Standard User: `chienbq` / `123456`
+
+#### Full-Stack RESTful Application (Session 8):
+Run the built-in PHP development server targeting the `Buoi_8` directory:
+```bash
+# Launch server for Session 8
+php -S localhost:8000 -t Buoi_8/
+```
+Then navigate to: `http://localhost:8000`
 
 #### Vue.js Applications (Session 6 and Session 7):
 All Vue.js exercises are client-side implementations using modern standards. They can be executed directly without requiring PHP or backend services:
