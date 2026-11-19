@@ -20,14 +20,22 @@ This repository contains practical laboratory assignments and source code for th
 .
 ├── Buoi_1/                              # Fundamentals of PHP: Variables, Arrays, Functions, and OOP Basics
 │   ├── Bai_thuc_hanh_PHP_Buoi_1.pdf
+│   ├── _web_shell.php                   # Browser console shell wrapper (CLI plain-text preserved)
+│   ├── index.php                        # Overview navigation hub for Session 1
 │   ├── bai1.php
 │   ├── bai2.php
 │   ├── bai3.php
-│   └── bai4.php
+│   ├── bai4.php
+│   └── assets/
+│       └── style.css                    # Bravechat Dark Workspace stylesheet
 ├── Buoi_2/                              # PHP Advanced Functions and Object-Oriented Programming
 │   ├── Bai_thuc_hanh_buoi_2.pdf
+│   ├── _web_shell.php                   # Browser console shell wrapper (CLI plain-text preserved)
+│   ├── index.php                        # Overview navigation hub for Session 2
 │   ├── bai1.php
-│   └── bai2.php
+│   ├── bai2.php
+│   └── assets/
+│       └── style.css                    # Bravechat Dark Workspace stylesheet
 ├── Buoi_3/                              # Relational Database Management with MySQL
 │   ├── Bai_thuc_hanh_buoi_3_MYSQL.pdf
 │   └── BuiQuangChien_23001837_ThucHanhBuoi3.sql
@@ -119,6 +127,20 @@ This repository contains practical laboratory assignments and source code for th
 │   └── assets/
 │       ├── css/
 │       │   └── style.css                # Responsive stylesheet for Session 8
+│       └── js/
+│           └── vue.global.js            # Standalone Vue 3 runtime build
+├── Buoi_9/                              # Full-Stack Extension: Image Upload and Server-Side Pagination
+│   ├── Bai tap thuc hanh 9 - upload file and pagination.pdf
+│   ├── database.sql                     # Extended products schema (with image column) and 12 sample rows
+│   ├── index.html                       # Vue 3 SPA with file preview, upload retry flow, and pagination controls
+│   ├── api/
+│   │   ├── dbConnect.php                # PDO connector with schema upgrade checks and upload cleanup helpers
+│   │   ├── products.php                 # Paginated GET (5/page), POST, PUT, DELETE REST endpoints
+│   │   └── upload.php                   # Multipart image uploader validating binary MIME, size, and product ID
+│   ├── uploads/                         # Storage directory for uploaded product images
+│   └── assets/
+│       ├── css/
+│       │   └── style.css                # Responsive stylesheet for Session 9
 │       └── js/
 │           └── vue.global.js            # Standalone Vue 3 runtime build
 ├── Midterm/                             # Midterm Practical Examination
@@ -264,6 +286,32 @@ This repository contains practical laboratory assignments and source code for th
   - Seamless in-place UI updates without full page reloads following mutations.
   - Contextual user feedback alerts for API successes and errors.
 
+### Session 9: Product Image Upload and Server-Side Pagination
+- `database.sql`:
+  - Extended `products` table with nullable `image VARCHAR(255) NULL DEFAULT NULL`.
+  - Seeded 12 sample products supporting multi-page backend pagination (5 items per page across 3 pages: 5, 5, 2).
+- `api/dbConnect.php`:
+  - Automatic schema verification adding the `image` column if upgrading an older database, seeding only upon initial table creation so deleting all records preserves the empty state.
+  - Safe path-checked helper `removeUploadedImageFile()` for removing superseded or deleted product images.
+- `api/products.php`:
+  - Server-side paginated `GET api/products.php?page=1&limit=5` endpoint:
+    - Validates `page` as a positive integer (`>= 1`, default `1`) and `limit` as `5` (default `5`), returning HTTP 400 for invalid parameters.
+    - Orders records by `id DESC`, counts total products, computes `total_pages = max(1, ceil(total / limit))`, and clamps out-of-range `page` parameters to `total_pages` returning the valid page and slice.
+    - Returns `{ success, data, pagination: { page, limit, total, total_pages } }`.
+  - `POST` returns the newly inserted product ID for subsequent multipart image upload.
+  - `PUT` preserves the existing `image` column when modifying product fields without uploading a new image.
+  - `DELETE` deletes the product row and cleans up any associated image stored in `uploads/`.
+- `api/upload.php`:
+  - `POST` endpoint accepting `multipart/form-data` (`product_id`, `image`).
+  - Checks `post_max_size` overflow, `UPLOAD_ERR_*` codes, and enforces file size strictly in `[1 byte, 2 MB]`.
+  - Verifies actual file binary headers using both `finfo` (`FILEINFO_MIME_TYPE`) and `getimagesize()`, accepting only genuine JPEG (`image/jpeg`) and PNG (`image/png`) files.
+  - Generates unique filenames (`product_{id}_{random}.{ext}`) inside `uploads/`, updates the `image` column via PDO prepared statements, and cleans up old images only after the new upload and database update succeed.
+- `index.html`:
+  - File input with instant image preview (`URL.createObjectURL` with memory cleanup via `URL.revokeObjectURL`), current-image preview during edits, and client-side format/size validation.
+  - Two-step save workflow: persists JSON fields via `api/products.php`, then uploads image via `FormData` to `api/upload.php`.
+  - Retry workflow on upload failure: retains saved product data (switching to edit mode without creating duplicate rows), preserves any existing image URL, and provides a retry action.
+  - Table thumbnails with `"Chưa có ảnh"` fallback badge and pagination controls (`Trước`, `Sau`, `"Trang X / Y — Tổng Z sản phẩm"`) with automatic boundary locking and page adjustment after additions, edits, and deletions.
+
 ---
 
 ## Execution Instructions
@@ -285,6 +333,11 @@ mysql -u root -p < Buoi_5/BuiQuangChien_23001837_ThucHanhBuoi5.sql
 mysql -u root -p < Buoi_8/database.sql
 ```
 
+#### For Session 9:
+```bash
+mysql -u root -p < Buoi_9/database.sql
+```
+
 ### 2. Local Web Server Execution
 
 #### PHP Applications (Session 4 and Session 5):
@@ -299,11 +352,14 @@ Default test accounts:
 - Administrator: `admin` / `admin123`
 - Standard User: `chienbq` / `123456`
 
-#### Full-Stack RESTful Application (Session 8):
-Run the built-in PHP development server targeting the `Buoi_8` directory:
+#### Full-Stack RESTful Applications (Session 8 and Session 9):
+Run the built-in PHP development server targeting the target session directory:
 ```bash
 # Launch server for Session 8
 php -S localhost:8000 -t Buoi_8/
+
+# Launch server for Session 9
+php -S localhost:8000 -t Buoi_9/
 ```
 Then navigate to: `http://localhost:8000`
 

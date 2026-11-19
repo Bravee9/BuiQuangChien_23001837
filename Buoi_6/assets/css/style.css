@@ -9,72 +9,85 @@
 @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* ─── BRAVECHAT OCEAN BRAND PALETTE (M2, M3) ─── */
-  --primary: #1A659E;
-  --primary-hover: #144d79;
-  --primary-light: #f0f7fc;
-  --primary-border: #cce3f5;
+  color-scheme: dark;
+
+  /* ─── BRAVECHAT DARK WORKSPACE (JETBRAINS / OCEAN DARK) ─── */
+  --primary: #087CFA;
+  --primary-hover: #3574F0;
+  --primary-light: rgba(8, 124, 250, 0.14);
+  --primary-border: rgba(8, 124, 250, 0.35);
   --primary-foreground: #ffffff;
 
-  /* ─── SURFACES & BACKGROUNDS (M1, M13) ─── */
-  --background: #f8fafc;
-  --surface: #ffffff;
-  --surface-subtle: #f1f5f9;
-  --surface-hover: #f1f5f9;
-  --surface-dark: #071A2C;
-  --surface-dark-surface: #0A233A;
-  --surface-dark-border: #173B5C;
+  /* ─── SURFACES & BACKGROUNDS ─── */
+  --background: #18181B;
+  --surface: #1E1F22;
+  --surface-subtle: #141417;
+  --surface-hover: #27282E;
+  --surface-dark: #141417;
+  --surface-dark-surface: #141417;
+  --surface-dark-border: #2B2D30;
 
-  /* ─── TYPOGRAPHY & CONTRAST (M11, P3, T1-T5) ─── */
-  --foreground: #0f172a;
-  --text-body: #334155;
-  --muted: #64748b;
-  --muted-light: #94a3b8;
+  /* ─── TYPOGRAPHY & CONTRAST ─── */
+  --foreground: #F2F2F3;
+  --text-body: #DFE1E5;
+  --muted: #9DA3AE;
+  --muted-light: #7D8590;
 
-  /* ─── HAIRLINE BORDERS & FOCUS (M13, M14, Locked Rule 9) ─── */
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --border-focus: #1A659E;
-  --ring-focus: rgba(26, 101, 158, 0.15);
+  /* ─── HAIRLINE BORDERS & FOCUS ─── */
+  --border: #2B2D30;
+  --border-strong: #393B40;
+  --border-focus: #087CFA;
+  --ring-focus: rgba(8, 124, 250, 0.25);
 
-  /* ─── MEANING & STATUS (M7, M30, Locked Rule 2) ─── */
-  --success: #047857;
-  --success-bg: #ecfdf5;
-  --success-border: #a7f3d0;
-  --success-text: #065f46;
+  /* ─── MEANING & STATUS (DARK MODE CALIBRATED) ─── */
+  --success: #34D399;
+  --success-bg: rgba(16, 185, 129, 0.12);
+  --success-border: rgba(16, 185, 129, 0.3);
+  --success-text: #34D399;
 
-  --warning: #b45309;
-  --warning-bg: #fffbeb;
-  --warning-border: #fde68a;
-  --warning-text: #92400e;
+  --warning: #FBBF24;
+  --warning-bg: rgba(245, 158, 11, 0.12);
+  --warning-border: rgba(245, 158, 11, 0.3);
+  --warning-text: #FCD34D;
 
-  --danger: #b91c1c;
-  --danger-bg: #fef2f2;
-  --danger-border: #fecaca;
-  --danger-text: #991b1b;
-  --danger-hover: #991b1b;
+  --danger: #FB7185;
+  --danger-bg: rgba(244, 63, 94, 0.12);
+  --danger-border: rgba(244, 63, 94, 0.32);
+  --danger-text: #FDA4AF;
+  --danger-hover: #ffffff;
 
-  --info: #0369a1;
-  --info-bg: #f0f9ff;
-  --info-border: #bae6fd;
-  --info-text: #075985;
+  --info: #07C3F2;
+  --info-bg: rgba(7, 195, 242, 0.12);
+  --info-border: rgba(7, 195, 242, 0.3);
+  --info-text: #67E8F9;
 
-  /* ─── RADII (F1 / Locked Rule 10) ─── */
+  /* ─── RADII ─── */
   --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 6px;
   --radius-full: 9999px;
 
-  /* ─── SHADOWS: Flat hairline by default; shadows only for floating layers (M15) ─── */
+  /* ─── SHADOWS ─── */
   --shadow-none: none;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-popover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-sm: none;
+  --shadow-popover: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
 
   /* ─── FONTS & MOTION ─── */
-  --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: 'Be Vietnam Pro', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --transition: all 0.15s ease;
+
+  --scrollbar-track: #141417;
+  --scrollbar-thumb: #2B2D30;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #4E5157; }
 }
 
 /* ─── VUE CLOAK (CHỐNG NHẤP NHÁY TEMPLATE TRƯỚC KHI MOUNT) ─── */
@@ -410,7 +423,7 @@ code, kbd, samp, pre {
 
 .exercise-card:hover {
   border-color: var(--border-strong);
-  background-color: #fdfdfd;
+  background-color: var(--surface-hover);
 }
 
 .exercise-header-row {
@@ -597,20 +610,20 @@ code, kbd, samp, pre {
 
 .btn-danger:hover:not(:disabled),
 .btn-outline-danger:hover:not(:disabled) {
-  background-color: #fee2e2;
+  background-color: rgba(244, 63, 94, 0.22);
   border-color: var(--danger);
   color: var(--danger-hover);
 }
 
 .btn-success {
-  background-color: var(--success);
-  border-color: var(--success);
-  color: #ffffff;
+  background-color: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success);
   font-weight: 600;
 }
 
 .btn-success:hover:not(:disabled) {
-  background-color: #036347;
+  background-color: rgba(16, 185, 129, 0.22);
 }
 
 .btn-sm {
@@ -1921,7 +1934,7 @@ code, kbd, samp, pre {
 }
 
 /* Fallback for older browsers without accent-color (brand-consistent-forms) */
-@supports not (accent-color: #1A659E) {
+@supports not (accent-color: #087CFA) {
   .score-range-wrapper input[type="range"] {
     -webkit-appearance: none;
     appearance: none;

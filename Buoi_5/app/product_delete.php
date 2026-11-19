@@ -75,7 +75,7 @@ require_once __DIR__ . '/view/header.php';
         </div>
         <div class="product-summary-item">
             <strong>Tên sản phẩm:</strong>
-            <span style="color: #dc2626; font-weight: bold;"><?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?></span>
+            <span style="color: var(--danger-text); font-weight: bold;"><?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?></span>
         </div>
         <div class="product-summary-item">
             <strong>Đơn giá:</strong>

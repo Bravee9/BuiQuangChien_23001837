@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/_web_shell.php';
 // Bài 1: Làm quen với biến, mảng và vòng lặp
 $students = [
     [

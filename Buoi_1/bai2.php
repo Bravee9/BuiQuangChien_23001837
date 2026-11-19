@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/_web_shell.php';
 // Bài 2: Tách hàm xử lý sinh viên
 
 $students = [

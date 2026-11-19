@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/_web_shell.php';
 // Bài 4: Chuyển sang lập trình hướng đối tượng (OOP)
 
 class Student {

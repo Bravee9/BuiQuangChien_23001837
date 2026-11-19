@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
   <meta name="description" content="Bài 1: Thẻ thông tin sinh viên với Vue.js 3 | Bùi Quang Chiến - 23001837">
   <title>Bài 1: Thẻ thông tin sinh viên - Vue.js | Bùi Quang Chiến 23001837</title>
   <link rel="stylesheet" href="assets/css/style.css">
@@ -463,13 +464,13 @@
         rankAccentColor() {
           const score = this.normalizedGpa;
           if (score >= 8 && score <= 10) {
-            return '#047857';
+            return '#34D399';
           } else if (score >= 6.5 && score < 8) {
-            return '#1A659E';
+            return '#07C3F2';
           } else if (score >= 5 && score < 6.5) {
-            return '#b45309';
+            return '#FBBF24';
           } else {
-            return '#b91c1c';
+            return '#FB7185';
           }
         },
 

@@ -3,59 +3,74 @@
    MÔN HỌC: [2026] MAT3542 1 - PHÁT TRIỂN ỨNG DỤNG WEB
    BUỔI THỰC HÀNH SỐ 5 - PHP + MYSQL + AUTH
    File: assets/style.css
-   Hệ thống thiết kế: Ocean Swiss Minimalist (Bravechat UI-UX Design System)
+   Hệ thống thiết kế: Bravechat Dark Workspace (JetBrains / Ocean Dark)
    ==================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-    --primary: #1A659E;
-    --primary-hover: #144d79;
-    --primary-light: #f0f7fc;
-    --primary-border: #cce3f5;
+    color-scheme: dark;
 
-    --success: #047857;
-    --success-bg: #ecfdf5;
-    --success-border: #a7f3d0;
-    --success-hover: #036347;
+    --primary: #087CFA;
+    --primary-hover: #3574F0;
+    --primary-light: rgba(8, 124, 250, 0.14);
+    --primary-border: rgba(8, 124, 250, 0.35);
+    --secondary-accent: #07C3F2;
 
-    --danger: #b91c1c;
-    --danger-bg: #fef2f2;
-    --danger-border: #fecaca;
-    --danger-hover: #991b1b;
-    --danger-text: #991b1b;
+    --success: #34D399;
+    --success-bg: rgba(16, 185, 129, 0.12);
+    --success-border: rgba(16, 185, 129, 0.3);
+    --success-hover: #10B981;
 
-    --warning: #b45309;
-    --warning-bg: #fffbeb;
-    --warning-border: #fde68a;
-    --warning-hover: #92400e;
+    --danger: #FB7185;
+    --danger-bg: rgba(244, 63, 94, 0.12);
+    --danger-bg-hover: rgba(244, 63, 94, 0.22);
+    --danger-border: rgba(244, 63, 94, 0.32);
+    --danger-hover: #FDA4AF;
+    --danger-text: #FDA4AF;
 
-    --secondary: #475569;
-    --secondary-hover: #334155;
+    --warning: #FBBF24;
+    --warning-bg: rgba(245, 158, 11, 0.12);
+    --warning-border: rgba(245, 158, 11, 0.3);
+    --warning-hover: #F59E0B;
 
-    --dark: #0f172a;
-    --light: #f8fafc;
-    --surface: #ffffff;
-    --surface-subtle: #f8fafc;
-    --surface-hover: #f1f5f9;
+    --secondary: #393B40;
+    --secondary-hover: #4E5157;
 
-    --border: #e2e8f0;
-    --border-strong: #cbd5e1;
-    --border-focus: #1A659E;
-    --ring-focus: rgba(26, 101, 158, 0.15);
+    --bg-deep: #141417;
+    --light: #18181B;
+    --surface: #1E1F22;
+    --surface-subtle: #141417;
+    --surface-hover: #27282E;
 
-    --text-main: #0f172a;
-    --text-body: #334155;
-    --text-muted: #64748b;
+    --border: #2B2D30;
+    --border-strong: #393B40;
+    --border-focus: #087CFA;
+    --ring-focus: rgba(8, 124, 250, 0.25);
+
+    --text-main: #F2F2F3;
+    --text-body: #DFE1E5;
+    --text-muted: #9DA3AE;
 
     --radius-xs: 4px;
-    --radius-sm: 6px;
-    --radius: 8px;
-    --radius-lg: 12px;
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 6px;
 
-    --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-sans: 'Be Vietnam Pro', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
     --transition: all 0.15s ease;
+
+    --scrollbar-track: #141417;
+    --scrollbar-thumb: #2B2D30;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+@supports not (scrollbar-color: auto) {
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+    ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4E5157; }
 }
 
 * {
@@ -72,6 +87,20 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 /* ==================== HEADER ==================== */
@@ -86,7 +115,7 @@ body {
 .header-container {
     max-width: 1240px;
     margin: 0 auto;
-    padding: 12px 24px;
+    padding: 10px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -95,22 +124,24 @@ body {
 }
 
 .brand-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--primary);
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--text-main);
     text-decoration: none;
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .brand-badge {
-    background-color: var(--primary);
-    color: #ffffff;
+    background-color: var(--bg-deep);
+    border: 1px solid var(--border-strong);
+    color: var(--secondary-accent);
+    font-family: var(--font-mono);
     font-size: 0.75rem;
-    font-weight: 800;
-    padding: 3px 7px;
+    font-weight: 700;
+    padding: 4px 8px;
     border-radius: var(--radius-xs);
 }
 
@@ -124,8 +155,8 @@ body {
     text-decoration: none;
     font-weight: 500;
     font-size: 0.85rem;
-    padding: 6px 14px;
-    border-radius: var(--radius);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
     border: 1px solid transparent;
     transition: var(--transition);
 }
@@ -136,9 +167,9 @@ body {
 }
 
 .nav-link.active {
-    color: var(--primary);
-    background-color: var(--primary-light);
-    border-color: var(--primary-border);
+    color: var(--text-main);
+    background-color: var(--border);
+    border-color: var(--border-strong);
     font-weight: 600;
 }
 
@@ -149,12 +180,13 @@ body {
 }
 
 .user-badge {
-    background-color: var(--surface-subtle);
+    background-color: var(--bg-deep);
     border: 1px solid var(--border);
     color: var(--text-body);
     padding: 4px 12px;
-    border-radius: 9999px;
+    border-radius: var(--radius-sm);
     font-size: 0.8rem;
+    font-family: var(--font-mono);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -199,10 +231,10 @@ body {
 }
 
 .card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.15rem;
+    font-weight: 600;
     color: var(--text-main);
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -229,9 +261,9 @@ body {
 .auth-icon {
     width: 44px;
     height: 44px;
-    background-color: var(--primary-light);
-    border: 1px solid var(--primary-border);
-    color: var(--primary);
+    background-color: var(--bg-deep);
+    border: 1px solid var(--border-strong);
+    color: var(--secondary-accent);
     border-radius: var(--radius);
     display: inline-flex;
     align-items: center;
@@ -242,10 +274,10 @@ body {
 }
 
 .auth-title {
-    font-size: 1.35rem;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 600;
     color: var(--text-main);
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
     margin-bottom: 4px;
 }
 
@@ -262,7 +294,7 @@ body {
 }
 
 .auth-switch a {
-    color: var(--primary);
+    color: var(--secondary-accent);
     font-weight: 600;
     text-decoration: none;
 }
@@ -274,7 +306,7 @@ body {
 .sample-accounts-box {
     margin-top: 20px;
     padding: 14px 16px;
-    background-color: var(--surface-subtle);
+    background-color: var(--bg-deep);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     font-size: 0.8rem;
@@ -313,10 +345,10 @@ body {
 }
 
 .custom-table th {
-    background-color: var(--surface-subtle);
+    background-color: var(--bg-deep);
     color: var(--text-muted);
     font-weight: 600;
-    padding: 12px 16px;
+    padding: 11px 16px;
     border-bottom: 1px solid var(--border);
     text-transform: uppercase;
     font-size: 0.725rem;
@@ -326,6 +358,7 @@ body {
 .custom-table td {
     padding: 12px 16px;
     border-bottom: 1px solid var(--border);
+    color: var(--text-body);
     vertical-align: middle;
 }
 
@@ -334,31 +367,26 @@ body {
 }
 
 .custom-table tbody tr:hover {
-    background-color: var(--surface-hover);
+    background-color: #202226;
 }
 
 .custom-table tbody tr:last-child td {
     border-bottom: none;
 }
 
-.text-center {
-    text-align: center;
-}
-
-.text-right {
-    text-align: right;
-}
+.text-center { text-align: center; }
+.text-right { text-align: right; }
 
 .price-text {
-    font-weight: 700;
-    color: var(--success);
+    font-weight: 600;
+    color: var(--secondary-accent);
     font-family: var(--font-mono);
 }
 
 .quantity-badge {
     display: inline-block;
     padding: 2px 8px;
-    border-radius: 9999px;
+    border-radius: var(--radius-xs);
     font-size: 0.75rem;
     font-weight: 600;
     font-family: var(--font-mono);
@@ -379,7 +407,7 @@ body {
 
 .quantity-badge.out-stock {
     background-color: var(--danger-bg);
-    color: var(--danger);
+    color: var(--danger-text);
     border-color: var(--danger-border);
 }
 
@@ -390,10 +418,10 @@ body {
     justify-content: center;
     gap: 6px;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     font-family: inherit;
     padding: 8px 14px;
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
     text-decoration: none;
     cursor: pointer;
     border: 1px solid transparent;
@@ -404,14 +432,12 @@ body {
 .btn-sm {
     padding: 5px 10px;
     font-size: 0.78rem;
-    border-radius: var(--radius-sm);
 }
 
 .btn-primary {
     background-color: var(--primary);
     border-color: var(--primary);
     color: #ffffff;
-    font-weight: 600;
 }
 .btn-primary:hover {
     background-color: var(--primary-hover);
@@ -419,65 +445,54 @@ body {
 }
 
 .btn-secondary {
-    background-color: var(--secondary);
-    border-color: var(--secondary);
-    color: #ffffff;
+    background-color: var(--bg-deep);
+    border-color: var(--border-strong);
+    color: var(--text-body);
 }
 .btn-secondary:hover {
-    background-color: var(--secondary-hover);
+    background-color: var(--surface-hover);
+    color: var(--text-main);
 }
 
 .btn-success {
-    background-color: var(--success);
-    border-color: var(--success);
-    color: #ffffff;
-    font-weight: 600;
+    background-color: var(--success-bg);
+    border-color: var(--success-border);
+    color: var(--success);
 }
 .btn-success:hover {
-    background-color: var(--success-hover);
+    background-color: rgba(16, 185, 129, 0.22);
 }
 
 .btn-warning {
-    background-color: var(--warning);
-    border-color: var(--warning);
-    color: #ffffff;
-    font-weight: 600;
+    background-color: var(--warning-bg);
+    border-color: var(--warning-border);
+    color: var(--warning);
 }
 .btn-warning:hover {
-    background-color: var(--warning-hover);
+    background-color: rgba(245, 158, 11, 0.22);
 }
 
-.btn-danger {
-    background-color: var(--danger-bg);
-    border-color: var(--danger-border);
-    color: var(--danger-text);
-    font-weight: 600;
-}
-.btn-danger:hover {
-    background-color: #fee2e2;
-    border-color: var(--danger);
-    color: var(--danger-hover);
-}
-
-.btn-outline {
-    background-color: var(--surface);
-    border-color: var(--border-strong);
-    color: var(--text-main);
-}
-.btn-outline:hover {
-    background-color: var(--surface-hover);
-}
-
+.btn-danger,
 .btn-logout {
     background-color: var(--danger-bg);
     border-color: var(--danger-border);
     color: var(--danger-text);
-    font-weight: 600;
 }
+.btn-danger:hover,
 .btn-logout:hover {
-    background-color: #fee2e2;
+    background-color: var(--danger-bg-hover);
     border-color: var(--danger);
-    color: var(--danger-hover);
+    color: #ffffff;
+}
+
+.btn-outline {
+    background-color: var(--bg-deep);
+    border-color: var(--border-strong);
+    color: var(--text-body);
+}
+.btn-outline:hover {
+    background-color: var(--surface-hover);
+    color: var(--text-main);
 }
 
 .action-buttons {
@@ -505,20 +520,20 @@ body {
 
 .form-control {
     width: 100%;
-    padding: 8px 12px;
+    padding: 9px 12px;
     font-size: 0.875rem;
     font-family: inherit;
     border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
     transition: var(--transition);
-    background-color: var(--surface);
+    background-color: var(--bg-deep);
     color: var(--text-main);
     outline: none;
 }
 
 .form-control:focus {
     border-color: var(--border-focus);
-    box-shadow: 0 0 0 3px var(--ring-focus);
+    box-shadow: 0 0 0 2px var(--ring-focus);
 }
 
 .form-help {
@@ -563,7 +578,7 @@ body {
 
 .alert-info {
     background-color: var(--primary-light);
-    color: var(--primary);
+    color: #93C5FD;
     border-color: var(--primary-border);
 }
 
@@ -581,12 +596,12 @@ body {
 
 .delete-confirm-box h3 {
     color: var(--danger-text);
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
 }
 
 .product-summary-card {
-    background: var(--surface-subtle);
+    background: var(--bg-deep);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 16px;
@@ -608,9 +623,9 @@ body {
 
 /* ==================== FOOTER ==================== */
 .app-footer {
-    background-color: var(--surface);
+    background-color: var(--bg-deep);
     border-top: 1px solid var(--border);
-    padding: 20px;
+    padding: 18px 20px;
     margin-top: auto;
     text-align: center;
     color: var(--text-muted);
