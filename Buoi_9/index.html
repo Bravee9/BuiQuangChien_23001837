@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Bài tập thực hành 9: Upload ảnh & Phân trang sản phẩm | Bùi Quang Chiến 23001837</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- HEADER DÙNG CHUNG -->
+  <header class="app-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-brand">
+        <div class="brand-icon" aria-hidden="true">V9</div>
+        <div class="brand-text">
+          <h1>BÀI TẬP THỰC HÀNH SỐ 9 - PHP & VUE.JS</h1>
+          <span>Phát triển ứng dụng web (MAT3542 1)</span>
+        </div>
+      </a>
+
+      <div class="student-tag">
+        <span>Bùi Quang Chiến</span>
+        <span aria-hidden="true">-</span>
+        <span>23001837</span>
+        <span aria-hidden="true">-</span>
+        <span>K68A3</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- NỘI DUNG CHÍNH -->
+  <main class="main-content" id="app">
+    <div class="page-intro">
+      <h2 class="page-title">Quản lý sản phẩm: Upload ảnh &amp; Phân trang</h2>
+      <p class="page-subtitle">
+        Bổ sung chức năng tải ảnh sản phẩm qua FormData (JPG/JPEG/PNG tối đa 2 MB) và phân trang phía Backend (5 sản phẩm/trang).
+      </p>
+    </div>
+
+    <!-- THÔNG BÁO THÀNH CÔNG / LỖI TỪ API -->
+    <div v-if="successMessage" class="alert alert-success" role="status" aria-live="polite">
+      <div>
+        <strong>Thành công:</strong> {{ successMessage }}
+      </div>
+      <button type="button" class="alert-close" @click="successMessage = ''" aria-label="Đóng thông báo thành công">Đóng</button>
+    </div>
+
+    <div v-if="errorMessage" class="alert alert-danger" role="alert" aria-live="polite">
+      <div>
+        <strong>Thông báo lỗi:</strong> {{ errorMessage }}
+      </div>
+      <button type="button" class="alert-close" @click="errorMessage = ''" aria-label="Đóng thông báo lỗi">Đóng</button>
+    </div>
+
+    <!-- BỐ CỤC 2 CỘT: FORM THAO TÁC & BẢNG PHÂN TRANG -->
+    <div class="grid-layout">
+      <!-- CỘT 1: BIỂU MẪU THÊM / SỬA + UPLOAD ẢNH -->
+      <section class="card" aria-labelledby="productFormTitle">
+        <div class="card-header">
+          <h3 id="productFormTitle" class="card-title">
+            <span v-if="formMode === 'add'">Thêm sản phẩm mới</span>
+            <span v-else>Cập nhật sản phẩm</span>
+          </h3>
+          <span
+            class="mode-badge"
+            :class="formMode === 'add' ? 'mode-add' : 'mode-edit'"
+          >
+            {{ formMode === 'add' ? 'Chế độ: Thêm' : 'Chế độ: Sửa #' + editingId }}
+          </span>
+        </div>
+
+        <div class="card-body">
+          <form aria-labelledby="productFormTitle" @submit.prevent="handleSubmit" novalidate>
+            <!-- Tên sản phẩm -->
+            <div class="form-group">
+              <label class="form-label" for="productName">
+                Tên sản phẩm <span class="required" aria-hidden="true">*</span>
+              </label>
+              <input
+                ref="nameInput"
+                id="productName"
+                name="name"
+                type="text"
+                class="form-control"
+                :class="{ 'is-invalid': formErrors.name }"
+                :aria-invalid="formErrors.name ? 'true' : 'false'"
+                :aria-describedby="formErrors.name ? 'name-error' : 'name-help'"
+                v-model="formData.name"
+                @input="clearFieldError('name')"
+                placeholder="Nhập tên sản phẩm (1 - 100 ký tự)..."
+                maxlength="100"
+                required
+              />
+              <div v-if="formErrors.name" id="name-error" class="form-feedback-error">
+                {{ formErrors.name }}
+              </div>
+              <div id="name-help" class="form-help">Bắt buộc nhập, độ dài từ 1 đến 100 ký tự sau khi bỏ khoảng trắng.</div>
+            </div>
+
+            <!-- Đơn giá -->
+            <div class="form-group">
+              <label class="form-label" for="productPrice">
+                Đơn giá (đồng) <span class="required" aria-hidden="true">*</span>
+              </label>
+              <input
+                ref="priceInput"
+                id="productPrice"
+                name="price"
+                type="number"
+                inputmode="numeric"
+                class="form-control"
+                :class="{ 'is-invalid': formErrors.price }"
+                :aria-invalid="formErrors.price ? 'true' : 'false'"
+                :aria-describedby="formErrors.price ? 'price-error' : 'price-help'"
+                v-model.number="formData.price"
+                @input="clearFieldError('price')"
+                placeholder="Nhập đơn giá (số nguyên > 0)..."
+                min="1"
+                step="1"
+                required
+              />
+              <div v-if="formErrors.price" id="price-error" class="form-feedback-error">
+                {{ formErrors.price }}
+              </div>
+              <div id="price-help" class="form-help">Đơn vị: đồng. Phải là số nguyên lớn hơn 0.</div>
+            </div>
+
+            <!-- Số lượng tồn -->
+            <div class="form-group">
+              <label class="form-label" for="productStock">
+                Số lượng tồn <span class="required" aria-hidden="true">*</span>
+              </label>
+              <input
+                ref="stockInput"
+                id="productStock"
+                name="stock"
+                type="number"
+                inputmode="numeric"
+                class="form-control"
+                :class="{ 'is-invalid': formErrors.stock }"
+                :aria-invalid="formErrors.stock ? 'true' : 'false'"
+                :aria-describedby="formErrors.stock ? 'stock-error' : 'stock-help'"
+                v-model.number="formData.stock"
+                @input="clearFieldError('stock')"
+                placeholder="Nhập số lượng tồn (số nguyên >= 0)..."
+                min="0"
+                step="1"
+                required
+              />
+              <div v-if="formErrors.stock" id="stock-error" class="form-feedback-error">
+                {{ formErrors.stock }}
+              </div>
+              <div id="stock-help" class="form-help">Số nguyên không âm (lớn hơn hoặc bằng 0).</div>
+            </div>
+
+            <!-- Chọn ảnh sản phẩm & Xem trước (Câu 1.1 & 1.2) -->
+            <div class="form-group">
+              <label class="form-label" for="productImage">
+                Ảnh sản phẩm (không bắt buộc)
+              </label>
+              <input
+                ref="fileInput"
+                id="productImage"
+                name="image"
+                type="file"
+                class="file-input-control"
+                :class="{ 'is-invalid': formErrors.image }"
+                :aria-invalid="formErrors.image ? 'true' : 'false'"
+                :aria-describedby="formErrors.image ? 'image-error' : 'image-help'"
+                accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                @change="handleFileChange"
+              />
+              <div v-if="formErrors.image" id="image-error" class="form-feedback-error">
+                {{ formErrors.image }}
+              </div>
+              <div id="image-help" class="form-help">Chấp nhận JPG, JPEG, PNG với dung lượng tối đa 2 MB. Có thể bỏ trống.</div>
+
+              <!-- Khối xem trước ảnh mới chọn -->
+              <div v-if="selectedFile && previewObjectUrl" class="image-preview-box">
+                <img :src="previewObjectUrl" alt="Xem trước ảnh vừa chọn" class="image-preview-img" />
+                <div class="image-preview-meta">
+                  <span class="image-preview-status status-new">Ảnh mới chọn</span>
+                  <div class="image-preview-filename" :title="selectedFile.name">{{ selectedFile.name }}</div>
+                  <div class="image-preview-size">{{ formatFileSize(selectedFile.size) }}</div>
+                  <button
+                    type="button"
+                    class="btn btn-outline btn-sm"
+                    @click="clearSelectedFile"
+                    :disabled="isSubmitting"
+                  >
+                    Bỏ chọn ảnh mới
+                  </button>
+                </div>
+              </div>
+
+              <!-- Khối xem trước ảnh hiện tại khi ở chế độ Sửa -->
+              <div v-else-if="formMode === 'edit' && existingImageUrl" class="image-preview-box">
+                <img :src="existingImageUrl" alt="Ảnh hiện tại của sản phẩm" class="image-preview-img" />
+                <div class="image-preview-meta">
+                  <span class="image-preview-status status-current">Ảnh hiện tại</span>
+                  <div class="image-preview-filename">Giữ nguyên ảnh này nếu không chọn ảnh mới.</div>
+                </div>
+              </div>
+
+              <!-- Trạng thái chưa có ảnh -->
+              <div v-else class="image-preview-box empty-preview">
+                Chưa có ảnh xem trước (cho phép để trống)
+              </div>
+            </div>
+
+            <!-- Khối thử lại khi upload thất bại sau khi sản phẩm đã lưu (Câu 1.6) -->
+            <div v-if="uploadRetryNeeded && editingId" class="upload-retry-box" role="alert">
+              <div>
+                <strong>Upload ảnh thất bại cho sản phẩm #{{ editingId }}.</strong> Thông tin sản phẩm đã được lưu an toàn và đường dẫn ảnh cũ (nếu có) vẫn được giữ nguyên.
+              </div>
+              <div class="upload-retry-actions">
+                <button
+                  v-if="selectedFile"
+                  type="button"
+                  class="btn btn-warning btn-sm"
+                  @click="retryImageUpload"
+                  :disabled="isSubmitting"
+                >
+                  {{ isSubmitting ? 'Đang tải lại...' : 'Thử upload lại' }}
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline btn-sm"
+                  @click="dismissRetryAndReset"
+                  :disabled="isSubmitting"
+                >
+                  Hoàn tất không kèm ảnh mới
+                </button>
+              </div>
+            </div>
+
+            <!-- Nút điều khiển biểu mẫu -->
+            <div style="display: flex; gap: 10px; margin-top: 22px;">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="flex: 1;"
+                :disabled="isSubmitting"
+              >
+                <span v-if="isSubmitting">Đang xử lý...</span>
+                <span v-else-if="formMode === 'add'">Lưu sản phẩm</span>
+                <span v-else>Cập nhật</span>
+              </button>
+
+              <button
+                v-if="formMode === 'edit'"
+                type="button"
+                class="btn btn-outline"
+                @click="cancelEdit"
+                :disabled="isSubmitting"
+              >
+                Hủy
+              </button>
+
+              <button
+                v-if="formMode === 'add'"
+                type="button"
+                class="btn btn-outline"
+                @click="resetForm"
+                :disabled="isSubmitting"
+              >
+                Đặt lại
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- CỘT 2: BẢNG DANH SÁCH SẢN PHẨM & PHÂN TRANG -->
+      <section class="card" aria-labelledby="productTableTitle">
+        <div class="card-header">
+          <h3 id="productTableTitle" class="card-title">Danh sách sản phẩm trong kho</h3>
+          <button
+            type="button"
+            class="btn btn-outline btn-sm"
+            @click="fetchProducts(pagination.page)"
+            :disabled="isLoading"
+          >
+            {{ isLoading ? 'Đang tải...' : 'Làm mới' }}
+          </button>
+        </div>
+
+        <div class="card-body" style="padding: 0;">
+          <div tabindex="0" role="region" aria-labelledby="productTableTitle" class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 64px; text-align: center;">ID</th>
+                  <th scope="col" style="width: 112px; text-align: center;">Ảnh</th>
+                  <th scope="col">Tên sản phẩm</th>
+                  <th scope="col" style="width: 130px; text-align: right;">Đơn giá</th>
+                  <th scope="col" style="width: 125px; text-align: center;">Tồn kho</th>
+                  <th scope="col" style="width: 136px; text-align: center;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="product in products" :key="product.id">
+                  <td style="text-align: center; color: var(--gray-500); font-weight: 600;">
+                    #{{ product.id }}
+                  </td>
+                  <td style="text-align: center;">
+                    <img
+                      v-if="product.image"
+                      :src="product.image"
+                      :alt="'Ảnh ' + product.name"
+                      class="product-thumb"
+                    />
+                    <span v-else class="no-image-badge">Chưa có ảnh</span>
+                  </td>
+                  <td style="font-weight: 600; color: var(--gray-900);">
+                    {{ product.name }}
+                  </td>
+                  <td class="price-cell" style="text-align: right;">
+                    {{ formatCurrency(product.price) }}
+                  </td>
+                  <td style="text-align: center;">
+                    <span
+                      class="badge-stock"
+                      :class="product.stock > 0 ? 'badge-in-stock' : 'badge-out-of-stock'"
+                    >
+                      {{ product.stock > 0 ? product.stock + ' sản phẩm' : 'Hết hàng (0)' }}
+                    </span>
+                  </td>
+                  <td style="text-align: center;">
+                    <div style="display: inline-flex; gap: 6px;">
+                      <button
+                        type="button"
+                        class="btn btn-outline btn-sm"
+                        @click="startEdit(product)"
+                        :disabled="isSubmitting"
+                      >
+                        Sửa
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-sm"
+                        @click="handleDelete(product)"
+                        :disabled="isSubmitting"
+                      >
+                        Xóa
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Trạng thái rỗng (Câu 2.6) -->
+                <tr v-if="!isLoading && products.length === 0">
+                  <td colspan="6" style="text-align: center; padding: 40px 20px; color: var(--gray-500);">
+                    <div style="font-size: 1rem; font-weight: 700; color: var(--gray-700); margin-bottom: 4px;">
+                      Chưa có sản phẩm
+                    </div>
+                    <p style="font-size: 0.85rem; margin: 0;">
+                      Vui lòng nhập thông tin vào biểu mẫu bên cạnh để thêm sản phẩm mới.
+                    </p>
+                  </td>
+                </tr>
+
+                <!-- Trạng thái đang tải -->
+                <tr v-if="isLoading && products.length === 0">
+                  <td colspan="6" style="text-align: center; padding: 32px; color: var(--gray-500);">
+                    Đang kết nối API và tải danh sách sản phẩm...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- THANH PHÂN TRANG BACKEND (CÂU 2.5 & 2.6) -->
+          <div class="pagination-bar" aria-label="Điều hướng phân trang">
+            <div class="pagination-info" aria-live="polite">
+              Trang {{ pagination.page }} / {{ pagination.total_pages }} — Tổng {{ pagination.total }} sản phẩm
+            </div>
+            <div class="pagination-controls">
+              <button
+                type="button"
+                class="btn btn-outline btn-sm"
+                @click="changePage(pagination.page - 1)"
+                :disabled="isLoading || pagination.page <= 1"
+              >
+                Trước
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline btn-sm"
+                @click="changePage(pagination.page + 1)"
+                :disabled="isLoading || pagination.page >= pagination.total_pages"
+              >
+                Sau
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER DÙNG CHUNG -->
+  <footer class="app-footer">
+    <p>Bài tập thực hành số 9 - PHP Upload File &amp; Pagination with Vue.js | Lớp: <strong>K68A3</strong> | Sinh viên: <strong>Bùi Quang Chiến (MSV: 23001837)</strong></p>
+    <p style="color: var(--gray-400); margin-top: 4px;">Đại học Khoa học Tự nhiên - ĐHQGHN (HUS) - MAT3542 1</p>
+  </footer>
+
+  <!-- NẠP VUE 3 -->
+  <script src="assets/js/vue.global.js"></script>
+  <script>
+    if (typeof Vue === 'undefined') {
+      document.write('<script src="https://unpkg.com/vue@3/dist/vue.global.js"><\/script>');
+    }
+  </script>
+
+  <script>
+    const { createApp } = Vue;
+
+    const MAX_IMAGE_BYTES = 2 * 1024 * 1024; // 2 MB
+    const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png'];
+    const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png'];
+
+    createApp({
+      data() {
+        return {
+          productsApiUrl: 'api/products.php',
+          uploadApiUrl: 'api/upload.php',
+          products: [],
+          pagination: {
+            page: 1,
+            limit: 5,
+            total: 0,
+            total_pages: 1
+          },
+          isLoading: false,
+          isSubmitting: false,
+          errorMessage: '',
+          successMessage: '',
+
+          formMode: 'add',
+          editingId: null,
+          existingImageUrl: '',
+          uploadRetryNeeded: false,
+
+          formData: {
+            name: '',
+            price: null,
+            stock: null
+          },
+
+          selectedFile: null,
+          previewObjectUrl: '',
+
+          formErrors: {
+            name: '',
+            price: '',
+            stock: '',
+            image: ''
+          }
+        };
+      },
+
+      mounted() {
+        this.fetchProducts(1);
+      },
+
+      beforeUnmount() {
+        this.revokePreviewUrl();
+      },
+
+      methods: {
+        // Giải phóng Object URL để tránh rò rỉ bộ nhớ
+        revokePreviewUrl() {
+          if (this.previewObjectUrl) {
+            URL.revokeObjectURL(this.previewObjectUrl);
+            this.previewObjectUrl = '';
+          }
+        },
+
+        clearFieldError(field) {
+          if (this.formErrors[field]) {
+            this.formErrors[field] = '';
+          }
+        },
+
+        // Tải danh sách sản phẩm phân trang từ Backend
+        async fetchProducts(page = 1) {
+          this.isLoading = true;
+          try {
+            const safePage = Number.isInteger(page) && page >= 1 ? page : 1;
+            const url = `${this.productsApiUrl}?page=${safePage}&limit=5`;
+            const res = await fetch(url, {
+              method: 'GET',
+              headers: { 'Accept': 'application/json' }
+            });
+
+            const result = await res.json();
+            if (result.success && Array.isArray(result.data)) {
+              this.products = result.data;
+              if (result.pagination) {
+                this.pagination = {
+                  page: Number(result.pagination.page) || 1,
+                  limit: Number(result.pagination.limit) || 5,
+                  total: Number(result.pagination.total) || 0,
+                  total_pages: Math.max(1, Number(result.pagination.total_pages) || 1)
+                };
+              }
+            } else {
+              this.errorMessage = result.message || 'Không thể tải danh sách sản phẩm từ máy chủ.';
+            }
+          } catch (err) {
+            this.errorMessage = 'Lỗi kết nối tới API sản phẩm: ' + (err.message || 'Không thể kết nối đến máy chủ.');
+          } finally {
+            this.isLoading = false;
+          }
+        },
+
+        // Chuyển trang qua nút Trước / Sau
+        changePage(targetPage) {
+          if (this.isLoading) return;
+          if (targetPage < 1 || targetPage > this.pagination.total_pages) return;
+          this.fetchProducts(targetPage);
+        },
+
+        // Kiểm tra file ảnh khi người dùng chọn trong form (Câu 1.1 & 1.2)
+        handleFileChange(event) {
+          this.formErrors.image = '';
+          this.errorMessage = '';
+          const files = event.target.files;
+
+          if (!files || files.length === 0) {
+            this.clearSelectedFile();
+            return;
+          }
+
+          const file = files[0];
+          const ext = (file.name.split('.').pop() || '').toLowerCase();
+          const hasValidExtension = ALLOWED_EXTENSIONS.includes(ext);
+          const hasValidMime = file.type === '' || ALLOWED_MIME_TYPES.includes(file.type);
+
+          if (!hasValidExtension || !hasValidMime) {
+            this.clearSelectedFile(false);
+            this.formErrors.image = 'Định dạng không hợp lệ. Chỉ chấp nhận file JPG, JPEG hoặc PNG.';
+            return;
+          }
+
+          if (file.size <= 0) {
+            this.clearSelectedFile(false);
+            this.formErrors.image = 'File ảnh rỗng hoặc bị hỏng.';
+            return;
+          }
+
+          if (file.size > MAX_IMAGE_BYTES) {
+            this.clearSelectedFile(false);
+            this.formErrors.image = 'Dung lượng ảnh vượt quá tối đa 2 MB cho phép.';
+            return;
+          }
+
+          this.revokePreviewUrl();
+          this.selectedFile = file;
+          this.previewObjectUrl = URL.createObjectURL(file);
+        },
+
+        // Bỏ chọn file ảnh mới đang chờ upload
+        clearSelectedFile(clearError = true) {
+          this.revokePreviewUrl();
+          this.selectedFile = null;
+          if (clearError) {
+            this.formErrors.image = '';
+          }
+          if (this.$refs.fileInput) {
+            this.$refs.fileInput.value = '';
+          }
+        },
+
+        // Kiểm tra dữ liệu các trường sản phẩm trước khi gửi
+        validateForm() {
+          this.formErrors.name = '';
+          this.formErrors.price = '';
+          this.formErrors.stock = '';
+          if (!this.selectedFile) {
+            this.formErrors.image = '';
+          }
+
+          let firstInvalidRef = null;
+
+          const trimmedName = (this.formData.name || '').trim();
+          if (!trimmedName || trimmedName.length < 1 || trimmedName.length > 100) {
+            this.formErrors.name = 'Tên sản phẩm phải có từ 1 đến 100 ký tự sau khi bỏ khoảng trắng.';
+            firstInvalidRef = firstInvalidRef || 'nameInput';
+          }
+
+          const price = this.formData.price;
+          if (price === null || price === '' || typeof price === 'boolean' || isNaN(price) || !Number.isInteger(Number(price)) || Number(price) <= 0) {
+            this.formErrors.price = 'Đơn giá phải là số nguyên lớn hơn 0.';
+            firstInvalidRef = firstInvalidRef || 'priceInput';
+          }
+
+          const stock = this.formData.stock;
+          if (stock === null || stock === '' || typeof stock === 'boolean' || isNaN(stock) || !Number.isInteger(Number(stock)) || Number(stock) < 0) {
+            this.formErrors.stock = 'Số lượng tồn kho phải là số nguyên không âm (>= 0).';
+            firstInvalidRef = firstInvalidRef || 'stockInput';
+          }
+
+          if (this.formErrors.image && !firstInvalidRef) {
+            firstInvalidRef = 'fileInput';
+          }
+
+          if (firstInvalidRef) {
+            this.$nextTick(() => {
+              const target = this.$refs[firstInvalidRef];
+              if (target && typeof target.focus === 'function') {
+                target.focus();
+              }
+            });
+            return false;
+          }
+
+          return true;
+        },
+
+        // Gửi ảnh lên api/upload.php qua FormData (multipart/form-data)
+        async uploadProductImage(productId, file) {
+          const bodyForm = new FormData();
+          bodyForm.append('product_id', String(productId));
+          bodyForm.append('image', file);
+
+          const res = await fetch(this.uploadApiUrl, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: bodyForm
+          });
+
+          const result = await res.json();
+          if (!result.success) {
+            throw new Error(result.message || 'Upload ảnh thất bại.');
+          }
+          return result;
+        },
+
+        // Quy trình 2 bước: Lưu JSON vào api/products.php, sau đó nếu có ảnh mới thì upload qua api/upload.php
+        async handleSubmit() {
+          this.errorMessage = '';
+          this.successMessage = '';
+          this.uploadRetryNeeded = false;
+
+          if (!this.validateForm()) {
+            return;
+          }
+
+          this.isSubmitting = true;
+          const wasAddMode = this.formMode === 'add';
+          const targetPage = wasAddMode ? 1 : this.pagination.page;
+
+          const payload = {
+            name: this.formData.name.trim(),
+            price: parseInt(this.formData.price, 10),
+            stock: parseInt(this.formData.stock, 10)
+          };
+
+          try {
+            // Bước 1: Lưu thông tin sản phẩm bằng JSON qua api/products.php
+            const endpoint = wasAddMode
+              ? this.productsApiUrl
+              : `${this.productsApiUrl}?id=${this.editingId}`;
+
+            const res = await fetch(endpoint, {
+              method: wasAddMode ? 'POST' : 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            });
+
+            const productResult = await res.json();
+            if (!productResult.success || !productResult.data || !productResult.data.id) {
+              this.errorMessage = productResult.message || 'Không thể lưu thông tin sản phẩm.';
+              return;
+            }
+
+            const savedProduct = productResult.data;
+            const savedId = savedProduct.id;
+
+            // Nếu không chọn ảnh mới: giữ nguyên ảnh hiện tại (khi sửa) hoặc để trống (khi thêm)
+            if (!this.selectedFile) {
+              this.successMessage = productResult.message || 'Lưu sản phẩm thành công.';
+              this.resetForm();
+              await this.fetchProducts(targetPage);
+              return;
+            }
+
+            // Chuyển form sang chế độ Sửa cho savedId để tránh tạo bản ghi trùng nếu bước upload thất bại
+            this.formMode = 'edit';
+            this.editingId = savedId;
+            this.existingImageUrl = savedProduct.image || this.existingImageUrl || '';
+
+            // Bước 2: Gửi FormData tới POST api/upload.php
+            try {
+              await this.uploadProductImage(savedId, this.selectedFile);
+              this.successMessage = (wasAddMode ? 'Thêm sản phẩm' : 'Cập nhật sản phẩm') + ' và tải ảnh lên thành công.';
+              this.resetForm();
+              await this.fetchProducts(targetPage);
+            } catch (uploadErr) {
+              // Upload thất bại: giữ thông tin sản phẩm đã lưu, giữ ảnh cũ, hiển thị lỗi & cho phép thử lại
+              this.uploadRetryNeeded = true;
+              this.errorMessage = `Sản phẩm #${savedId} đã được lưu, nhưng upload ảnh thất bại: ${uploadErr.message}`;
+              await this.fetchProducts(targetPage);
+            }
+          } catch (err) {
+            this.errorMessage = 'Lỗi gửi yêu cầu tới máy chủ: ' + (err.message || 'Không xác định.');
+          } finally {
+            this.isSubmitting = false;
+          }
+        },
+
+        // Thử lại upload ảnh cho sản phẩm đã được lưu (Câu 1.6)
+        async retryImageUpload() {
+          if (!this.editingId || !this.selectedFile) {
+            this.errorMessage = 'Vui lòng chọn file ảnh hợp lệ để thử lại.';
+            return;
+          }
+
+          this.errorMessage = '';
+          this.successMessage = '';
+          this.isSubmitting = true;
+
+          try {
+            await this.uploadProductImage(this.editingId, this.selectedFile);
+            this.successMessage = `Tải ảnh lên thành công cho sản phẩm #${this.editingId}.`;
+            const currentPage = this.pagination.page;
+            this.resetForm();
+            await this.fetchProducts(currentPage);
+          } catch (uploadErr) {
+            this.uploadRetryNeeded = true;
+            this.errorMessage = `Thử tải lại ảnh thất bại: ${uploadErr.message}`;
+          } finally {
+            this.isSubmitting = false;
+          }
+        },
+
+        dismissRetryAndReset() {
+          this.uploadRetryNeeded = false;
+          this.errorMessage = '';
+          this.resetForm();
+        },
+
+        // Bấm nút Sửa: đưa dữ liệu và ảnh hiện tại lên form
+        startEdit(product) {
+          this.formMode = 'edit';
+          this.editingId = product.id;
+          this.existingImageUrl = product.image || '';
+          this.uploadRetryNeeded = false;
+          this.formData = {
+            name: product.name,
+            price: product.price,
+            stock: product.stock
+          };
+          this.clearSelectedFile();
+          this.formErrors = { name: '', price: '', stock: '', image: '' };
+          this.errorMessage = '';
+          this.successMessage = '';
+
+          this.$nextTick(() => {
+            if (this.$refs.nameInput) {
+              this.$refs.nameInput.focus();
+            }
+          });
+        },
+
+        cancelEdit() {
+          this.resetForm();
+        },
+
+        resetForm() {
+          this.formMode = 'add';
+          this.editingId = null;
+          this.existingImageUrl = '';
+          this.uploadRetryNeeded = false;
+          this.formData = {
+            name: '',
+            price: null,
+            stock: null
+          };
+          this.clearSelectedFile();
+          this.formErrors = { name: '', price: '', stock: '', image: '' };
+        },
+
+        // Xóa sản phẩm và tải lại trang hiện tại (API tự lùi về trang hợp lệ nếu trang cuối trống)
+        async handleDelete(product) {
+          this.errorMessage = '';
+          this.successMessage = '';
+
+          const isConfirmed = window.confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${product.name}" (Mã #${product.id}) không?`);
+          if (!isConfirmed) {
+            return;
+          }
+
+          try {
+            const res = await fetch(`${this.productsApiUrl}?id=${product.id}`, {
+              method: 'DELETE',
+              headers: { 'Accept': 'application/json' }
+            });
+
+            const result = await res.json();
+            if (result.success) {
+              this.successMessage = result.message || 'Đã xóa sản phẩm thành công.';
+              if (this.editingId === product.id) {
+                this.resetForm();
+              }
+              await this.fetchProducts(this.pagination.page);
+            } else {
+              this.errorMessage = result.message || 'Không thể xóa sản phẩm.';
+            }
+          } catch (err) {
+            this.errorMessage = 'Lỗi gửi yêu cầu xóa: ' + (err.message || 'Không xác định.');
+          }
+        },
+
+        formatCurrency(value) {
+          if (typeof value !== 'number' || isNaN(value)) return '0 đ';
+          return value.toLocaleString('vi-VN') + ' đ';
+        },
+
+        formatFileSize(bytes) {
+          if (!bytes || bytes <= 0) return '0 B';
+          if (bytes < 1024) return bytes + ' B';
+          if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+          return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
