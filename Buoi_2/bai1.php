@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/_web_shell.php';
 class CartItem {
     public $name;
     public $price;

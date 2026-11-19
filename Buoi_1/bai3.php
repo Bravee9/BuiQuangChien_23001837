@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/_web_shell.php';
 // Bài 3: Xử lý danh sách sinh viên
 
 $students = [

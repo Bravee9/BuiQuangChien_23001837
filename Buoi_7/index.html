@@ -3,32 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
   <title>Buổi 7: Bài tập thực hành Vue 3 | Bùi Quang Chiến 23001837</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
     .hero-section {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: white;
-      padding: 36px 30px;
+      background-color: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 28px 26px;
       border-radius: var(--radius-xl);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .hero-title {
-      font-size: 1.85rem;
-      font-weight: 800;
-      margin-bottom: 8px;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 6px;
     }
     .hero-subtitle {
-      font-size: 0.95rem;
-      color: #94a3b8;
+      font-size: 0.92rem;
+      color: var(--gray-600);
       max-width: 720px;
       line-height: 1.6;
     }
     .exercise-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-bottom: 32px;
+      gap: 18px;
+      margin-bottom: 24px;
     }
     @media (max-width: 992px) {
       .exercise-grid {
@@ -36,28 +38,26 @@
       }
     }
     .exercise-card {
-      background: white;
+      background-color: var(--white);
       border: 1px solid var(--gray-200);
       border-radius: var(--radius-lg);
-      padding: 24px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      box-shadow: var(--shadow);
       transition: var(--transition);
     }
     .exercise-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--primary);
+      border-color: var(--gray-300);
+      background-color: #202226;
     }
     .exercise-card h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--dark);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gray-900);
       margin-bottom: 8px;
     }
     .exercise-card p {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: var(--gray-600);
       flex: 1;
       margin-bottom: 16px;
@@ -67,27 +67,27 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .concept-tag {
-      font-size: 0.75rem;
-      background-color: var(--gray-100);
-      color: var(--gray-700);
-      padding: 3px 8px;
+      font-size: 0.74rem;
+      background-color: var(--bg-deep);
+      color: var(--secondary-accent);
+      padding: 2px 8px;
       border-radius: 4px;
       border: 1px solid var(--gray-200);
-      font-family: monospace;
+      font-family: var(--font-mono);
     }
     .info-summary-box {
-      background: white;
+      background-color: var(--white);
       border: 1px solid var(--gray-200);
       border-radius: var(--radius-lg);
-      padding: 20px 24px;
+      padding: 18px 22px;
     }
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      gap: 14px;
       margin-top: 12px;
     }
     @media (max-width: 768px) {
